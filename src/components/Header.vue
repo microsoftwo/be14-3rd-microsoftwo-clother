@@ -79,7 +79,7 @@
 </template>
 
 <script>
-import profileImage from '../icons/profile.jpeg'
+import profileImage from '../icons/profile-mando.JPG'
 
 export default {
   name: 'Header',
