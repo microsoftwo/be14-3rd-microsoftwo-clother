@@ -1,0 +1,125 @@
+<template>
+  <div class="profile">
+    <div class="profile-content">
+      <div class="profile-image-container">
+        <img :src="profileImage" alt="Profile" class="profile-image" />
+      </div>
+      <div class="profile-info">
+        <div class="info-row">
+          <h1 class="username">michalamet</h1>
+        </div>
+        <div class="stats-row">
+          <span class="stats">165cm 45kg</span>
+          <button class="edit-button" @click="openEditModal">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16.5 3.5C16.8978 3.10217 17.4374 2.87868 18 2.87868C18.5626 2.87868 19.1022 3.10217 19.5 3.5C19.8978 3.89782 20.1213 4.43739 20.1213 5C20.1213 5.56261 19.8978 6.10217 19.5 6.5L7 19L3 20L4 16L16.5 3.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <p class="bio">귀여운 게 최고야</p>
+  </div>
+</template>
+
+<script>
+import profileImage from '../icons/profile-mando.jpg'
+
+export default {
+  name: 'Profile',
+  data() {
+    return {
+      profileImage
+    }
+  },
+  methods: {
+    openEditModal() {
+      this.$emit('open-edit-modal')
+    }
+  }
+}
+</script>
+
+<style scoped>
+.profile {
+  background: transparent;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  margin-left: 70px;
+}
+
+.profile-content {
+  margin-left: 10px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.profile-image-container {
+  flex-shrink: 0;
+}
+
+.profile-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.info-row {
+  display: flex;
+  align-items: center;
+}
+
+.username {
+  font-size: 0.9rem;
+  margin: 0;
+  color: #F05EC9;
+  font-weight: 500;
+}
+
+.stats-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stats {
+  font-size: 0.8rem;
+  color: #999;
+}
+
+.edit-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: #999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+}
+
+.edit-button:hover {
+  color: white;
+}
+
+.bio {
+  font-size: 0.7rem;
+  color: white;
+  text-align: left;      
+  margin-left: 10px;        
+  padding-left: 0;        
+  display: block;  
+  margin-top: 10px;       
+  margin-bottom: 15px;
+}
+</style> 
