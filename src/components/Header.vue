@@ -4,20 +4,20 @@
 -->
 <template>
   <header class="header">
-    <!-- 왼쪽 섹션: 로고와 네비게이션 링크 -->
-    <div class="left-section">
+    <!-- 로고 섹션 -->
+    <div class="logo-section">
       <router-link to="/" class="logo">clother</router-link>
-      <nav class="nav-links">
-        <router-link to="/hair">HAIR</router-link>
-        <router-link to="/makeup">MAKEUP</router-link>
-        <router-link to="/look">LOOK</router-link>
-        <router-link to="/tag"># TAG</router-link>
-        <router-link to="/style-share">STYLE SHARE</router-link>
-      </nav>
     </div>
+    <!-- 네비게이션 링크 섹션 -->
+    <nav class="nav-links">
+      <router-link to="/hair">HAIR</router-link>
+      <router-link to="/makeup">MAKEUP</router-link>
+      <router-link to="/look">LOOK</router-link>
+      <router-link to="/tag"># TAG</router-link>
+      <router-link to="/style-share">STYLE SHARE</router-link>
+    </nav>
     <!-- 오른쪽 섹션: 검색창과 프로필 -->
     <div class="right-section">
-      <!-- 검색창 -->
       <div class="search-bar">
         <input type="text" placeholder="Search..." />
         <button class="search-icon">
@@ -27,7 +27,6 @@
           </svg>
         </button>
       </div>
-      <!-- 프로필 드롭다운 컨테이너 -->
       <div class="profile-container" @click="toggleDropdown" ref="profileContainer">
         <div class="profile-section">
           <img :src="userProfileImage" alt="Profile" class="profile-image" />
@@ -97,7 +96,7 @@ export default {
     },
     // 프로필 수정 모달 열기
     editProfile() {
-      this.$emit('open-profile-edit')
+      this.$router.push('/profile/edit')
       this.isDropdownOpen = false
     },
     // 내 프로필 페이지로 이동
@@ -126,7 +125,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.8rem 1rem 0rem 2rem;
+  padding: 0.8rem 2rem;
   background-color: black;
   color: white;
   position: fixed;
@@ -137,14 +136,13 @@ export default {
   height: 60px;
 }
 
-.left-section {
-  display: flex;
-  align-items: center;
-  gap: 3rem;
+.logo-section {
+  margin-left: 3rem;
+  min-width: 200px;
 }
 
 .logo {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   font-family: 'Abril Fatface', cursive;
   color: white;
   text-decoration: none;
@@ -155,7 +153,8 @@ export default {
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 3rem;
+  margin-left: -80px;
 }
 
 .nav-links a {
@@ -178,6 +177,8 @@ export default {
   display: flex;
   align-items: center;
   gap: 2rem;
+  margin-right: 2rem;
+  min-width: 200px;
 }
 
 .search-bar {
@@ -187,7 +188,7 @@ export default {
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 20px;
   padding: 0.3rem 1rem;
-  width: 300px;
+  width: 250px;
 }
 
 .search-bar input {

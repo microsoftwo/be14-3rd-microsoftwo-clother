@@ -34,7 +34,7 @@
 import { ref } from 'vue'
 import Profile from '../components/Profile.vue'
 import PostGrid from '../components/PostGrid.vue'
-import ProfileEditModal from '../components/ProfileEditModal.vue'
+import ProfileEdit from '../components/ProfileEdit.vue'
 import { MY_POSTS, HOONSOO_POSTS } from '../constants/images'
 
 export default {
@@ -42,7 +42,7 @@ export default {
   components: {
     Profile,
     PostGrid,
-    ProfileEditModal
+    ProfileEdit
   },
   setup() {
     // 모달 표시 상태를 관리하는 반응형 변수
