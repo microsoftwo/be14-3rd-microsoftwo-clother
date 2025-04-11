@@ -12,7 +12,7 @@
         <router-link to="/makeup">MAKEUP</router-link>
         <router-link to="/look">LOOK</router-link>
         <router-link to="/tag"># TAG</router-link>
-        <router-link to="/hoonsoo">HOONSOO</router-link>
+        <router-link to="/style-share">STYLE SHARE</router-link>
       </nav>
     </div>
     <!-- 오른쪽 섹션: 검색창과 프로필 -->

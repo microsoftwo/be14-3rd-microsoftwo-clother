@@ -54,6 +54,6 @@ export default {
 
 .post-item:hover img {
   opacity: 0.7;  /* 호버시 이미지 반투명하게 */
-  border-radius: 20px;
+  border-radius: 35px;
 }
 </style> 
