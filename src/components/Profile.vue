@@ -50,7 +50,6 @@ export default {
 </script>
 
 <style scoped>
-/* 프로필 컨테이너 스타일 */
 .profile {
   padding: 20px;
   background: transparent;
@@ -60,19 +59,16 @@ export default {
   flex-direction: column;
 }
 
-/* 프로필 내용 컨테이너 스타일 */
 .profile-content {
   display: flex;
   align-items: flex-start;
   gap: 16px;
 }
 
-/* 프로필 이미지 컨테이너 스타일 */
 .profile-image-container {
   flex-shrink: 0;
 }
 
-/* 프로필 이미지 스타일 */
 .profile-image {
   width: 50px;
   height: 50px;
@@ -80,20 +76,17 @@ export default {
   object-fit: cover;
 }
 
-/* 프로필 정보 컨테이너 스타일 */
 .profile-info {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-/* 사용자 이름 행 스타일 */
 .info-row {
   display: flex;
   align-items: center;
 }
 
-/* 사용자 이름 스타일 */
 .username {
   font-size: 1.2rem;
   margin: 0;
@@ -101,20 +94,17 @@ export default {
   font-weight: 500;
 }
 
-/* 키/몸무게 행 스타일 */
 .stats-row {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-/* 키/몸무게 텍스트 스타일 */
 .stats {
   font-size: 1rem;
   color: #999;
 }
 
-/* 수정 버튼 스타일 */
 .edit-button {
   background: none;
   border: none;
@@ -127,12 +117,10 @@ export default {
   transition: color 0.2s;
 }
 
-/* 수정 버튼 호버 효과 */
 .edit-button:hover {
   color: white;
 }
 
-/* 소개글 스타일 */
 .bio {
   font-size: 1rem;
   color: white;
