@@ -57,7 +57,6 @@ export default {
 </script>
 
 <style scoped>
-/* 메인 페이지 컨테이너 스타일 */
 .mypage {
   width: 100%;
   min-height: 100vh;
@@ -65,17 +64,15 @@ export default {
   color: white;
 }
 
-/* 컨텐츠 영역 스타일 */
 .content {
   max-width: 800px;
   margin: 0 auto;
   padding: 80px 20px 20px;
 }
 
-/* 섹션 제목 스타일 */
 .section-title {
   text-align: left;
-  font-size: 18px;
+  font-size: 12px;
   font-weight: bold;
   margin: 20px 0 20px;
   padding-bottom: 10px;
@@ -83,18 +80,17 @@ export default {
   color: rgb(0, 0, 0);
 }
 
-/* 게시물 그리드 스타일 */
 .post-grid {
   margin-top: 20px;
 }
 
-/* POST와 HOONSOO 섹션 스타일 */
 .post-section, .hoonsoo-section {
   margin-top: 0px;
   margin-bottom: 30px;
+  margin-left: 30px;
+  margin-right: 30px;
 }
 
-/* 게시물 컨테이너 스타일 */
 .post-container {
   display: flex;
   flex-direction: column;

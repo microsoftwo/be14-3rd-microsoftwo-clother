@@ -18,8 +18,8 @@ const routes = [
     component: MyPostsView
   },
   {
-    path: '/hoonsoo',
-    name: 'Hoonsoo'
+    path: '/style-share',
+    name: 'StyleShare'
   }
 ]
 

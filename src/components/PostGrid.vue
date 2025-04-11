@@ -47,13 +47,13 @@ export default {
 .post-item img {
   width: 100%;
   height: 100%;
-  border-radius: 20px;
+  border-radius: 35px;
   object-fit: cover;  /* 이미지 비율 유지하면서 컨테이너 채우기 */
   transition: transform 0.3s ease; 
 }
 
 .post-item:hover img {
   opacity: 0.7;  /* 호버시 이미지 반투명하게 */
-  border-radius: 20px;
+  border-radius: 35px;
 }
 </style> 
