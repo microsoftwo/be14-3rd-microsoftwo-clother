@@ -1,22 +1,31 @@
+<!-- 
+  MyPage.vue - 메인 프로필 페이지 컴포넌트
+  사용자의 프로필 정보와 게시물을 표시하는 메인 페이지
+-->
 <template>
   <div class="mypage">
     <div class="content">
+      <!-- 프로필 섹션: 사용자 정보 표시 -->
       <Profile @open-edit-modal="showEditModal = true" />
-      <div class = "post-container" >
+      <!-- 게시물 컨테이너: POST와 HOONSOO 섹션을 포함 -->
+      <div class="post-container">
+        <!-- POST 섹션: 사용자의 일반 게시물 표시 -->
         <div class="post-section">
           <div class="section-title">POST</div>
           <div class="post-grid">
             <PostGrid :posts="myPosts" />
           </div>
         </div>
+        <!-- HOONSOO 섹션: 훈수 게시물 표시 -->
         <div class="hoonsoo-section">
           <div class="section-title">HOONSOO</div>
           <div class="post-grid">
             <PostGrid :posts="hoonsoPosts" />
           </div>
         </div>
+      </div>
     </div>
-    </div>
+    <!-- 프로필 수정 모달: showEditModal이 true일 때만 표시 -->
     <ProfileEditModal v-if="showEditModal" @close="showEditModal = false" />
   </div>
 </template>
@@ -36,17 +45,19 @@ export default {
     ProfileEditModal
   },
   setup() {
+    // 모달 표시 상태를 관리하는 반응형 변수
     const showEditModal = ref(false)
     return {
       showEditModal,
-      myPosts: MY_POSTS,
-      hoonsoPosts: HOONSOO_POSTS
+      myPosts: MY_POSTS,      // 일반 게시물 데이터
+      hoonsoPosts: HOONSOO_POSTS  // 훈수 게시물 데이터
     }
   }
 }
 </script>
 
 <style scoped>
+/* 메인 페이지 컨테이너 스타일 */
 .mypage {
   width: 100%;
   min-height: 100vh;
@@ -54,31 +65,36 @@ export default {
   color: white;
 }
 
+/* 컨텐츠 영역 스타일 */
 .content {
   max-width: 800px;
   margin: 0 auto;
   padding: 80px 20px 20px;
 }
 
+/* 섹션 제목 스타일 */
 .section-title {
   text-align: left;
-  font-size: 12px;
+  font-size: 18px;
   font-weight: bold;
-  margin: 10px 10px 20px;
-  padding-bottom: 3px;
+  margin: 20px 0 20px;
+  padding-bottom: 10px;
   border-bottom: 1px solid rgba(0, 0, 0, 1);
   color: rgb(0, 0, 0);
 }
 
+/* 게시물 그리드 스타일 */
 .post-grid {
   margin-top: 20px;
 }
 
+/* POST와 HOONSOO 섹션 스타일 */
 .post-section, .hoonsoo-section {
   margin-top: 0px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
+/* 게시물 컨테이너 스타일 */
 .post-container {
   display: flex;
   flex-direction: column;
@@ -86,7 +102,7 @@ export default {
   background-color: rgba(242, 240, 241, 0.9);
   border-radius: 30px;
   padding: 20px;
-  width: 80%;
+  width: 90%;
   margin: 0 auto;
 }
 </style> 

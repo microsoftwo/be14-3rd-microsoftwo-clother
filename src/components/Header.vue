@@ -1,5 +1,10 @@
+<!-- 
+  Header.vue - 상단 네비게이션 바 컴포넌트
+  로고, 메뉴 링크, 검색창, 프로필 드롭다운을 포함하는 헤더
+-->
 <template>
   <header class="header">
+    <!-- 왼쪽 섹션: 로고와 네비게이션 링크 -->
     <div class="left-section">
       <router-link to="/" class="logo">clother</router-link>
       <nav class="nav-links">
@@ -10,7 +15,9 @@
         <router-link to="/hoonsoo">HOONSOO</router-link>
       </nav>
     </div>
+    <!-- 오른쪽 섹션: 검색창과 프로필 -->
     <div class="right-section">
+      <!-- 검색창 -->
       <div class="search-bar">
         <input type="text" placeholder="Search..." />
         <button class="search-icon">
@@ -20,6 +27,7 @@
           </svg>
         </button>
       </div>
+      <!-- 프로필 드롭다운 컨테이너 -->
       <div class="profile-container" @click="toggleDropdown" ref="profileContainer">
         <div class="profile-section">
           <img :src="userProfileImage" alt="Profile" class="profile-image" />
@@ -28,6 +36,7 @@
             <path d="M6 9L12 15L18 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
+        <!-- 드롭다운 메뉴 -->
         <div v-if="isDropdownOpen" class="dropdown-menu">
           <div class="dropdown-header">
             <img :src="userProfileImage" alt="Profile" class="dropdown-profile-image" />
@@ -82,17 +91,21 @@ export default {
     }
   },
   methods: {
+    // 드롭다운 메뉴 토글
     toggleDropdown() {
       this.isDropdownOpen = !this.isDropdownOpen
     },
+    // 프로필 수정 모달 열기
     editProfile() {
       this.$emit('open-profile-edit')
       this.isDropdownOpen = false
     },
+    // 내 프로필 페이지로 이동
     goToMyProfile() {
       this.$router.push('/mypage')
       this.isDropdownOpen = false
     },
+    // 드롭다운 외부 클릭 시 닫기
     handleClickOutside(event) {
       if (this.$refs.profileContainer && !this.$refs.profileContainer.contains(event.target)) {
         this.isDropdownOpen = false
@@ -241,10 +254,6 @@ export default {
   width: 16px;
   height: 16px;
   transition: transform 0.2s;
-}
-
-.isDropdownOpen .dropdown-icon {
-  transform: rotate(180deg);
 }
 
 .dropdown-menu {
