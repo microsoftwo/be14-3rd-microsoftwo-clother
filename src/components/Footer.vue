@@ -14,15 +14,15 @@
       </div>
       <!-- 회사 소개 섹션 -->
       <div class="footer-info">
-        <p>We have clothes that suits your style</p>
-        <p>and which you're proud to wear.</p>
-        <p>From women to men.</p>
+        <p>Discover styles that inspire you</p>
+        <p>from outfits and hair to makeup and accessories</p>
+        <p>style your own look with ease</p>
       </div>
       <!-- 연락처 정보 섹션 -->
       <div class="footer-contact">
-        <p>help@clother.io</p>
-        <p>서울특시 동작구 보라매로 87 3층</p>
-        <p>clother © 2025, All Rights Reserved.</p>
+        <p class="footer-contact-email">help@clother.io</p>
+        <p class="footer-contact-location">서울특별시 동작구 보라매로 87 3층</p>
+        <p class="footer-contact-copyright">clother © 2025, All Rights Reserved.</p>
       </div>
     </div>
   </footer>
@@ -65,6 +65,7 @@ export default {
 
 .footer-info {
   margin-bottom: 1rem;
+  font-family: 'Adamina', serif;
 }
 
 .footer-info p {
@@ -76,4 +77,13 @@ export default {
   font-size: 0.9rem;
   color: #888;
 }
+
+.footer-contact-email {
+    font-family: 'Adamina', serif;
+}
+    
+.footer-contact-copyright {
+    font-family: 'Adamina', serif;
+}
+
 </style>

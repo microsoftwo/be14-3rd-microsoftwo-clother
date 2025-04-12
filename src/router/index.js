@@ -1,4 +1,3 @@
-import { createRouter, createWebHistory } from 'vue-router'
 import MyPage from '../views/MyPage.vue'
 import MyPostsView from '../views/MyPostsView.vue'
 import StyleShareCreate from '../views/StyleShareCreate.vue'
