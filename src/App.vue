@@ -1,33 +1,22 @@
 <template>
   <div class="app">
-    <Header @open-profile-edit="showProfileEditModal = true" />
+    <Header />
     <main class="main-content">
       <router-view></router-view>
     </main>
     <Footer />
-    <ProfileEditModal 
-      v-if="showProfileEditModal"
-      @close="showProfileEditModal = false"
-    />
   </div>
 </template>
 
 <script>
 import Header from './components/Header.vue'
 import Footer from './components/Footer.vue'
-import ProfileEditModal from './components/ProfileEditModal.vue'
 
 export default {
   name: 'App',
   components: {
     Header,
-    Footer,
-    ProfileEditModal
-  },
-  data() {
-    return {
-      showProfileEditModal: false
-    }
+    Footer
   }
 }
 </script>

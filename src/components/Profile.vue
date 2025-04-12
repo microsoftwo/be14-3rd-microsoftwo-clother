@@ -17,7 +17,7 @@
         <div class="stats-row">
           <span class="stats">165cm 45kg</span>
           <!-- 프로필 수정 버튼 -->
-          <button class="edit-button" @click="openEditModal">
+          <button class="edit-button" @click="openProfileEdit">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M16.5 3.5C16.8978 3.10217 17.4374 2.87868 18 2.87868C18.5626 2.87868 19.1022 3.10217 19.5 3.5C19.8978 3.89782 20.1213 4.43739 20.1213 5C20.1213 5.56261 19.8978 6.10217 19.5 6.5L7 19L3 20L4 16L16.5 3.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
@@ -41,9 +41,9 @@ export default {
     }
   },
   methods: {
-    // 프로필 수정 모달 열기
-    openEditModal() {
-      this.$emit('open-edit-modal')
+    // 프로필 수정 페이지로 이동
+    openProfileEdit() {
+      this.$router.push('/profile/edit')
     }
   }
 }
