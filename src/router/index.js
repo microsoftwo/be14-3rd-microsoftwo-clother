@@ -20,15 +20,13 @@ const routes = [
   },
   {
     path: '/style-share',
-    name: 'StyleShare'
+    name: 'StyleShare',
 
   },
   {
     path: '/style-share/create',
     name: 'StyleShareCreate',
     component: StyleShareCreate
-
-    
   }
 ]
 
@@ -37,4 +35,4 @@ const router = createRouter({
   routes
 })
 
-export default router 
+export default router
