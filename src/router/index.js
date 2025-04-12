@@ -21,11 +21,14 @@ const routes = [
   {
     path: '/style-share',
     name: 'StyleShare'
+
   },
   {
     path: '/style-share/create',
     name: 'StyleShareCreate',
     component: StyleShareCreate
+
+    
   }
 ]
 
