@@ -1,6 +1,6 @@
-import { createRouter, createWebHistory } from 'vue-router'
 import MyPage from '../views/MyPage.vue'
 import MyPostsView from '../views/MyPostsView.vue'
+import StyleShareCreate from '../views/StyleShareCreate.vue'
 import ProfileEdit from '../views/ProfileEdit.vue'
 
 const routes = [
@@ -26,6 +26,11 @@ const routes = [
   {
     path: '/style-share',
     name: 'StyleShare'
+  },
+  {
+    path: '/style-share/create',
+    name: 'StyleShareCreate',
+    component: StyleShareCreate
   }
 ]
 
@@ -34,4 +39,4 @@ const router = createRouter({
   routes
 })
 
-export default router 
+export default router
