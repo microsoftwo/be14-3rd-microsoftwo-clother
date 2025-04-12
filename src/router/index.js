@@ -20,8 +20,7 @@ const routes = [
   },
   {
     path: '/style-share',
-    name: 'StyleShare',
-
+    name: 'StyleShare'
   },
   {
     path: '/style-share/create',
