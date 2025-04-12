@@ -1,6 +1,7 @@
 import MyPage from '../views/MyPage.vue'
 import MyPostsView from '../views/MyPostsView.vue'
 import StyleShareCreate from '../views/StyleShareCreate.vue'
+import ProfileEdit from '../views/ProfileEdit.vue'
 
 const routes = [
   {
@@ -16,6 +17,11 @@ const routes = [
     path: '/posts',
     name: 'MyPosts',
     component: MyPostsView
+  },
+  {
+    path: '/profile/edit',
+    name: 'ProfileEdit',
+    component: ProfileEdit
   },
   {
     path: '/style-share',
