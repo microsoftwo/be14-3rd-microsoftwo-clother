@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import MyPage from '../views/MyPage.vue'
 import MyPostsView from '../views/MyPostsView.vue'
+import StyleShareCreate from '../views/StyleShareCreate.vue'
 
 const routes = [
   {
@@ -18,8 +19,13 @@ const routes = [
     component: MyPostsView
   },
   {
-    path: '/hoonsoo',
-    name: 'Hoonsoo'
+    path: '/style-share',
+    name: 'StyleShare'
+  },
+  {
+    path: '/style-share/create',
+    name: 'StyleShareCreate',
+    component: StyleShareCreate
   }
 ]
 
