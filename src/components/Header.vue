@@ -4,20 +4,201 @@
 -->
 <template>
   <header class="header">
-    <!-- 왼쪽 섹션: 로고와 네비게이션 링크 -->
-    <div class="left-section">
+    <!-- 로고 섹션 -->
+    <div class="logo-section">
       <router-link to="/" class="logo">clother</router-link>
-      <nav class="nav-links">
-        <router-link to="/hair">HAIR</router-link>
-        <router-link to="/makeup">MAKEUP</router-link>
-        <router-link to="/look">LOOK</router-link>
-        <router-link to="/tag"># TAG</router-link>
-        <router-link to="/style-share">STYLE SHARE</router-link>
-      </nav>
     </div>
+    <!-- 네비게이션 링크 섹션 -->
+    <nav class="nav-links">
+      <div class="nav-dropdown">
+        <div class="nav-link-wrapper" @click="toggleHairMenu">
+          <router-link to="/hair" class="nav-link" @click.prevent>HAIR</router-link>
+          <svg class="dropdown-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" :class="{ 'rotated': showHairMenu }">
+            <path d="M6 9L12 15L18 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="nav-dropdown-content" v-show="showHairMenu">
+          <div class="nav-categories">
+            <div class="category-column">
+              <h3>염색</h3>
+              <router-link to="/hair/black">블랙</router-link>
+              <router-link to="/hair/brown">브라운</router-link>
+              <router-link to="/hair/blonde">블론드</router-link>
+              <router-link to="/hair/red">레드</router-link>
+              <router-link to="/hair/blue">블루</router-link>
+              <router-link to="/hair/purple">퍼플</router-link>
+              <router-link to="/hair/pink">핑크</router-link>
+              <router-link to="/hair/etc-color">기타</router-link>
+            </div>
+            <div class="category-column">
+              <h3>펌</h3>
+              <router-link to="/hair/men-perm">남성 펌</router-link>
+              <router-link to="/hair/women-perm">여성 펌</router-link>
+            </div>
+            <div class="category-column">
+              <h3>커트</h3>
+              <router-link to="/hair/men-cut">남성 커트</router-link>
+              <router-link to="/hair/women-cut">여성 커트</router-link>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <div class="nav-link-wrapper" @click="toggleMakeupMenu">
+          <router-link to="/makeup" class="nav-link" @click.prevent>MAKEUP</router-link>
+          <svg class="dropdown-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" :class="{ 'rotated': showMakeupMenu }">
+            <path d="M6 9L12 15L18 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="nav-dropdown-content" v-show="showMakeupMenu">
+          <div class="nav-categories">
+            <div class="category-column">
+              <h3>베이스</h3>
+              <router-link to="/makeup/cushion">쿠션</router-link>
+              <router-link to="/makeup/foundation">파운데이션</router-link>
+              <router-link to="/makeup/bb-cream">BB크림</router-link>
+              <router-link to="/makeup/powder">파우더</router-link>
+              <router-link to="/makeup/etc-base">기타</router-link>
+            </div>
+            <div class="category-column">
+              <h3>립</h3>
+              <router-link to="/makeup/lipstick">립스틱</router-link>
+              <router-link to="/makeup/tint">립틴트</router-link>
+              <router-link to="/makeup/gloss">립글로스</router-link>
+              <router-link to="/makeup/balm">립밤</router-link>
+              <router-link to="/makeup/etc-lip">기타</router-link>
+            </div>
+            <div class="category-column">
+              <h3>아이브로우</h3>
+              <router-link to="/makeup/eyebrow-pencil">아이브로우 펜슬</router-link>
+              <router-link to="/makeup/eyebrow-powder">아이브로우 파우더</router-link>
+              <router-link to="/makeup/eyebrow-mascara">브로우 마스카라</router-link>
+              <router-link to="/makeup/eyebrow-tint">브로우 틴트</router-link>
+              <router-link to="/makeup/etc-eyebrow">기타</router-link>
+            </div>
+            <div class="category-column">
+              <h3>아이섀도우</h3>
+              <router-link to="/makeup/matt-shadow">매트 섀도우</router-link>
+              <router-link to="/makeup/shimmer-shadow">쉬머 섀도우</router-link>
+              <router-link to="/makeup/glitter-shadow">글리터 섀도우</router-link>
+              <router-link to="/makeup/etc-shadow">기타</router-link>
+            </div>
+            <div class="category-column">
+              <h3>아이라이너</h3>
+              <router-link to="/makeup/pencil-liner">펜슬 아이라이너</router-link>
+              <router-link to="/makeup/liquid-liner">리퀴드 아이라이너</router-link>
+              <router-link to="/makeup/etc-liner">기타</router-link>
+            </div>
+            <div class="category-column">
+              <h3>속눈썹</h3>
+              <router-link to="/makeup/mascara">마스카라</router-link>
+              <router-link to="/makeup/volume">볼륨</router-link>
+              <router-link to="/makeup/etc-lash">기타</router-link>
+            </div>
+            <div class="category-column">
+              <h3>기타</h3>
+              <router-link to="/makeup/highlight">하이라이터</router-link>
+              <router-link to="/makeup/shading">쉐이딩</router-link>
+              <router-link to="/makeup/blusher">블러셔</router-link>
+              <router-link to="/makeup/makeup-review">메이크업 리뷰</router-link>
+              <router-link to="/makeup/makeup-brush">메이크업 브러쉬</router-link>
+              <router-link to="/makeup/makeup-puff">메이크업 퍼프</router-link>
+              <router-link to="/makeup/etc">기타</router-link>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="look-dropdown">
+        <div class="look-link-wrapper" @click="toggleLookMenu">
+          <router-link to="/look" class="look-link" @click.prevent>LOOK</router-link>
+          <svg class="dropdown-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" :class="{ 'rotated': showLookMenu }">
+            <path d="M6 9L12 15L18 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="look-dropdown-content" v-show="showLookMenu">
+          <div class="look-categories">
+            <div class="category-column">
+              <h3>아우터</h3>
+              <router-link to="/look/coat">코트</router-link>
+              <router-link to="/look/padding">패딩</router-link>
+              <router-link to="/look/mustang">무스탕</router-link>
+              <router-link to="/look/cardigan">가디건</router-link>
+              <router-link to="/look/fleece">플리스</router-link>
+              <router-link to="/look/jacket">자켓</router-link>
+              <router-link to="/look/jumper">점퍼</router-link>
+              <router-link to="/look/etc-outer">기타</router-link>
+            </div>
+            <div class="category-column">
+              <h3>상의</h3>
+              <router-link to="/look/mantoman">맨투맨</router-link>
+              <router-link to="/look/hood">후드</router-link>
+              <router-link to="/look/knit">니트</router-link>
+              <router-link to="/look/shirt">셔츠</router-link>
+              <router-link to="/look/long-sleeve">긴팔티</router-link>
+              <router-link to="/look/short-sleeve">반팔티</router-link>
+              <router-link to="/look/sleeveless">민소매</router-link>
+              <router-link to="/look/etc-top">기타</router-link>
+            </div>
+            <div class="category-column">
+              <h3>하의</h3>
+              <router-link to="/look/denim-pants">데님팬츠</router-link>
+              <router-link to="/look/cotton-pants">코튼팬츠</router-link>
+              <router-link to="/look/cargo-pants">카고팬츠</router-link>
+              <router-link to="/look/training-pants">트레이닝팬츠</router-link>
+              <router-link to="/look/slacks">슬랙스</router-link>
+              <router-link to="/look/skirt">스커트</router-link>
+              <router-link to="/look/shorts">숏팬츠</router-link>
+              <router-link to="/look/etc-bottom">기타</router-link>
+            </div>
+            <div class="category-column">
+              <h3>신발</h3>
+              <router-link to="/look/sneakers">스니커즈</router-link>
+              <router-link to="/look/gudu">구두</router-link>
+              <router-link to="/look/boots">부츠</router-link>
+              <router-link to="/look/flat">플랫</router-link>
+              <router-link to="/look/slipper">슬리퍼</router-link>
+              <router-link to="/look/etc-shoes">기타</router-link>
+            </div>
+            <div class="category-column">
+              <h3>모자</h3>
+              <router-link to="/look/cap">캡/야구모자</router-link>
+              <router-link to="/look/hunting">헌팅캡</router-link>
+              <router-link to="/look/fedora">페도라</router-link>
+              <router-link to="/look/beanie">비니</router-link>
+              <router-link to="/look/trooper">트루퍼</router-link>
+              <router-link to="/look/balaclava">바라클라바</router-link>
+              <router-link to="/look/etc-hat">기타</router-link>
+            </div>
+            <div class="category-column">
+              <h3>가방</h3>
+              <router-link to="/look/backpack">백팩</router-link>
+              <router-link to="/look/shoulder-bag">숄더백</router-link>
+              <router-link to="/look/cross-bag">크로스백</router-link>
+              <router-link to="/look/tote-bag">토트백</router-link>
+              <router-link to="/look/waist-hip">웨이스트/힙색</router-link>
+              <router-link to="/look/eco-bag">에코백</router-link>
+              <router-link to="/look/clutch">클러치</router-link>
+              <router-link to="/look/etc-bag">기타</router-link>
+            </div>
+            <div class="category-column">
+              <h3>악세서리</h3>
+              <router-link to="/look/earrings">귀걸이</router-link>
+              <router-link to="/look/necklace">목걸이</router-link>
+              <router-link to="/look/ring">팔찌</router-link>
+              <router-link to="/look/bracelet">네일팁</router-link>
+              <router-link to="/look/watch">키링</router-link>
+              <router-link to="/look/belt">벨트</router-link>
+              <router-link to="/look/glasses">장갑</router-link>
+              <router-link to="/look/etc-acc">기타</router-link>
+            </div>
+          </div>
+        </div>
+      </div>
+      <router-link to="/tag"># TAG</router-link>
+      <router-link to="/style-share">STYLE SHARE</router-link>
+    </nav>
     <!-- 오른쪽 섹션: 검색창과 프로필 -->
     <div class="right-section">
-      <!-- 검색창 -->
       <div class="search-bar">
         <input type="text" placeholder="Search..." />
         <button class="search-icon">
@@ -27,7 +208,6 @@
           </svg>
         </button>
       </div>
-      <!-- 프로필 드롭다운 컨테이너 -->
       <div class="profile-container" @click="toggleDropdown" ref="profileContainer">
         <div class="profile-section">
           <img :src="userProfileImage" alt="Profile" class="profile-image" />
@@ -87,7 +267,10 @@ export default {
     return {
       username: 'michalamet',
       userProfileImage: profileImage,
-      isDropdownOpen: false
+      isDropdownOpen: false,
+      showLookMenu: false,
+      showHairMenu: false,
+      showMakeupMenu: false
     }
   },
   methods: {
@@ -97,7 +280,7 @@ export default {
     },
     // 프로필 수정 모달 열기
     editProfile() {
-      this.$emit('open-profile-edit')
+      this.$router.push('/profile/edit')
       this.isDropdownOpen = false
     },
     // 내 프로필 페이지로 이동
@@ -107,9 +290,41 @@ export default {
     },
     // 드롭다운 외부 클릭 시 닫기
     handleClickOutside(event) {
-      if (this.$refs.profileContainer && !this.$refs.profileContainer.contains(event.target)) {
+      const lookDropdown = document.querySelector('.look-dropdown')
+      const hairDropdown = document.querySelector('.nav-dropdown')
+      const makeupDropdown = document.querySelector('.nav-dropdown:nth-child(2)')
+      const profileContainer = this.$refs.profileContainer
+
+      if (profileContainer && !profileContainer.contains(event.target)) {
         this.isDropdownOpen = false
       }
+
+      if (lookDropdown && !lookDropdown.contains(event.target)) {
+        this.showLookMenu = false
+      }
+
+      if (hairDropdown && !hairDropdown.contains(event.target)) {
+        this.showHairMenu = false
+      }
+
+      if (makeupDropdown && !makeupDropdown.contains(event.target)) {
+        this.showMakeupMenu = false
+      }
+    },
+    toggleHairMenu() {
+      this.showHairMenu = !this.showHairMenu
+      this.showMakeupMenu = false
+      this.showLookMenu = false
+    },
+    toggleMakeupMenu() {
+      this.showMakeupMenu = !this.showMakeupMenu
+      this.showHairMenu = false
+      this.showLookMenu = false
+    },
+    toggleLookMenu() {
+      this.showLookMenu = !this.showLookMenu
+      this.showHairMenu = false
+      this.showMakeupMenu = false
     }
   },
   mounted() {
@@ -126,7 +341,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.8rem 1rem 0rem 2rem;
+  padding: 0.8rem 2rem;
   background-color: black;
   color: white;
   position: fixed;
@@ -137,14 +352,13 @@ export default {
   height: 60px;
 }
 
-.left-section {
-  display: flex;
-  align-items: center;
-  gap: 3rem;
+.logo-section {
+  margin-left: 3rem;
+  min-width: 200px;
 }
 
 .logo {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   font-family: 'Abril Fatface', cursive;
   color: white;
   text-decoration: none;
@@ -155,7 +369,9 @@ export default {
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 3rem;
+  margin-left: -80px;
+  position: relative;
 }
 
 .nav-links a {
@@ -178,6 +394,8 @@ export default {
   display: flex;
   align-items: center;
   gap: 2rem;
+  margin-right: 2rem;
+  min-width: 200px;
 }
 
 .search-bar {
@@ -187,7 +405,7 @@ export default {
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 20px;
   padding: 0.3rem 1rem;
-  width: 300px;
+  width: 250px;
 }
 
 .search-bar input {
@@ -311,5 +529,150 @@ export default {
 
 .dropdown-item span {
   font-size: 0.85rem;
+}
+
+.look-dropdown {
+  position: static;
+  display: inline-block;
+}
+
+.look-link-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.look-link-wrapper:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.dropdown-icon {
+  transition: transform 0.3s ease;
+}
+
+.dropdown-icon.rotated {
+  transform: rotate(180deg);
+}
+
+.look-dropdown-content {
+  position: absolute;
+  top: 100%;
+  left: 70%;
+  transform: translateX(-50%);
+  background-color: #1a1a1a;
+  width: 1000px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  z-index: 1000;
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 10px;
+  min-width: unset;
+}
+
+.look-categories {
+  display: flex;
+  gap: 30px;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.category-column {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.category-column h3 {
+  color: #ffffff;
+  font-size: 0.9rem;
+  margin: 0 0 10px 0;
+  font-weight: 500;
+}
+
+.category-column a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.8rem;
+  transition: color 0.2s;
+}
+
+.category-column a:hover {
+  color: #F05EC9;
+}
+
+/* Remove duplicate triangle styles and keep only one */
+.look-dropdown-content::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 0 8px 8px 8px;
+  border-style: solid;
+  border-color: transparent transparent #1a1a1a transparent;
+}
+
+.nav-dropdown {
+  position: static;
+  display: inline-block;
+}
+
+.nav-link-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.nav-link-wrapper:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.nav-dropdown-content {
+  position: absolute;
+  top: 100%;
+  left: 70%;
+  transform: translateX(-50%);
+  background-color: #1a1a1a;
+  width: 1000px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  z-index: 1000;
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+.nav-categories {
+  display: flex;
+  gap: 30px;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.nav-dropdown:nth-child(1) .nav-dropdown-content::before {
+  left: 12%;
+}
+
+.nav-dropdown:nth-child(2) .nav-dropdown-content::before {
+  left: 28%;
+}
+
+.look-dropdown .look-dropdown-content::before {
+  left: 44%;
 }
 </style> 

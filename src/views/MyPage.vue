@@ -6,8 +6,8 @@
   <div class="mypage">
     <div class="content">
       <!-- 프로필 섹션: 사용자 정보 표시 -->
-      <Profile @open-edit-modal="showEditModal = true" />
-      <!-- 게시물 컨테이너: POST와 HOONSOO 섹션을 포함 -->
+      <Profile />
+      <!-- 게시물 컨테이너: POST와 STYLE SHARE 섹션을 포함 -->
       <div class="post-container">
         <!-- POST 섹션: 사용자의 일반 게시물 표시 -->
         <div class="post-section">
@@ -16,41 +16,33 @@
             <PostGrid :posts="myPosts" />
           </div>
         </div>
-        <!-- HOONSOO 섹션: 훈수 게시물 표시 -->
-        <div class="hoonsoo-section">
-          <div class="section-title">HOONSOO</div>
+        <!-- STYLE SHARE 섹션: 스타일 쉐어 게시물 표시 -->
+        <div class="style-share-section">
+          <div class="section-title">STYLE SHARE</div>
           <div class="post-grid">
-            <PostGrid :posts="hoonsoPosts" />
+            <PostGrid :posts="styleSharePosts" />
           </div>
         </div>
       </div>
     </div>
-    <!-- 프로필 수정 모달: showEditModal이 true일 때만 표시 -->
-    <ProfileEditModal v-if="showEditModal" @close="showEditModal = false" />
   </div>
 </template>
 
 <script>
-import { ref } from 'vue'
 import Profile from '../components/Profile.vue'
 import PostGrid from '../components/PostGrid.vue'
-import ProfileEditModal from '../components/ProfileEditModal.vue'
-import { MY_POSTS, HOONSOO_POSTS } from '../constants/images'
+import { MY_POSTS, STYLE_SHARE_POSTS } from '../constants/images'
 
 export default {
   name: 'MyPage',
   components: {
     Profile,
-    PostGrid,
-    ProfileEditModal
+    PostGrid
   },
   setup() {
-    // 모달 표시 상태를 관리하는 반응형 변수
-    const showEditModal = ref(false)
     return {
-      showEditModal,
-      myPosts: MY_POSTS,      // 일반 게시물 데이터
-      hoonsoPosts: HOONSOO_POSTS  // 훈수 게시물 데이터
+      myPosts: MY_POSTS,
+      styleSharePosts: STYLE_SHARE_POSTS
     }
   }
 }
@@ -76,7 +68,7 @@ export default {
   font-weight: bold;
   margin: 20px 0 20px;
   padding-bottom: 10px;
-  border-bottom: 1px solid rgba(0, 0, 0, 1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.9);
   color: rgb(0, 0, 0);
 }
 
@@ -84,7 +76,7 @@ export default {
   margin-top: 20px;
 }
 
-.post-section, .hoonsoo-section {
+.post-section, .style-share-section {
   margin-top: 0px;
   margin-bottom: 30px;
   margin-left: 30px;
@@ -95,7 +87,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: rgba(242, 240, 241, 0.9);
+  background-color: rgba(255, 255, 255, 0.9);
   border-radius: 30px;
   padding: 20px;
   width: 90%;
