@@ -1,8 +1,8 @@
 <template>
   <div class="app">
-    <Header />
+    <Header @toggle-activity="handleToggleActivity" />
     <main class="main-content">
-      <router-view></router-view>
+      <router-view ref="myPage"></router-view>
     </main>
     <Footer />
   </div>
@@ -17,6 +17,14 @@ export default {
   components: {
     Header,
     Footer
+  },
+  methods: {
+    handleToggleActivity() {
+      const myPageComponent = this.$refs.myPage
+      if (myPageComponent && myPageComponent.toggleActivity) {
+        myPageComponent.toggleActivity()
+      }
+    }
   }
 }
 </script>

@@ -7,16 +7,15 @@
     <div class="content">
       <!-- 프로필 섹션: 사용자 정보 표시 -->
       <Profile />
+      
       <!-- 게시물 컨테이너: POST와 STYLE SHARE 섹션을 포함 -->
       <div class="post-container">
-        <!-- POST 섹션: 사용자의 일반 게시물 표시 -->
         <div class="post-section">
           <div class="section-title">POST</div>
           <div class="post-grid">
             <PostGrid :posts="myPosts" />
           </div>
         </div>
-        <!-- STYLE SHARE 섹션: 스타일 쉐어 게시물 표시 -->
         <div class="style-share-section">
           <div class="section-title">STYLE SHARE</div>
           <div class="post-grid">
@@ -32,6 +31,7 @@
 import Profile from '../components/Profile.vue'
 import PostGrid from '../components/PostGrid.vue'
 import { MY_POSTS, STYLE_SHARE_POSTS } from '../constants/images'
+import { ref } from 'vue'
 
 export default {
   name: 'MyPage',
@@ -40,9 +40,12 @@ export default {
     PostGrid
   },
   setup() {
+    const myPosts = ref(MY_POSTS)
+    const styleSharePosts = ref(STYLE_SHARE_POSTS)
+
     return {
-      myPosts: MY_POSTS,
-      styleSharePosts: STYLE_SHARE_POSTS
+      myPosts,
+      styleSharePosts
     }
   }
 }
@@ -92,5 +95,6 @@ export default {
   padding: 20px;
   width: 90%;
   margin: 0 auto;
+  min-height: 400px;
 }
 </style> 

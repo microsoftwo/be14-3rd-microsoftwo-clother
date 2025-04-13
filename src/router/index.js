@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import MyPage from '../views/MyPage.vue'
 import MyPostsView from '../views/MyPostsView.vue'
 import ProfileEdit from '../views/ProfileEdit.vue'
+import MyActivity from '../views/MyActivity.vue'
 
 const routes = [
   {
@@ -24,8 +25,9 @@ const routes = [
     component: ProfileEdit
   },
   {
-    path: '/style-share',
-    name: 'StyleShare'
+    path: '/myactivity',
+    name: 'MyActivity',
+    component: MyActivity
   }
 ]
 
