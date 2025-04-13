@@ -349,7 +349,7 @@ export default {
   left: 0;
   right: 0;
   z-index: 1000;
-  height: 60px;
+  height: 80px;                       /* 60px -> 80px 헤더 높이 키우기 */
 }
 
 .logo-section {
@@ -358,7 +358,7 @@ export default {
 }
 
 .logo {
-  font-size: 1.8rem;
+  font-size: 2rem;                  /* 1.8rem -> 2rem 로고 크기 키우기 */
   font-family: 'Abril Fatface', cursive;
   color: white;
   text-decoration: none;
@@ -377,7 +377,7 @@ export default {
 .nav-links a {
   color: white;
   text-decoration: none;
-  font-size: 0.9rem;
+  font-size: 1rem;                    /* 상단 카테고리(HAIR, MAKEUP ...) 0.9 -> 1rem */
   white-space: nowrap;
   transition: color 0.2s ease;
 }
@@ -457,15 +457,15 @@ export default {
 }
 
 .profile-image {
-  width: 20px;
-  height: 20px;
+  width: 33px;      /* 20px 이였는데 작아서 33px 으로 변경 */
+  height: 33px;
   border-radius: 50%;
   object-fit: cover;
 }
 
 .username {
   color: white;
-  font-size: 0.8rem;
+  font-size: 1rem;    /* 0.8rem -> 1으로 변경 */
 }
 
 .dropdown-icon {
