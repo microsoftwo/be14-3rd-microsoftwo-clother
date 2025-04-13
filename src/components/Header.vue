@@ -355,7 +355,7 @@ export default {
   background-color: black;
   color: white;
   position: fixed;
-  top: 10px;
+  top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
