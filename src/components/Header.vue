@@ -17,7 +17,8 @@
             <path d="M6 9L12 15L18 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
-        <div class="nav-dropdown-content" v-show="showHairMenu">
+        <div class="nav-dropdown-content" v-show="showHairMenu"></div>
+        <div class="nav-dropdown-content" v-show="showHairMenu" @click="closeHairMenu">
           <div class="nav-categories">
             <div class="category-column">
               <h3>염색</h3>
@@ -50,7 +51,7 @@
             <path d="M6 9L12 15L18 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
-        <div class="nav-dropdown-content" v-show="showMakeupMenu">
+        <div class="nav-dropdown-content" v-show="showMakeupMenu" @click="closeMakeupMenu">
           <div class="nav-categories">
             <div class="category-column">
               <h3>베이스</h3>
@@ -115,7 +116,7 @@
             <path d="M6 9L12 15L18 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
-        <div class="look-dropdown-content" v-show="showLookMenu">
+        <div class="look-dropdown-content" v-show="showLookMenu" @click="closeLookMenu">
           <div class="look-categories">
             <div class="category-column">
               <h3>아우터</h3>
@@ -325,6 +326,15 @@ export default {
       this.showLookMenu = !this.showLookMenu
       this.showHairMenu = false
       this.showMakeupMenu = false
+    },
+    closeHairMenu() {
+      this.showHairMenu = false
+    },
+    closeMakeupMenu() {
+      this.showMakeupMenu = false
+    },
+    closeLookMenu() {
+      this.showLookMenu = false
     }
   },
   mounted() {
