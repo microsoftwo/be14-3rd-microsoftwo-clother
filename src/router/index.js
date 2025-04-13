@@ -3,11 +3,30 @@ import MyPage from "../views/MyPage.vue";
 import MyPostsView from "../views/MyPostsView.vue";
 import StyleShareCreate from "../views/StyleShareCreate.vue";
 import ProfileEdit from "../views/ProfileEdit.vue";
+import MainPage from "../views/MainPage.vue";
+import LikesGrid from "../components/LikesGrid.vue";
+import NewestGrid from "../components/NewestGrid.vue";
 
 const routes = [
   {
-    path: "/",
-    redirect: "/mypage",
+    path: '/',
+    redirect: '/likes'
+  },
+  {
+    path: '/',
+    component: MainPage,
+    children: [
+      {
+        path: 'likes',
+        name: 'Likes',
+        component: LikesGrid
+      },
+      {
+        path: 'newest',
+        name: 'Newest',
+        component: NewestGrid
+      }
+    ]
   },
   {
     path: "/mypage",
