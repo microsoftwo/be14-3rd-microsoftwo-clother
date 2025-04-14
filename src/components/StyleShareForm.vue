@@ -184,7 +184,8 @@ export default {
         })
 
         if (response.status === 200 || response.status === 201) {
-          this.$router.push('/styleshare')
+          // 스타일쉐어 목록 페이지로 이동
+          this.$router.push('/style-share')
         } else {
           throw new Error('게시글 등록에 실패했습니다.')
         }
