@@ -17,7 +17,7 @@ import PrivacyPolicy from '../views/PrivacyPolicy.vue'
 const routes = [
   {
     path: '/',
-    redirect: '/likes'
+    // redirect: '/likes'
   },
   {
     path: '/',
