@@ -7,15 +7,15 @@
     <div class="profile-content">
       <!-- 프로필 이미지 컨테이너 -->
       <div class="profile-image-container">
-        <img :src="profileImage" alt="Profile" class="profile-image" />
+        <img :src="profileData.profileImage" alt="Profile" class="profile-image" />
       </div>
       <!-- 프로필 정보 컨테이너 -->
       <div class="profile-info">
         <div class="info-row">
-          <h1 class="username">michalamet</h1>
+          <h1 class="username">{{ profileData.username }}</h1>
         </div>
         <div class="stats-row">
-          <span class="stats">165cm 45kg</span>
+          <span class="stats">{{ profileData.height }}cm {{ profileData.weight }}kg</span>
           <!-- 프로필 수정 버튼 -->
           <button class="edit-button" @click="openProfileEdit">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -26,24 +26,42 @@
       </div>
     </div>
     <!-- 사용자 소개글 -->
-    <p class="bio">귀여운 게 최고야</p>
+    <p class="bio">{{ profileData.bio }}</p>
   </div>
 </template>
 
 <script>
+import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import profileImage from '../icons/profile-mando.jpg'
 
 export default {
   name: 'Profile',
-  data() {
-    return {
-      profileImage
+  setup() {
+    const router = useRouter()
+    const profileData = ref({
+      profileImage: profileImage,
+      username: 'michalamet',
+      height: '165',
+      weight: '45',
+      bio: '귀여운 게 최고야'
+    })
+
+    onMounted(() => {
+      // 로컬 스토리지에서 프로필 데이터 불러오기
+      const savedProfile = localStorage.getItem('userProfile')
+      if (savedProfile) {
+        profileData.value = JSON.parse(savedProfile)
+      }
+    })
+
+    const openProfileEdit = () => {
+      router.push('/profile/edit')
     }
-  },
-  methods: {
-    // 프로필 수정 페이지로 이동
-    openProfileEdit() {
-      this.$router.push('/profile/edit')
+
+    return {
+      profileData,
+      openProfileEdit
     }
   }
 }

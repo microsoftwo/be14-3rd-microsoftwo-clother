@@ -1,4 +1,4 @@
-ㅗ<template>
+<template>
   <div class="terms">
     <div class="terms-container">
       <h1 class="terms-title">이용약관</h1>
@@ -76,12 +76,14 @@ body {
 
 <style scoped>
 .terms {
-  width: 100%;
-  min-height: 100%;
-  margin: -20px;
-  padding: 60px 20px;
+  min-height: 100vh;
   background-color: black;
   color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  padding-top: 80px;
 }
 
 .terms-container {
