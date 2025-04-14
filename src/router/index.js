@@ -14,7 +14,7 @@ import MyActivity from '../views/MyActivity.vue'
 import Terms from '../views/Terms.vue'
 import PrivacyPolicy from '../views/PrivacyPolicy.vue'
 import LoginForm from "../views/LoginForm.vue";
-import SignupForm from "../views/SignupForm.vue";
+import SignupForm from "../components/SignupForm.vue";
 
 const routes = [
   {

@@ -6,24 +6,25 @@
       <div class="form-group">
         <label for="email">이메일</label>
         <div class="input-with-button">
-          <input 
-            type="email" 
-            id="email" 
+          <input
+            type="email"
+            id="email"
             v-model="formData.email"
             :class="{ 'error': errors.email }"
             placeholder="clother@clother.com"
           />
-          <button 
-            type="button" 
+          <button
+            type="button"
             class="verify-button"
             @click="verifyEmail"
             :disabled="!isEmailValid || isEmailVerified"
           >
             메일 전송
           </button>
+          <span class="timer" v-if="isEmailSent && remainingTime > 0">{{ formatTime(remainingTime) }}</span>
         </div>
         <p class="error-message" v-if="errors.email">{{ errors.email }}</p>
-        <p class="success-message" v-if="formData.email && !errors.email && isEmailValid">
+        <p class="success-message" v-if="formData.email && !errors.email && isEmailValid && isEmailSent">
           인증 코드가 이메일로 발송되었습니다
         </p>
       </div>
@@ -32,9 +33,9 @@
       <div class="form-group" v-if="isEmailSent">
         <label for="verificationCode">인증번호</label>
         <div class="input-with-button">
-          <input 
-            type="text" 
-            id="verificationCode" 
+          <input
+            type="text"
+            id="verificationCode"
             v-model="formData.verificationCode"
             :class="{ 'error': errors.verificationCode }"
             placeholder="인증 번호를 입력해 주세요"
@@ -55,22 +56,26 @@
       <!-- 비밀번호 입력 -->
       <div class="form-group">
         <label for="password">비밀번호</label>
-        <input 
-          type="password" 
-          id="password" 
+        <input
+          type="password"
+          id="password"
           v-model="formData.password"
+          @input="validatePassword"
           :class="{ 'error': errors.password }"
           placeholder="영문, 숫자, 특수문자 포함 8자 이상"
         />
         <p class="error-message" v-if="errors.password">{{ errors.password }}</p>
+        <p class="success-message" v-if="formData.password && !errors.password">
+          사용 가능한 비밀번호입니다
+        </p>
       </div>
 
       <!-- 닉네임 입력 -->
       <div class="form-group">
         <label for="nickname">닉네임</label>
-        <input 
-          type="text" 
-          id="nickname" 
+        <input
+          type="text"
+          id="nickname"
           v-model="formData.nickname"
           :class="{ 'error': errors.nickname }"
           placeholder="특수문자 제외 8자 이하"
@@ -82,14 +87,14 @@
       <div class="form-group">
         <label>성별</label>
         <div class="gender-buttons">
-          <button 
+          <button
             type="button"
             :class="['gender-button', { active: formData.gender === '여성' }]"
             @click="selectGender('여성')"
           >
             여성
           </button>
-          <button 
+          <button
             type="button"
             :class="['gender-button', { active: formData.gender === '남성' }]"
             @click="selectGender('남성')"
@@ -103,9 +108,9 @@
       <!-- 키 입력 -->
       <div class="form-group">
         <label for="height">키</label>
-        <input 
-          type="number" 
-          id="height" 
+        <input
+          type="number"
+          id="height"
           v-model="formData.height"
           :class="{ 'error': errors.height }"
           placeholder="키를 입력해 주세요"
@@ -116,9 +121,9 @@
       <!-- 몸무게 입력 -->
       <div class="form-group">
         <label for="weight">몸무게</label>
-        <input 
-          type="number" 
-          id="weight" 
+        <input
+          type="number"
+          id="weight"
           v-model="formData.weight"
           :class="{ 'error': errors.weight }"
           placeholder="몸무게를 입력해 주세요"
@@ -127,8 +132,8 @@
       </div>
 
       <!-- 가입 버튼 -->
-      <button 
-        type="submit" 
+      <button
+        type="submit"
         class="submit-button"
         :disabled="!isFormValid"
       >
@@ -178,8 +183,6 @@ export default {
         this.formData.password &&
         this.formData.nickname &&
         this.formData.gender &&
-        this.formData.height &&
-        this.formData.weight &&
         !Object.values(this.errors).some(error => error)
       )
     }
@@ -228,8 +231,7 @@ export default {
 
     validateHeight() {
       if (!this.formData.height) {
-        this.errors.height = '키를 입력해주세요'
-        return false
+        return true // 선택 입력이므로 입력하지 않아도 true 반환
       }
       const height = Number(this.formData.height)
       if (isNaN(height) || height < 100 || height > 250) {
@@ -242,8 +244,7 @@ export default {
 
     validateWeight() {
       if (!this.formData.weight) {
-        this.errors.weight = '몸무게를 입력해주세요'
-        return false
+        return true // 선택 입력이므로 입력하지 않아도 true 반환
       }
       const weight = Number(this.formData.weight)
       if (isNaN(weight) || weight < 30 || weight > 200) {
@@ -256,7 +257,7 @@ export default {
 
     async verifyEmail() {
       if (!this.validateEmail()) return
-
+      
       try {
         // API 호출로 변경 예정
         this.isEmailSent = true
@@ -281,12 +282,18 @@ export default {
       }, 1000)
     },
 
+    formatTime(seconds) {
+      const minutes = Math.floor(seconds / 60)
+      const remainingSeconds = seconds % 60
+      return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`
+    },
+
     async verifyCode() {
       if (!this.formData.verificationCode) {
         this.errors.verificationCode = '인증번호를 입력해주세요'
         return
       }
-
+      
       try {
         // API 호출로 변경 예정
         if (this.formData.verificationCode.length === 6) {
@@ -330,7 +337,7 @@ export default {
 
     async handleSubmit() {
       if (!this.validateForm()) return
-
+      
       try {
         // API 호출로 변경 예정
         console.log('회원가입 성공:', this.formData)
@@ -361,6 +368,7 @@ export default {
   font-size: 1.5rem;
   margin-bottom: 2rem;
   font-weight: bold;
+  color: #333;
 }
 
 .signup-form {
@@ -383,6 +391,7 @@ export default {
 .input-with-button {
   display: flex;
   gap: 0.5rem;
+  align-items: center;
 }
 
 .input-with-button input {
@@ -392,6 +401,7 @@ export default {
 input {
   width: 100%;
   padding: 0.75rem;
+  height: 45px; /* 버튼과 동일한 높이 */
   border: 1px solid #ddd;
   border-radius: 4px;
   font-size: 0.9rem;
@@ -408,11 +418,13 @@ input:focus {
 
 .verify-button {
   padding: 0 1rem;
+  min-height: 45px; /* 입력창과 동일한 높이 */
   background-color: #f5f5f5;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   white-space: nowrap;
+  font-size: 0.9rem;
 }
 
 .verify-button:disabled {
@@ -467,6 +479,17 @@ input:focus {
 .submit-button:disabled {
   background-color: #ddd;
   cursor: not-allowed;
+}
+
+.timer {
+  display: inline-flex;
+  align-items: center;
+  height: 45px; /* 버튼과 동일한 높이 */
+  padding: 0 0.75rem;
+  color: #ff4444;
+  font-size: 0.9rem;
+  background-color: #f5f5f5;
+  border-radius: 4px;
 }
 
 /* 숫자 입력 필드의 화살표 제거 */
