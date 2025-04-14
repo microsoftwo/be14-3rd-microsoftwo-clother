@@ -5,7 +5,7 @@
       <h4 class="hero-subtitle">Show your style</h4>
     </div>
     <div class="hero-image">
-      <img src="./hero-section.jpg.png" alt="Hero image" />
+      <img src="../icons/hero-section.jpg.png" alt="Hero image" />
     </div>
   </div>
 </template>

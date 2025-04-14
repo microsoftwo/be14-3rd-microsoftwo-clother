@@ -22,7 +22,7 @@ import HeroSection from "../components/HeroSection.vue";
 import WeeklyBestSection from "../components/WeeklyBestSection.vue";
 import MainContentSection from "../components/MainContentSection.vue";
 import { useRouter } from "vue-router";
-// import { boardAPI } from "@/services/api";
+import { boardAPI } from "../services/api";
 
 const router = useRouter();
 const sortBy = ref("newest");
