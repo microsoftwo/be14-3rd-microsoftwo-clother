@@ -11,7 +11,8 @@ import CategoryNewestGrid from "../components/CategoryNewestGrid.vue";
 import CategoryGrid from "../components/CategoryGrid.vue";
 import { getCategoryId } from '../constants/categoryMap'
 import MyActivity from '../views/MyActivity.vue'
-
+import Terms from '../views/Terms.vue'
+import PrivacyPolicy from '../views/PrivacyPolicy.vue'
 
 const routes = [
   {
@@ -64,78 +65,16 @@ const routes = [
     component: MyActivity
   },
   {
-    path: '/look/:category',
-    component: MainPage,
-    children: [
-      {
-        path: '',
-        redirect: to => `/look/${to.params.category}/likes`
-      },
-      {
-        path: 'likes',
-        name: 'CategoryLikes',
-        component: CategoryLikesGrid,
-        props: route => ({ categoryId: getCategoryId(route.params.category) })
-      },
-      {
-        path: 'latest',
-        name: 'CategoryNewest',
-        component: CategoryNewestGrid,
-        props: route => ({ categoryId: getCategoryId(route.params.category) })
-      }
-    ]
+    path: '/terms',
+    name: 'Terms',
+    component: Terms
   },
   {
-    path: '/hair/:category',
-    component: MainPage,
-    children: [
-      {
-        path: '',
-        redirect: to => `/hair/${to.params.category}/likes`
-      },
-      {
-        path: 'likes',
-        name: 'HairLikes',
-        component: CategoryLikesGrid,
-        props: route => ({ categoryId: getCategoryId(route.params.category) })
-      },
-      {
-        path: 'latest',
-        name: 'HairNewest',
-        component: CategoryNewestGrid,
-        props: route => ({ categoryId: getCategoryId(route.params.category) })
-      }
-    ]
-  },
-  {
-    path: '/makeup/:category',
-    component: MainPage,
-    children: [
-      {
-        path: '',
-        redirect: to => `/makeup/${to.params.category}/likes`
-      },
-      {
-        path: 'likes',
-        name: 'MakeupLikes',
-        component: CategoryLikesGrid,
-        props: route => ({ categoryId: getCategoryId(route.params.category) })
-      },
-      {
-        path: 'latest',
-        name: 'MakeupNewest',
-        component: CategoryNewestGrid,
-        props: route => ({ categoryId: getCategoryId(route.params.category) })
-      }
-    ]
-  },
-  {
-    path: '/category/:mainCategory/:subCategory',
-    name: 'Category',
-    component: CategoryGrid,
-    props: true
+    path: '/privacy-policy',
+    name: 'PrivacyPolicy',
+    component: PrivacyPolicy
   }
-];
+]
 
 const router = createRouter({
   history: createWebHistory(),

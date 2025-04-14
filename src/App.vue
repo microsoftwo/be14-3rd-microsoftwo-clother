@@ -2,7 +2,7 @@
   <div class="app">
     <Header @toggle-activity="handleToggleActivity" />
     <main class="main-content">
-      <router-view ref="myPage"></router-view>
+      <router-view></router-view>
     </main>
     <Footer />
   </div>

@@ -55,14 +55,14 @@ export default {
   background: transparent;
   color: white;
   display: flex;
-  margin-left: 38px;
+  margin-left: 30px;
   flex-direction: column;
 }
 
 .profile-content {
   display: flex;
   align-items: flex-start;
-  gap: 16px;
+  gap: 12px;
 }
 
 .profile-image-container {
@@ -70,8 +70,8 @@ export default {
 }
 
 .profile-image {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   object-fit: cover;
 }
@@ -79,7 +79,7 @@ export default {
 .profile-info {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 4px;
 }
 
 .info-row {
@@ -88,7 +88,7 @@ export default {
 }
 
 .username {
-  font-size: 1.2rem;
+  font-size: 1rem;
   margin: 0;
   color: #F05EC9;
   font-weight: 500;
@@ -97,11 +97,11 @@ export default {
 .stats-row {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 
 .stats {
-  font-size: 1rem;
+  font-size: 0.9rem;
   color: #999;
 }
 
@@ -122,13 +122,13 @@ export default {
 }
 
 .bio {
-  font-size: 1rem;
+  font-size: 0.9rem;
   color: white;
   text-align: left;
   margin-left: 0;
   padding-left: 0;
   display: block;
-  margin-top: 10px;
+  margin-top: 8px;
   margin-bottom: 1px;
 }
 </style> 
