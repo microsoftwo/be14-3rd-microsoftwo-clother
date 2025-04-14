@@ -26,7 +26,7 @@
             type="text" 
             v-model="formData.username" 
             :maxlength="12"
-            placeholder="닉네임을 입력해주세요"
+            placeholder="michalamet"
           />
           <span class="char-count" :class="{ 'error': formData.username.length > 12 }">
             {{ formData.username.length }}/12
@@ -43,7 +43,7 @@
           <textarea 
             v-model="formData.bio" 
             :maxlength="50"
-            placeholder="소개글을 입력해주세요"
+            placeholder="귀여운게 최고야"
           ></textarea>
           <span class="char-count" :class="{ 'error': formData.bio.length > 50 }">
             {{ formData.bio.length }}/50
@@ -59,7 +59,7 @@
         <input 
           type="number" 
           v-model="formData.height"
-          placeholder="키를 입력해주세요"
+          placeholder="165cm"
         />
       </div>
 
@@ -68,7 +68,7 @@
         <input 
           type="number" 
           v-model="formData.weight"
-          placeholder="몸무게를 입력해주세요"
+          placeholder="45kg"
         />
       </div>
 
@@ -129,34 +129,19 @@ export default {
     })
 
     onMounted(() => {
-      // localStorage에서 각각의 데이터 불러오기
-      const storedNickname = localStorage.getItem('userNickname')
-      const storedProfileImage = localStorage.getItem('userProfileImageUrl')
-      const storedHeight = localStorage.getItem('userHeight')
-      const storedWeight = localStorage.getItem('userWeight')
-      const storedBio = localStorage.getItem('userBio')
-
-      // 프로필 데이터 설정
-      if (storedNickname || storedProfileImage || storedHeight || storedWeight || storedBio) {
-        profile.value = {
-          username: storedNickname || '',
-          profileImage: storedProfileImage || profileImage,
-          height: storedHeight || '',
-          weight: storedWeight || '',
-          bio: storedBio || ''
-        }
-
+      // 로컬 스토리지에서 프로필 데이터 불러오기
+      const savedProfile = localStorage.getItem('userProfile')
+      if (savedProfile) {
+        const profileData = JSON.parse(savedProfile)
+        profile.value = profileData
         // 폼 데이터에 현재 프로필 데이터 설정
         formData.value = {
-          username: storedNickname || '',
-          bio: storedBio || '',
-          height: storedHeight || '',
-          weight: storedWeight || ''
+          username: profileData.username,
+          bio: profileData.bio,
+          height: profileData.height,
+          weight: profileData.weight
         }
       }
-
-      console.log('Loaded profile:', profile.value)
-      console.log('Loaded form data:', formData.value)
     })
 
     const showConfirmModal = () => {
