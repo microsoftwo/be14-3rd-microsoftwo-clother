@@ -275,12 +275,6 @@ textarea {
   opacity: 0.9;
 }
 
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
 input[type=number] {
   -moz-appearance: textfield;
 }
