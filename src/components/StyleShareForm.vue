@@ -65,6 +65,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'StyleShareForm',
   data() {
@@ -126,24 +128,88 @@ export default {
       this.isSubmitting = true
 
       try {
-        const formData = new FormData()
-        formData.append('title', this.title)
-        formData.append('content', this.content)
-        this.uploadedImages.forEach((img, index) => {
-          formData.append(`images`, img.file)
-        })
+        const token = localStorage.getItem('accessToken')
+        if (!token) {
+          throw new Error('로그인이 필요합니다.')
+        }
 
-        await this.$axios.post('/boards/board', formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`
+        // 이미지 업로드 처리
+        const imageUrls = []
+        if (this.uploadedImages.length > 0) {
+          for (let i = 0; i < this.uploadedImages.length; i++) {
+            const file = this.uploadedImages[i].file
+            
+            // 1. Presigned URL 요청
+            const presignedUrlResponse = await axios.get(`http://localhost:8000/image-service/images/url`, {
+              params: {
+                fileName: file.name
+              },
+              headers: {
+                'Authorization': token.startsWith('Bearer ') ? token : `Bearer ${token}`
+              }
+            })
+            
+            const presignedUrl = presignedUrlResponse.data
+
+            // 2. Presigned URL을 사용하여 S3에 직접 업로드
+            await axios.put(presignedUrl, file, {
+              headers: {
+                'Content-Type': file.type
+              }
+            })
+
+            // 3. 이미지 URL 저장
+            const imageUrl = presignedUrl.split('?')[0]  // URL에서 query parameter 제거
+            imageUrls.push({
+              imageUrl: imageUrl,
+              order: i + 1
+            })
           }
+        }
+
+        // 게시글 데이터 구성
+        const requestData = {
+          title: this.title,
+          content: this.content,
+          images: imageUrls
+        }
+
+        // 게시글 등록 요청
+        const response = await axios.post('http://localhost:8000/core-service/boards/board', requestData, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': token.startsWith('Bearer ') ? token : `Bearer ${token}`
+          },
+          timeout: 5000
         })
 
-        this.$router.push('/styleshare')
+        if (response.status === 200 || response.status === 201) {
+          this.$router.push('/styleshare')
+        } else {
+          throw new Error('게시글 등록에 실패했습니다.')
+        }
       } catch (error) {
         console.error('게시글 등록 실패:', error)
-        alert('게시글 등록에 실패했습니다.')
+        if (error.response) {
+          console.error('Error response:', {
+            status: error.response.status,
+            data: error.response.data,
+            headers: error.response.headers
+          })
+          
+          if (error.response.status === 401) {
+            alert('로그인이 필요하거나 인증이 만료되었습니다. 다시 로그인해주세요.')
+            this.$router.push('/login')
+          } else if (error.response.status === 404) {
+            alert('요청한 리소스를 찾을 수 없습니다. 서버 엔드포인트를 확인해주세요.')
+          } else {
+            alert(`게시글 등록 실패: ${error.response.data.message || '서버 오류가 발생했습니다.'}`)
+          }
+        } else if (error.request) {
+          alert('서버로부터 응답이 없습니다. 서버 상태를 확인해주세요.')
+        } else {
+          alert(error.message || '게시글 등록 중 오류가 발생했습니다.')
+        }
       } finally {
         this.isSubmitting = false
       }
