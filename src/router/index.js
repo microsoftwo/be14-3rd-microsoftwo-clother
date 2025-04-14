@@ -6,10 +6,6 @@ const routes = [
   },
   {
     path: '/',
-    // redirect: '/likes' // 필요하다면 이 줄 살려도 됨. 현재는 MainPage에서 redirect 처리 중.
-  },
-  {
-    path: '/',
     component: MainPage,
     children: [
       {
