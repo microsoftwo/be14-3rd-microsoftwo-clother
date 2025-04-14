@@ -6,7 +6,7 @@
   <header class="header">
     <!-- 로고 섹션 -->
     <div class="logo-section">
-      <router-link to="/" class="logo">clother</router-link>
+      <router-link to="/likes" class="logo">clother</router-link>
     </div>
     <!-- 네비게이션 링크 섹션 -->
     <nav class="nav-links">

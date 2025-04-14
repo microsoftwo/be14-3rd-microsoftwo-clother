@@ -21,8 +21,13 @@ import StyleShare from "../views/StyleShare.vue";
 import PostDetailView from "../views/PostDetailView.vue";
 import PostCommentView from "../views/PostCommentView.vue";
 import SearchResultsView from "../views/SearchResultsView.vue";
+import GsapScroll from '../components/GsapScroll.vue'
 
 const routes = [
+  {
+    path: '/',
+    component: GsapScroll
+  },
   {
     path: "/post-detail/:postId",
     name: "post-detail",
@@ -40,11 +45,11 @@ const routes = [
     component: SignupForm,
   },
   {
-    path: "/",
+    path: "/mypage",
     component: MainPage,
     children: [
       {
-        path: "",
+        path: "/",
         redirect: "/likes",
       },
       {
