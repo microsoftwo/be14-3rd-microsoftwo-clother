@@ -125,6 +125,7 @@ watch(
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 16px;
+  position: relative;
 }
 
 .header {
@@ -132,6 +133,12 @@ watch(
   justify-content: space-between;
   align-items: center;
   margin: 24px 0;
+  padding: 16px 24px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 2;
 }
 
 .sort-buttons {
@@ -146,12 +153,23 @@ watch(
   cursor: pointer;
   font-size: 14px;
   color: #666;
-  transition: color 0.3s;
+  transition: all 0.3s;
 }
 
 .sort-btn.active {
   color: #1976d2;
   font-weight: 600;
+  position: relative;
+}
+
+.sort-btn.active::after {
+  content: "";
+  position: absolute;
+  bottom: -16px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #1976d2;
 }
 
 .sort-btn:disabled {
