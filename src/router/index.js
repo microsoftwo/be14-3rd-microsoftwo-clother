@@ -1,8 +1,27 @@
+import { createRouter, createWebHistory } from 'vue-router'
+import SignupForm from '../components/SignupForm.vue'
+import MainPage from '../views/MainPage.vue'
+import LikesGrid from '../components/LikesGrid.vue'
+import NewestGrid from '../components/NewestGrid.vue'
+import CategoryGrid from '../components/CategoryGrid.vue'
+import MyPage from '../views/MyPage.vue'
+import MyPostsView from '../views/MyPostsView.vue'
+import StyleShareCreate from '../views/StyleShareCreate.vue'
+import ProfileEdit from '../views/ProfileEdit.vue'
+import MyActivity from '../views/MyActivity.vue'
+import Terms from '../views/Terms.vue'
+import PrivacyPolicy from '../views/PrivacyPolicy.vue'
+
 const routes = [
   {
     path: '/signup',
     name: 'Signup',
     component: SignupForm
+  },
+  {
+    path: '/look/:category',
+    name: 'LookCategory',
+    component: CategoryGrid
   },
   {
     path: '/',
@@ -64,3 +83,10 @@ const routes = [
     component: PrivacyPolicy
   }
 ]
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes
+})
+
+export default router
