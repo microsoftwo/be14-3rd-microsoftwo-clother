@@ -6,6 +6,8 @@
           :imageUrl="post.thumbnailUrl"
           :index="index + 1"
           :showIndex="true"
+          :postId="post.id"
+          @image-clicked="navigateToPostDetail"
         />
       </template>
       <div v-if="loading" class="loading">Loading...</div>
@@ -41,15 +43,18 @@
         
         try {
           this.loading = true;
-          let url = `/api/post/feed?sort=likes`;
+          let url = `http://localhost:8000/core-service/post/feed?sort=likes`;
           
           if (this.lastPostId) {
             url += `&lastPostId=${this.lastPostId}`;
           }
           
           console.log('API Request URL:', url);
+
+          const token = localStorage.getItem("accessToken");
+          const headers = token ? { Authorization: `Bearer ${token}` } : {};
           
-          const response = await axios.get(url);
+          const response = await axios.get(url, { headers });
           const newPosts = response.data;
           
           if (newPosts.length < 20) {
@@ -71,7 +76,10 @@
         if (element.scrollHeight - element.scrollTop <= element.clientHeight + 100) {
           this.fetchPosts();
         }
-      }
+      },
+      navigateToPostDetail(postId) {
+      this.$router.push({ name: 'PostDetail', params: { postId } }); // 라우터로 이동
+    }
     },
     created() {
       this.fetchPosts();

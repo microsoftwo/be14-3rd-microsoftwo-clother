@@ -5,6 +5,8 @@
           v-if="post && post.thumbnailUrl"
           :imageUrl="post.thumbnailUrl"
           :showIndex="false"
+          :postId="post.id"
+          @image-clicked="navigateToPostDetail"
         />
       </template>
       <div v-if="loading" class="loading">Loading...</div>
@@ -40,14 +42,17 @@
         
         try {
           this.loading = true;
-          let url = `/api/post/feed?sort=latest`;
+          let url = `http://localhost:8000/core-service/post/feed?sort=latest`;
           
           if (this.lastPostId) {
             url += `&lastPostId=${this.lastPostId}`;
           }
+
+          const token = localStorage.getItem("accessToken");
+          const headers = token ? { Authorization: `Bearer ${token}` } : {};
           
           console.log('API Request URL:', url);
-          const response = await axios.get(url);
+          const response = await axios.get(url, { headers });
           console.log('API Response:', response.data);
           
           const newPosts = response.data;
@@ -75,7 +80,10 @@
         if (scrollPosition >= scrollThreshold && !this.loading) {
           this.fetchPosts();
         }
-      }
+      },
+      navigateToPostDetail(postId) {
+      this.$router.push({ name: 'PostDetail', params: { postId } }); // 라우터로 이동
+    }
     },
     created() {
       this.fetchPosts();
