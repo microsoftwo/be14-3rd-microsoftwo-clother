@@ -13,14 +13,19 @@
             :class="{ 'error': errors.email }"
             placeholder="clother@clother.com"
           />
-          <button 
-            type="button" 
-            class="verify-button"
-            @click="verifyEmail"
-            :disabled="!isEmailValid || isEmailVerified"
-          >
-            메일 전송
-          </button>
+          <div class="button-timer-container">
+            <button 
+              type="button" 
+              class="verify-button"
+              @click="verifyEmail"
+              :disabled="!isEmailValid || isEmailVerified"
+            >
+              메일 전송
+            </button>
+            <span v-if="isEmailSent && !isEmailVerified" class="timer">
+              {{ formatTime(remainingTime) }}
+            </span>
+          </div>
         </div>
         <p class="error-message" v-if="errors.email">{{ errors.email }}</p>
         <p class="success-message" v-if="formData.email && !errors.email && isEmailValid">
@@ -61,8 +66,12 @@
           v-model="formData.password"
           :class="{ 'error': errors.password }"
           placeholder="영문, 숫자, 특수문자 포함 8자 이상"
+          @input="validatePassword"
         />
         <p class="error-message" v-if="errors.password">{{ errors.password }}</p>
+        <p class="success-message" v-if="formData.password && !errors.password">
+          사용 가능한 비밀번호입니다
+        </p>
       </div>
 
       <!-- 닉네임 입력 -->
@@ -102,7 +111,7 @@
 
       <!-- 키 입력 -->
       <div class="form-group">
-        <label for="height">키</label>
+        <label for="height">키 (선택사항)</label>
         <input 
           type="number" 
           id="height" 
@@ -115,7 +124,7 @@
 
       <!-- 몸무게 입력 -->
       <div class="form-group">
-        <label for="weight">몸무게</label>
+        <label for="weight">몸무게 (선택사항)</label>
         <input 
           type="number" 
           id="weight" 
@@ -139,8 +148,14 @@
 </template>
 
 <script>
+import { useRouter } from 'vue-router'
+
 export default {
   name: 'SignupForm',
+  setup() {
+    const router = useRouter()
+    return { router }
+  },
   data() {
     return {
       formData: {
@@ -178,13 +193,56 @@ export default {
         this.formData.password &&
         this.formData.nickname &&
         this.formData.gender &&
-        this.formData.height &&
-        this.formData.weight &&
         !Object.values(this.errors).some(error => error)
       )
     }
   },
   methods: {
+    formatTime(seconds) {
+      const minutes = Math.floor(seconds / 60)
+      const remainingSeconds = seconds % 60
+      return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`
+    },
+    startTimer() {
+      this.remainingTime = 300
+      this.verificationTimer = setInterval(() => {
+        if (this.remainingTime > 0) {
+          this.remainingTime--
+        } else {
+          clearInterval(this.verificationTimer)
+          this.isEmailSent = false
+          this.formData.verificationCode = ''
+          alert('인증 시간이 만료되었습니다. 다시 시도해주세요.')
+        }
+      }, 1000)
+    },
+    verifyEmail() {
+      if (!this.validateEmail()) return
+      
+      // API 연동 시 사용할 코드
+      // const response = await axios.post('/api/verify-email', { email: this.formData.email })
+      
+      this.isEmailSent = true
+      this.startTimer()
+    },
+    verifyCode() {
+      if (!this.formData.verificationCode) {
+        this.errors.verificationCode = '인증번호를 입력해주세요'
+        return false
+      }
+      
+      // API 연동 시 사용할 코드
+      // const response = await axios.post('/api/verify-code', { 
+      //   email: this.formData.email,
+      //   code: this.formData.verificationCode
+      // })
+      
+      // 임시로 성공 처리
+      this.isEmailVerified = true
+      clearInterval(this.verificationTimer)
+      this.errors.verificationCode = ''
+      return true
+    },
     validateEmail() {
       if (!this.formData.email) {
         this.errors.email = '이메일을 입력해주세요'
@@ -197,7 +255,6 @@ export default {
       this.errors.email = ''
       return true
     },
-
     validatePassword() {
       const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/
       if (!this.formData.password) {
@@ -211,7 +268,6 @@ export default {
       this.errors.password = ''
       return true
     },
-
     validateNickname() {
       const nicknameRegex = /^[가-힣a-zA-Z0-9]{1,8}$/
       if (!this.formData.nickname) {
@@ -225,12 +281,8 @@ export default {
       this.errors.nickname = ''
       return true
     },
-
     validateHeight() {
-      if (!this.formData.height) {
-        this.errors.height = '키를 입력해주세요'
-        return false
-      }
+      if (!this.formData.height) return true
       const height = Number(this.formData.height)
       if (isNaN(height) || height < 100 || height > 250) {
         this.errors.height = '유효한 키를 입력해주세요'
@@ -239,12 +291,8 @@ export default {
       this.errors.height = ''
       return true
     },
-
     validateWeight() {
-      if (!this.formData.weight) {
-        this.errors.weight = '몸무게를 입력해주세요'
-        return false
-      }
+      if (!this.formData.weight) return true
       const weight = Number(this.formData.weight)
       if (isNaN(weight) || weight < 30 || weight > 200) {
         this.errors.weight = '유효한 몸무게를 입력해주세요'
@@ -253,96 +301,37 @@ export default {
       this.errors.weight = ''
       return true
     },
-
-    async verifyEmail() {
-      if (!this.validateEmail()) return
-
-      try {
-        // API 호출로 변경 예정
-        this.isEmailSent = true
-        this.startVerificationTimer()
-      } catch (error) {
-        this.errors.email = '이메일 전송에 실패했습니다'
-      }
-    },
-
-    startVerificationTimer() {
-      this.remainingTime = 300
-      if (this.verificationTimer) {
-        clearInterval(this.verificationTimer)
-      }
-      this.verificationTimer = setInterval(() => {
-        if (this.remainingTime > 0) {
-          this.remainingTime--
-        } else {
-          clearInterval(this.verificationTimer)
-          this.isEmailSent = false
-        }
-      }, 1000)
-    },
-
-    async verifyCode() {
-      if (!this.formData.verificationCode) {
-        this.errors.verificationCode = '인증번호를 입력해주세요'
-        return
-      }
-
-      try {
-        // API 호출로 변경 예정
-        if (this.formData.verificationCode.length === 6) {
-          this.isEmailVerified = true
-          this.errors.verificationCode = ''
-          clearInterval(this.verificationTimer)
-        } else {
-          this.errors.verificationCode = '인증번호가 일치하지 않습니다'
-        }
-      } catch (error) {
-        this.errors.verificationCode = '인증에 실패했습니다'
-      }
-    },
-
     selectGender(gender) {
       this.formData.gender = gender
       this.errors.gender = ''
     },
-
-    validateForm() {
-      let isValid = true
-
-      if (!this.isEmailVerified) {
-        this.errors.email = '이메일 인증이 필요합니다'
-        isValid = false
-      }
-
-      if (!this.validatePassword()) isValid = false
-      if (!this.validateNickname()) isValid = false
-      
-      if (!this.formData.gender) {
-        this.errors.gender = '성별을 선택해주세요'
-        isValid = false
-      }
-
-      if (!this.validateHeight()) isValid = false
-      if (!this.validateWeight()) isValid = false
-
-      return isValid
-    },
-
     async handleSubmit() {
-      if (!this.validateForm()) return
+      // Validate all fields
+      const isValid = 
+        this.validateEmail() &&
+        this.validatePassword() &&
+        this.validateNickname() &&
+        this.validateHeight() &&
+        this.validateWeight()
+
+      if (!isValid) {
+        return
+      }
 
       try {
-        // API 호출로 변경 예정
-        console.log('회원가입 성공:', this.formData)
-        this.$emit('signup-success')
+        // API 연동 시 사용할 코드
+        // const response = await axios.post('/api/signup', this.formData)
+
+        // 임시로 성공 처리
+        console.log('회원가입 성공')
+        alert('회원가입이 완료되었습니다.')
+        
+        // 로그인 페이지로 이동
+        this.router.push('/login')
       } catch (error) {
         console.error('회원가입 실패:', error)
+        alert('회원가입에 실패했습니다. 다시 시도해주세요.')
       }
-    }
-  },
-  beforeUnmount() {
-    if (this.verificationTimer) {
-      clearInterval(this.verificationTimer)
     }
   }
 }
@@ -406,18 +395,40 @@ input:focus {
   border-color: #000;
 }
 
+.button-timer-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 120px;
+  justify-content: flex-end;
+}
+
 .verify-button {
-  padding: 0 1rem;
-  background-color: #f5f5f5;
+  padding: 0.75rem 1rem;
+  background-color: #007bff;
+  color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   white-space: nowrap;
+  min-width: 80px;
 }
 
 .verify-button:disabled {
-  background-color: #ddd;
+  background-color: #ccc;
   cursor: not-allowed;
+}
+
+.timer {
+  color: #ff4444;
+  font-weight: bold;
+  min-width: 3rem;
+  text-align: center;
+  visibility: hidden;
+}
+
+.timer:not(:empty) {
+  visibility: visible;
 }
 
 .gender-buttons {
