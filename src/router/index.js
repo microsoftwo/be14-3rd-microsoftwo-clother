@@ -19,6 +19,7 @@ import SignupForm from "../views/SignupForm.vue";
 import StyleShare from "../views/StyleShare.vue";
 import PostDetailView from "../views/PostDetailView.vue";
 import PostCommentView from "../views/PostCommentView.vue";
+import SearchResultsView from "../views/SearchResultsView.vue";
 
 const routes = [
   {
@@ -165,6 +166,15 @@ const routes = [
     name: "PostDetailView",
     component: PostDetailView,
     props: true, // 컴포넌트에서 props로 id를 받을 수 있음
+  },
+  {
+    path: "/boards/search",
+    name: "SearchResults",
+    component: () => import("../views/SearchResultsView.vue"),
+    props: (route) => ({
+      keyword: route.query.keyword || "",
+      sortBy: route.query.sortBy || "title+content",
+    }),
   },
   {
     path: "/boards/:id/comments",
