@@ -64,7 +64,7 @@
   
   .nav-container {
     width: 100%;
-    margin-top: -4px;
+    margin-top: -1px;
     margin-bottom: -6px;               /* 아래 콘텐츠와의 간격 줄이기 */
     display: flex;
     justify-content: space-between;
@@ -74,7 +74,7 @@
   .sub-nav {
     display: flex;
     gap: 1rem;
-    margin-left: 20px;                /* likes, newest 버튼 오른쪽으로 이동 */
+    margin-left: 45px;                /* likes, newest 버튼 오른쪽으로 이동 */
   }
   
   
@@ -102,7 +102,7 @@
     color: #666;
     text-decoration: none;
     border-radius: 20px;
-    margin-right: 40px;
+    margin-right: 50px;
     font-size: 0.9rem;
     font-weight: 500;
     transition: all 0.2s ease;

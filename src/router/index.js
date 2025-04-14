@@ -29,7 +29,7 @@ const routes = [
     children: [
       {
         path: "",
-        redirect: "likes",
+        redirect: "/likes",
       },
       {
         path: "likes",
