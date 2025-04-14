@@ -86,7 +86,6 @@ const login = async () => {
     if (!valid) return;
 
     try {
-        // const response = await fetch("http://localhost:8080/auth/login", {
         const response = await fetch(
             "http://localhost:8000/user-service/auth/login",
             {
@@ -114,6 +113,12 @@ const login = async () => {
 
         // 토큰 저장
         localStorage.setItem("accessToken", data.accessToken);
+
+        // 유저 닉네임 저장
+        localStorage.setItem("userNickname", data.userNickname);
+
+        // 유저 프로필 이미지 url 저장
+        localStorage.setItem("userProfileImageUrl", data.userProfileImageUrl);
 
         // 성공 시 로직 필요
     } catch (error) {
