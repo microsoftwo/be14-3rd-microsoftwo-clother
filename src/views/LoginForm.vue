@@ -139,6 +139,7 @@ const login = async () => {
     display: flex;
     justify-content: center;
     min-height: 600px;
+    min-width: 600px;
     align-items: center;
 }
 
