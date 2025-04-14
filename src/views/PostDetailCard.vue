@@ -33,7 +33,7 @@
                                 :key="tag.productId"
                                 class="tag"
                                 :style="getTagPosition(tag)"
-                                v-show="showTags"
+                                v-show="showTags && tag.productTagPositionX !== null && tag.productTagPositionY !== null"
                             >
                                 <div class="tag-content">
                                     <div class="tag-info">
