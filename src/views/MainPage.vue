@@ -5,7 +5,7 @@
           <router-link :to="likesPath" class="sub-nav-button" :class="{ 'active': isLikesActive }">LIKES</router-link>
           <router-link :to="newestPath" class="sub-nav-button" :class="{ 'active': isNewestActive }">NEWEST</router-link>
         </div>
-        <router-link to="/posting" class="post-button">
+        <router-link to="/post" class="post-button">
           <span class="post-icon">✎</span>
           POST
         </router-link>
@@ -55,14 +55,17 @@
   .main-page {
     display: flex;
     flex-direction: column;
-    flex: 1;
+    min-height: calc(100vh - 60px);
+    background-color: #F2F0F1;
+    border-radius: 30px;
+    margin: 20px 10px 0px 10px;
+    padding: 20px;
   }
   
   .nav-container {
-    padding: 5rem 2rem 0rem 3rem;   /* top right bottom left */
-    background-color: black;
     width: 100%;
-    margin-bottom: 5px;               /* 아래 콘텐츠와의 간격 줄이기 */
+    margin-top: -4px;
+    margin-bottom: -6px;               /* 아래 콘텐츠와의 간격 줄이기 */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -81,7 +84,7 @@
     color: #666;
     border-radius: 20px;
     font-size: 0.9rem;
-    background-color: #f0f0f0;
+    background-color: #e1e1e1;
     transition: all 0.2s ease;
   }
   
@@ -95,7 +98,7 @@
     align-items: center;
     gap: 5px;
     padding: 0.5rem 1rem;
-    background-color: #f0f0f0;
+    background-color: #e1e1e1;
     color: #666;
     text-decoration: none;
     border-radius: 20px;
@@ -117,5 +120,11 @@
   .content {
     flex: 1;
     padding: 20px;
+  }
+  
+  .content-wrapper {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
   }
   </style> 
