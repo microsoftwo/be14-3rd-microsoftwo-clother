@@ -55,16 +55,16 @@ const routes = [
     component: LoginForm,
   },
   {
-    path: "/likes",
+    path: "/",
     component: MainPage,
     children: [
       {
-        path: "",
+        path: "/likes",
         name: "Likes",
         component: LikesGrid,
       },
       {
-        path: "newest",
+        path: "/newest",
         name: "Newest",
         component: NewestGrid,
       },
