@@ -51,9 +51,9 @@
                   </div>
                   <div class="comment-reply">
                     <div class="reply-user">
-                      <img :src="profileImage" alt="Profile" class="user-image" />
+                      <img :src="profileData.profileImage" alt="Profile" class="user-image" />
                       <div class="user-info">
-                        <span class="username">minchalamet</span>
+                        <span class="username">{{ profileData.username }}</span>
                         <span class="date">{{ comment.date }}</span>
                       </div>
                     </div>
@@ -72,9 +72,12 @@
 </template>
 
 <script>
+import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import Profile from '../components/Profile.vue'
 import PostGrid from '../components/PostGrid.vue'
 import {LIKES_POSTS } from '../constants/images.js'
+import { LIKES_STYLE_SHARE_POSTS } from '../constants/images.js'
 import profileImage from '../icons/profile-mando.jpg'
 import profileImage_1 from '../icons/profile_1.jpg'
 import profileImage_2 from '../icons/profile_2.jpg'
@@ -89,11 +92,42 @@ export default {
     Profile,
     PostGrid
   },
+  setup() {
+    const router = useRouter()
+    const profileData = ref({
+      username: 'michalamet',
+      profileImage: profileImage
+    })
+
+    onMounted(() => {
+      // 로컬 스토리지에서 프로필 데이터 불러오기
+      const savedProfile = localStorage.getItem('userProfile')
+      if (savedProfile) {
+        const data = JSON.parse(savedProfile)
+        profileData.value = {
+          username: data.username,
+          profileImage: data.profileImage
+        }
+      }
+
+      // 프로필 업데이트 이벤트 리스너 추가
+      window.addEventListener('profileUpdated', (event) => {
+        const data = event.detail
+        profileData.value = {
+          username: data.username,
+          profileImage: data.profileImage
+        }
+      })
+    })
+
+    return {
+      profileData
+    }
+  },
   data() {
     return {
-      myPosts: LIKES_POSTS.slice(0, 5),
-      styleshareLikes: LIKES_POSTS.slice(5, 10),
-      profileImage: profileImage,
+      myPosts: LIKES_POSTS,
+      styleshareLikes: LIKES_STYLE_SHARE_POSTS,
       comments: [
         {
           username: 'sungchan',

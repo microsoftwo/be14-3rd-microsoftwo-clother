@@ -31,7 +31,7 @@
 import Profile from '../components/Profile.vue'
 import PostGrid from '../components/PostGrid.vue'
 import { MY_POSTS, STYLE_SHARE_POSTS } from '../constants/images'
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 
 export default {
   name: 'MyPage',
@@ -42,6 +42,16 @@ export default {
   setup() {
     const myPosts = ref(MY_POSTS)
     const styleSharePosts = ref(STYLE_SHARE_POSTS)
+
+    onMounted(() => {
+      // 로컬 스토리지에서 프로필 데이터 불러오기
+      const savedProfile = localStorage.getItem('userProfile')
+      if (savedProfile) {
+        // Profile 컴포넌트에 전달할 데이터 설정
+        const profileData = JSON.parse(savedProfile)
+        // 필요한 경우 여기서 profileData를 처리할 수 있습니다
+      }
+    })
 
     return {
       myPosts,
