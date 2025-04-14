@@ -59,7 +59,12 @@
         <div class="parallax__item__text t1">Make your style</div>
         <div class="parallax__item__text t2">Show your style</div>
         <div class="parallax__item__text t3">당신의 스타일을 공유하세요</div>
-        <router-link to="/login" class="final-button">지금 나만의 브랜드 만들기</router-link>
+        <router-link 
+          :to="{ name: 'Login' }" 
+          class="final-button"
+          @click="handleClick">
+          지금 스타일 둘러보기
+        </router-link>
         <!-- <div class="parallax__item__text t4">CLOTHER</div> -->
       </section>
     </main>
@@ -95,6 +100,16 @@
       duration: 0.5,
       ease: 'power2.out'
     });
+  }
+  
+  const handleClick = (e) => {
+    e.preventDefault()
+    // 먼저 스크롤을 맨 위로 부드럽게 이동
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+    // 스크롤 이동이 완료된 후 라우터 이동
+    setTimeout(() => {
+      router.push({ name: 'Login' })
+    }, 500)
   }
   
   onMounted(() => {
