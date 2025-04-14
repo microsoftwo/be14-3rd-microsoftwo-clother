@@ -30,7 +30,7 @@
 
             <div class="options">
                 <a href="#">비밀번호 찾기</a>
-                <a href="#">회원가입</a>
+                <router-link to="/signup">회원가입</router-link>
             </div>
 
             <div class="divider">
