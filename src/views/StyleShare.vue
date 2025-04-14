@@ -84,12 +84,11 @@ onMounted(async () => {
 .home-container {
   background-color: black;
   min-height: 100vh;
+  padding-top: 0;
 }
 
 .content-wrapper {
   width: 100%;
-  padding: 0;
-  padding-bottom: 64px;
 }
 
 .content-card {
@@ -99,6 +98,8 @@ onMounted(async () => {
   padding-bottom: 60px;
   box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 5px 8px 0 rgba(0, 0, 0, 0.14),
     0 1px 14px 0 rgba(0, 0, 0, 0.12);
+  position: relative;
+  z-index: 1;
 }
 
 .divider {
@@ -308,7 +309,7 @@ onMounted(async () => {
   }
 }
 
-@media (max-width: 600px) {
+/* @media (max-width: 600px) {
   .home-container {
     padding: 16px;
   }
@@ -316,5 +317,5 @@ onMounted(async () => {
   .content-card {
     padding: 16px;
   }
-}
+} */
 </style>
