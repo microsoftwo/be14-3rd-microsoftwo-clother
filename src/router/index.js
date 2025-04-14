@@ -9,115 +9,128 @@ import NewestGrid from "../components/NewestGrid.vue";
 import CategoryLikesGrid from "../components/CategoryLikesGrid.vue";
 import CategoryNewestGrid from "../components/CategoryNewestGrid.vue";
 import CategoryGrid from "../components/CategoryGrid.vue";
-import { getCategoryId } from '../constants/categoryMap'
-import MyActivity from '../views/MyActivity.vue'
-import Terms from '../views/Terms.vue'
-import PrivacyPolicy from '../views/PrivacyPolicy.vue'
+import { getCategoryId } from "../constants/categoryMap";
+import MyActivity from "../views/MyActivity.vue";
+import Terms from "../views/Terms.vue";
+import PrivacyPolicy from "../views/PrivacyPolicy.vue";
 import LoginForm from "../views/LoginForm.vue";
 import SignupForm from "../views/SignupForm.vue";
+import StyleShare from "../views/StyleShare.vue";
 
 const routes = [
   {
-    path: '/signup',
-    name: 'Signup',
-    component: SignupForm
+    path: "/signup",
+    name: "Signup",
+    component: SignupForm,
   },
   {
-    path: '/',
+    path: "/",
     component: MainPage,
     children: [
       {
-        path: '',
-        redirect: 'likes'
+        path: "",
+        redirect: "likes",
       },
       {
-        path: 'likes',
-        name: 'Likes',
-        component: LikesGrid
+        path: "likes",
+        name: "Likes",
+        component: LikesGrid,
       },
       {
-        path: 'newest',
-        name: 'Newest',
-        component: NewestGrid
-      }
-    ]
+        path: "newest",
+        name: "Newest",
+        component: NewestGrid,
+      },
+    ],
   },
   {
-    path: '/login',
-    name: 'Login',
-    component: LoginForm
+    path: "/login",
+    name: "Login",
+    component: LoginForm,
   },
   {
-    path: '/look/:category',
+    path: "/look/:category",
     component: MainPage,
     children: [
       {
-        path: '',
-        redirect: to => `/look/${to.params.category}/likes`
+        path: "",
+        redirect: (to) => `/look/${to.params.category}/likes`,
       },
       {
-        path: 'likes',
-        name: 'CategoryLikes',
+        path: "likes",
+        name: "CategoryLikes",
         component: CategoryLikesGrid,
-        props: route => ({ categoryId: getCategoryId(route.params.category) })
+        props: (route) => ({
+          categoryId: getCategoryId(route.params.category),
+        }),
       },
       {
-        path: 'latest',
-        name: 'CategoryNewest',
+        path: "latest",
+        name: "CategoryNewest",
         component: CategoryNewestGrid,
-        props: route => ({ categoryId: getCategoryId(route.params.category) })
-      }
-    ]
+        props: (route) => ({
+          categoryId: getCategoryId(route.params.category),
+        }),
+      },
+    ],
   },
   {
-    path: '/hair/:category',
+    path: "/hair/:category",
     component: MainPage,
     children: [
       {
-        path: '',
-        redirect: to => `/hair/${to.params.category}/likes`
+        path: "",
+        redirect: (to) => `/hair/${to.params.category}/likes`,
       },
       {
-        path: 'likes',
-        name: 'HairLikes',
+        path: "likes",
+        name: "HairLikes",
         component: CategoryLikesGrid,
-        props: route => ({ categoryId: getCategoryId(route.params.category) })
+        props: (route) => ({
+          categoryId: getCategoryId(route.params.category),
+        }),
       },
       {
-        path: 'latest',
-        name: 'HairNewest',
+        path: "latest",
+        name: "HairNewest",
         component: CategoryNewestGrid,
-        props: route => ({ categoryId: getCategoryId(route.params.category) })
-      }
-    ]
+        props: (route) => ({
+          categoryId: getCategoryId(route.params.category),
+        }),
+      },
+    ],
   },
   {
-    path: '/makeup/:category',
+    path: "/makeup/:category",
     component: MainPage,
     children: [
       {
-        path: '',
-        redirect: to => `/makeup/${to.params.category}/likes`
+        path: "",
+        redirect: (to) => `/makeup/${to.params.category}/likes`,
       },
       {
-        path: 'likes',
-        name: 'MakeupLikes',
+        path: "likes",
+        name: "MakeupLikes",
         component: CategoryLikesGrid,
-        props: route => ({ categoryId: getCategoryId(route.params.category) })
+        props: (route) => ({
+          categoryId: getCategoryId(route.params.category),
+        }),
       },
       {
-        path: 'latest',
-        name: 'MakeupNewest',
+        path: "latest",
+        name: "MakeupNewest",
         component: CategoryNewestGrid,
-        props: route => ({ categoryId: getCategoryId(route.params.category) })
-      }
-    ]
+        props: (route) => ({
+          categoryId: getCategoryId(route.params.category),
+        }),
+      },
+    ],
   },
   {
-    path: '/category/:mainCategory/:subCategory',
-    name: 'Category',
+    path: "/category/:mainCategory/:subCategory",
+    name: "Category",
     component: CategoryGrid,
-    props: true
+    props: true,
   },
   {
     path: "/mypage",
@@ -137,6 +150,7 @@ const routes = [
   {
     path: "/style-share",
     name: "StyleShare",
+    component: StyleShare,
   },
   {
     path: "/style-share/create",
@@ -144,25 +158,25 @@ const routes = [
     component: StyleShareCreate,
   },
   {
-    path: '/myactivity',
-    name: 'MyActivity',
-    component: MyActivity
+    path: "/myactivity",
+    name: "MyActivity",
+    component: MyActivity,
   },
   {
-    path: '/terms',
-    name: 'Terms',
-    component: Terms
+    path: "/terms",
+    name: "Terms",
+    component: Terms,
   },
   {
-    path: '/privacy-policy',
-    name: 'PrivacyPolicy',
-    component: PrivacyPolicy
-  }
-]
+    path: "/privacy-policy",
+    name: "PrivacyPolicy",
+    component: PrivacyPolicy,
+  },
+];
 
 const router = createRouter({
   history: createWebHistory(),
-  routes
-})
+  routes,
+});
 
-export default router 
+export default router;
