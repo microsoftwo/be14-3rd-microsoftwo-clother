@@ -28,7 +28,7 @@
           </div>
         </div>
         <p class="error-message" v-if="errors.email">{{ errors.email }}</p>
-        <p class="success-message" v-if="formData.email && !errors.email && isEmailValid">
+        <p class="success-message" v-if="isEmailSent">
           인증 코드가 이메일로 발송되었습니다
         </p>
       </div>
@@ -339,23 +339,25 @@ export default {
 
 <style scoped>
 .signup-container {
-  max-width: 400px;
-  margin: 0 auto;
-  padding: 2rem;
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1.5rem;
   background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .signup-title {
   text-align: center;
   font-size: 1.5rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   font-weight: bold;
 }
 
 .signup-form {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.25rem;
 }
 
 .form-group {
@@ -365,7 +367,7 @@ export default {
 }
 
 .form-group label {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: #333;
 }
 
@@ -382,8 +384,9 @@ input {
   width: 100%;
   padding: 0.75rem;
   border: 1px solid #ddd;
-  border-radius: 4px;
+  border-radius: 8px;
   font-size: 0.9rem;
+  transition: all 0.2s ease;
 }
 
 input.error {
@@ -393,30 +396,36 @@ input.error {
 input:focus {
   outline: none;
   border-color: #000;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
 }
 
 .button-timer-container {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  min-width: 120px;
+  min-width: 160px;
   justify-content: flex-end;
 }
 
 .verify-button {
-  padding: 0.75rem 1rem;
+  padding: 0.75rem 1.5rem;
   background-color: #007bff;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
   white-space: nowrap;
-  min-width: 80px;
+  min-width: 100px;
+  transition: all 0.2s ease;
 }
 
 .verify-button:disabled {
   background-color: #ccc;
   cursor: not-allowed;
+}
+
+.verify-button:hover:not(:disabled) {
+  background-color: #0056b3;
 }
 
 .timer {
@@ -440,9 +449,14 @@ input:focus {
   flex: 1;
   padding: 0.75rem;
   border: 1px solid #ddd;
-  border-radius: 4px;
+  border-radius: 8px;
   background-color: #fff;
   cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.gender-button:hover {
+  background-color: #f5f5f5;
 }
 
 .gender-button.active {
@@ -452,32 +466,37 @@ input:focus {
 }
 
 .error-message {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: #ff4444;
   margin-top: 0.25rem;
 }
 
 .success-message {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: #4CAF50;
   margin-top: 0.25rem;
 }
 
 .submit-button {
   width: 100%;
-  padding: 1rem;
+  padding: 0.875rem;
   background-color: #000;
   color: #fff;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 1rem;
   margin-top: 1rem;
+  transition: all 0.2s ease;
 }
 
 .submit-button:disabled {
   background-color: #ddd;
   cursor: not-allowed;
+}
+
+.submit-button:hover:not(:disabled) {
+  background-color: #333;
 }
 
 /* 숫자 입력 필드의 화살표 제거 */
