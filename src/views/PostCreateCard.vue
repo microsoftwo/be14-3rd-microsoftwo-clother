@@ -622,6 +622,21 @@ const handleSubmit = async () => {
         router.replace('/newest');
     } catch (error) {
         console.error('Error creating post:', error);
+
+        // 업로드된 이미지 삭제 요청
+        if (uploadedImages.length > 0) {
+            const imageUrls = uploadedImages.map(image => image.imageUrl); // imageUrl 배열 생성
+            try {
+                await fetch('http://localhost:8000/image-service/object', {
+                    method: 'DELETE',
+                    headers: getHeaders(),
+                    body: JSON.stringify(imageUrls), // 문자열 배열로 전송
+                });
+            } catch (deleteError) {
+                console.error('Error deleting uploaded images:', deleteError);
+            }
+        }
+
         alert('게시글 등록 중 오류가 발생했습니다.');
     }
 };
