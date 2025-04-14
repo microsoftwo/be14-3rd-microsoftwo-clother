@@ -276,7 +276,9 @@
 <script setup>
 import { ref, watch, computed } from 'vue'
 import { LookTags } from '../constants/lookTag'
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
 const selectedImages = ref([])
 const fileInput = ref(null)
 const currentImageIndex = ref(0)
@@ -293,10 +295,6 @@ const newHairTag = ref({
   shopLink: '',
   x: 50,
   y: 50
-})
-const newProductTag = ref({
-  name: '',
-  link: ''
 })
 const draggingTag = ref(null)
 const dragOffset = ref({ x: 0, y: 0 })
@@ -435,40 +433,42 @@ const removeHairTag = (tag) => {
 }
 
 const startDrag = (event, tag, type) => {
-  if (currentImageIndex.value !== 0) return
-  
-  draggingTag.value = { tag, type }
-  const tagElement = event.target.closest('.draggable-tag')
-  const rect = tagElement.getBoundingClientRect()
-  
+  if (currentImageIndex.value !== 0) return;
+
+  draggingTag.value = { tag, type };
+  const tagElement = event.target.closest('.draggable-tag');
+  const parentElement = tagElement.closest('.main-image'); // 부모 요소를 기준으로 계산
+  const parentRect = parentElement.getBoundingClientRect();
+
+  // 마우스 클릭 지점과 태그의 좌상단 좌표 간의 차이를 계산
   dragOffset.value = {
-    x: event.clientX - rect.left,
-    y: event.clientY - rect.top
-  }
-  
-  document.addEventListener('mousemove', handleDrag)
-  document.addEventListener('mouseup', stopDrag)
-}
+    x: event.clientX - tagElement.getBoundingClientRect().left,
+    y: event.clientY - tagElement.getBoundingClientRect().top,
+  };
 
-const handleDrag = (event, tag) => {
-    const rect = event.target.getBoundingClientRect();
-    const x = ((event.clientX - rect.left) / rect.width) * 430;
-    const y = ((event.clientY - rect.top) / rect.height) * 460;
+  // 부모 요소의 좌표 저장
+  draggingTag.value.parentRect = parentRect;
 
-    if (tag.type === 'product') {
-        tag.productTagPositionX = x;
-        tag.productTagPositionY = y;
-    } else if (tag.type === 'hair') {
-        tag.hairTagPositionX = x;
-        tag.hairTagPositionY = y;
-    }
+  document.addEventListener('mousemove', handleDrag);
+  document.addEventListener('mouseup', stopDrag);
+};
+
+const handleDrag = (event) => {
+  if (!draggingTag.value) return;
+
+  const { tag, parentRect } = draggingTag.value;
+
+  // 부모 요소의 좌표를 기준으로 태그의 새로운 위치를 계산
+  tag.x = event.clientX - parentRect.left - dragOffset.value.x;
+  tag.y = event.clientY - parentRect.top - dragOffset.value.y;
+  console.log(`Updated tag position: x=${tag.x}, y=${tag.y}`); // 디버깅용
 };
 
 const stopDrag = () => {
-  draggingTag.value = null
-  document.removeEventListener('mousemove', handleDrag)
-  document.removeEventListener('mouseup', stopDrag)
-}
+  draggingTag.value = null;
+  document.removeEventListener('mousemove', handleDrag);
+  document.removeEventListener('mouseup', stopDrag);
+};
 
 const openProductModal = () => {
   showProductModal.value = true
@@ -519,44 +519,6 @@ const removeProductTag = (tag) => {
   productTags.value = productTags.value.filter(t => t.id !== tag.id)
 }
 
-// Function to get S3 upload URL
-const getUploadUrl = async (fileName) => {
-  try {
-    const response = await fetch(`http://localhost:8000/image-service/images/url?fileName=${fileName}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      mode: 'cors',
-      credentials: 'include'
-    })
-    if (!response.ok) throw new Error('Failed to get upload URL')
-    return await response.text()
-  } catch (error) {
-    console.error('Error getting upload URL:', error)
-    throw error
-  }
-}
-
-// Function to upload image to S3
-const uploadImageToS3 = async (url, file) => {
-  try {
-    const response = await fetch(url, {
-      method: 'PUT',
-      body: file,
-      headers: {
-        'Content-Type': file.type
-      },
-      mode: 'cors'
-    })
-    if (!response.ok) throw new Error('Failed to upload image')
-    return url.split('?')[0] // Return the base URL without query parameters
-  } catch (error) {
-    console.error('Error uploading image:', error)
-    throw error
-  }
-}
-
 // Function to convert base64 to File object
 const base64ToFile = (base64String, filename) => {
   const arr = base64String.split(',')
@@ -589,42 +551,47 @@ const handleSubmit = async () => {
     try {
         // Upload images to S3
         const uploadedImages = await Promise.all(
-            selectedImages.value.map(async (file, index) => {
-                const fileName = `post_image_${Date.now()}_${index}.jpg`;
-                const response = await fetch(
-                    `http://localhost:8000/image-service/images/url?fileName=${fileName}`,
-                    {
-                        method: 'GET',
-                        mode: 'cors',
-                    }
-                );
-                const { url } = await response.json();
+      selectedImages.value.map(async (base64Image, index) => {
+        const fileName = `post_image_${Date.now()}_${index}.jpg`;
+        const file = base64ToFile(base64Image, fileName); // Base64 데이터를 File 객체로 변환
 
-                await fetch(url, {
-                    method: 'PUT',
-                    mode: 'cors',
-                    body: file,
-                    headers: {
-                        'Content-Type': file.type,
-                    },
-                });
-
-                return fileName;
-            })
+        // S3 업로드 URL 가져오기
+        const response = await fetch(
+          `http://localhost:8000/image-service/images/url?fileName=${fileName}`,
+          {
+            method: 'GET',
+            mode: 'cors',
+          }
         );
+        const url = await response.text();
+
+        // S3에 이미지 업로드
+        await fetch(url, {
+          method: 'PUT',
+          mode: 'cors',
+          body: file,
+          headers: {
+            'Content-Type': file.type,
+          },
+        });
+
+        // 업로드된 이미지의 URL 반환
+        return { imageUrl: url.split('?')[0], order: index + 1 }; // URL에서 쿼리스트링 제거
+      })
+    );
 
         // Prepare request body
         const requestBody = {
             content: postContent.value,
-            images: uploadedImages,
+            imageVOs: uploadedImages,
             lookTags: selectedTags.value.map(tag => tag.id),
-            productTags: productTags.value.map(tag => ({
+            productTagVOs: productTags.value.map(tag => ({
                 productId: tag.id,
                 categoryId: tag.categoryId,
                 productTagPositionX: tag.x,
                 productTagPositionY: tag.y
             })),
-            hairTags: hairTags.value.length > 0 ? {
+            hairTagVO: hairTags.value.length > 0 ? {
                 hairShopLink: hairTags.value[0].shopLink,
                 hairShopName: hairTags.value[0].shopName,
                 categoryId: 105,
@@ -632,6 +599,8 @@ const handleSubmit = async () => {
                 hairTagPositionY: hairTags.value[0].y
             } : null
         };
+
+        console.log(JSON.stringify(requestBody));
 
         // Send POST request
         const response = await fetch('http://localhost:8000/core-service/post', {
@@ -653,6 +622,7 @@ const handleSubmit = async () => {
         productTags.value = [];
         hairTags.value = [];
         alert('게시글이 등록되었습니다.');
+        router.replace('/newest');
     } catch (error) {
         console.error('Error creating post:', error);
         alert('게시글 등록 중 오류가 발생했습니다.');
@@ -879,6 +849,7 @@ const handleSubmit = async () => {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
+  pointer-events: none;
 }
 
 .thumbnail-toggle {
@@ -1199,6 +1170,7 @@ const handleSubmit = async () => {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
+  z-index: 10;
 }
 
 .tag-info {

@@ -33,6 +33,7 @@
                                 :key="tag.productId"
                                 class="tag"
                                 :style="getTagPosition(tag)"
+                                v-show="showTags"
                             >
                                 <div class="tag-content">
                                     <div class="tag-info">
