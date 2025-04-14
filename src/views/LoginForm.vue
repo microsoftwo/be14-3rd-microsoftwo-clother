@@ -1,48 +1,49 @@
 <template>
     <div class="login-container">
-        <div class="logo">clother</div>
+        <div class="form-wrapper">
+            <div class="logo">clother</div>
 
-        <div class="form-group">
-            <label for="email">이메일</label>
-            <input type="email" id="email" v-model="form.email" />
-            <div class="error" v-if="errors.email">{{ errors.email }}</div>
-        </div>
-
-        <div class="form-group">
-            <label for="password">비밀번호</label>
-            <input
-                type="password"
-                id="password"
-                v-model="form.password"
-                @keyup.enter="login"
-            />
-            <div class="error" v-if="errors.password">
-                {{ errors.password }}
+            <div class="form-group">
+                <label for="email">이메일</label>
+                <input type="email" id="email" v-model="form.email" />
+                <div class="error" v-if="errors.email">{{ errors.email }}</div>
             </div>
-        </div>
 
-        <div class="error login-error" v-if="errors.login">
-            {{ errors.login }}
-        </div>
+            <div class="form-group">
+                <label for="password">비밀번호</label>
+                <input
+                    type="password"
+                    id="password"
+                    v-model="form.password"
+                    @keyup.enter="login"
+                />
+                <div class="error" v-if="errors.password">
+                    {{ errors.password }}
+                </div>
+            </div>
 
-        <button class="login-btn" @click="login">로그인</button>
+            <div class="error login-error" v-if="errors.login">
+                {{ errors.login }}
+            </div>
 
-        <div class="options">
-            <a href="#">비밀번호 찾기</a>
-            <a href="#">회원가입</a>
-        </div>
+            <button class="login-btn" @click="login">로그인</button>
 
-        <div class="divider">
-            <hr />
-            <span>또는</span>
-            <hr />
-        </div>
-        <div class="social-login">
-            <img src="/kakao-icon.png" alt="Kakao" class="icon" />
+            <div class="options">
+                <a href="#">비밀번호 찾기</a>
+                <a href="#">회원가입</a>
+            </div>
 
-            <img src="/naver-icon.png" alt="Naver" class="icon" />
+            <div class="divider">
+                <hr />
+                <span>또는</span>
+                <hr />
+            </div>
 
-            <img src="/google-icon.png" alt="Google" class="icon" />
+            <div class="social-login">
+                <img src="/kakao-icon.png" alt="Kakao" class="icon" />
+                <img src="/naver-icon.png" alt="Naver" class="icon" />
+                <img src="/google-icon.png" alt="Google" class="icon" />
+            </div>
         </div>
     </div>
 </template>
@@ -125,10 +126,20 @@ const login = async () => {
 <style scoped>
 .login-container {
     background-color: #f7f3f2;
-    margin-top: 100px;
-    padding: 100px 500px 100px 500px;
+    margin: 100px auto;
+    padding: 40px 24px;
     border-radius: 16px;
     font-family: sans-serif;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    min-height: 600px;
+    align-items: center;
+}
+
+.form-wrapper {
+    width: 100%;
+    max-width: 400px; /* ✅ 내부 최대 너비 제한 */
     text-align: center;
 }
 
@@ -153,8 +164,8 @@ const login = async () => {
 }
 
 .form-group input {
-    width: 88%;
-    padding: 10px;
+    width: 100%;
+    padding: 12px;
     border: 1px solid #ccc;
     border-radius: 8px;
     font-size: 14px;
@@ -230,8 +241,8 @@ const login = async () => {
 }
 
 .icon {
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     object-fit: cover;
     margin-right: 8px;
