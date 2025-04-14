@@ -72,10 +72,12 @@
   
   <script setup>
   import { onMounted, ref } from 'vue'
+  import { useRouter } from 'vue-router'
   import gsap from 'gsap'
   import ScrollTrigger from 'gsap/ScrollTrigger'
   import '../styles/gsap-scroll.css'
   
+  const router = useRouter()
   gsap.registerPlugin(ScrollTrigger)
   
   const cardTrack = ref(null)
@@ -84,14 +86,13 @@
   const expandImage = (event) => {
     const target = event.currentTarget;
     gsap.to(target, {
-      scale: 1.5,               /* 이미지 호버 시 크기 (1 -> 1.3 으로 커짐) */
+      scale: 1.5,
       zIndex: 10,
       duration: 0.5,
       ease: 'power2.out'
     });
   }
   
-  // 이미지 호버 하고 떼어 낸 후
   const shrinkImage = (event) => {
     const target = event.currentTarget;
     gsap.to(target, {
@@ -108,9 +109,17 @@
     window.scrollTo({ top: 0, behavior: 'smooth' })
     // 스크롤 이동이 완료된 후 라우터 이동
     setTimeout(() => {
-      router.push({ name: 'Login' })
+      router.push('/login')
     }, 500)
   }
+  
+  // storage 이벤트 리스너 추가
+  window.addEventListener('storage', () => {
+    // accessToken이 있으면 /likes로 리다이렉트
+    if (localStorage.getItem('accessToken')) {
+      router.push('/likes')
+    }
+  })
   
   onMounted(() => {
     // SECTION 1
