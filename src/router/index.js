@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+import PostDetailCard from "../views/PostDetailCard.vue";
 import PostCreateCard from "../views/PostCreateCard.vue/";
 import MyPage from "../views/MyPage.vue";
 import MyPostsView from "../views/MyPostsView.vue";
@@ -21,6 +22,12 @@ import PostDetailView from "../views/PostDetailView.vue";
 import PostCommentView from "../views/PostCommentView.vue";
 
 const routes = [
+  {
+    path: "/post-detail/:postId",
+    name: "PostDetail",
+    component: PostDetailCard,
+    props: true,
+  },
   {
     path: "/post",
     name: "Posting",

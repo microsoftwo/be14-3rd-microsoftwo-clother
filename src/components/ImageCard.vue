@@ -1,40 +1,49 @@
 <template>
-    <div class="image-card" :style="{ height: cardHeight }">
-      <div v-if="showIndex" class="number-box">{{ index }}</div>
-      <img :src="imageUrl" :alt="'Image ' + index" />
-    </div>
-  </template>
-  
-  <script>
-  export default {
-    name: 'ImageCard',
-    props: {
-      imageUrl: {
-        type: String,
-        required: true
-      },
-      index: {
-        type: Number,
-        required: false,
-        default: 0
-      },
-      showIndex: {
-        type: Boolean,
-        required: false,
-        default: false
-      }
+  <div class="image-card" :style="{ height: cardHeight }" @click="handleClick">
+    <div v-if="showIndex" class="number-box">{{ index }}</div>
+    <img :src="imageUrl" :alt="'Image ' + index" />
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'ImageCard',
+  props: {
+    imageUrl: {
+      type: String,
+      required: true
     },
-    data() {
-      return {
-        heights: ['315px', '340px', '360px'],
-        cardHeight: '315px'
-      }
+    index: {
+      type: Number,
+      required: false,
+      default: 0
     },
-    mounted() {
-      this.cardHeight = this.heights[Math.floor(Math.random() * this.heights.length)]
+    showIndex: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    postId: {
+      type: Number,
+      required: true
+    }
+  },
+  data() {
+    return {
+      heights: ['315px', '340px', '360px'],
+      cardHeight: '315px'
+    }
+  },
+  mounted() {
+    this.cardHeight = this.heights[Math.floor(Math.random() * this.heights.length)];
+  },
+  methods: {
+    handleClick() {
+      this.$emit('image-clicked', this.postId); // 클릭 시 부모 컴포넌트로 postId 전달
     }
   }
-  </script>
+}
+</script>
   
   <style scoped>
   .image-card {
