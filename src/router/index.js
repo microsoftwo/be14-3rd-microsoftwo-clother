@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+import PostCreateCard from "../views/PostCreateCard.vue/"
 import MyPage from "../views/MyPage.vue";
 import MyPostsView from "../views/MyPostsView.vue";
 import StyleShareCreate from "../views/StyleShareCreate.vue";
@@ -18,6 +19,11 @@ import SignupForm from "../views/SignupForm.vue";
 import StyleShare from "../views/StyleShare.vue";
 
 const routes = [
+  {
+    path: "/post",
+    name: "Posting",
+    component: PostCreateCard,
+  },
   {
     path: "/signup",
     name: "Signup",

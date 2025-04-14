@@ -50,6 +50,9 @@
 
 <script setup>
 import { reactive } from "vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 // 입력 폼 상태
 const form = reactive({
@@ -121,6 +124,7 @@ const login = async () => {
         localStorage.setItem("userProfileImageUrl", data.userProfileImageUrl);
 
         // 성공 시 로직 필요
+        router.push("/");
     } catch (error) {
         console.error("에러 발생:", error.message);
         errors.login = "서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.";

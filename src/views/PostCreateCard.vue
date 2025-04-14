@@ -275,7 +275,7 @@
 
 <script setup>
 import { ref, watch, computed } from 'vue'
-import { LookTags } from '@/constants/lookTag'
+import { LookTags } from '../constants/lookTag'
 
 const selectedImages = ref([])
 const fileInput = ref(null)
