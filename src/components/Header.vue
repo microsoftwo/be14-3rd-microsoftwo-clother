@@ -407,14 +407,6 @@ export default {
       isDropdownOpen.value = false
     }
 
-    const goToLogin = () => {
-      router.push('/login')
-    }
-
-    const closeLogoutModal = () => {
-      showLogoutModal.value = false
-    }
-
     const confirmLogout = () => {
       localStorage.removeItem('accessToken')
       localStorage.removeItem('userNickname')
@@ -426,7 +418,15 @@ export default {
       username.value = ''
       userProfileImage.value = defaultProfileImage
       showLogoutModal.value = false
+      router.push('/')
+    }
+
+    const goToLogin = () => {
       router.push('/login')
+    }
+
+    const closeLogoutModal = () => {
+      showLogoutModal.value = false
     }
 
     onMounted(() => {
