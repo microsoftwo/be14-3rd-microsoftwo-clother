@@ -37,6 +37,13 @@
             <span>또는</span>
             <hr />
         </div>
+        <div class="social-login">
+            <img src="/kakao-icon.png" alt="Kakao" class="icon" />
+
+            <img src="/naver-icon.png" alt="Naver" class="icon" />
+
+            <img src="/google-icon.png" alt="Google" class="icon" />
+        </div>
     </div>
 </template>
 
@@ -117,10 +124,9 @@ const login = async () => {
 
 <style scoped>
 .login-container {
-    width: 300px;
-    margin: 60px auto;
     background-color: #f7f3f2;
-    padding: 32px;
+    margin-top: 100px;
+    padding: 100px 500px 100px 500px;
     border-radius: 16px;
     font-family: sans-serif;
     text-align: center;
@@ -147,7 +153,7 @@ const login = async () => {
 }
 
 .form-group input {
-    width: 95%;
+    width: 88%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 8px;
@@ -205,5 +211,30 @@ const login = async () => {
     background-color: #ccc;
     border: none;
     margin: 0 8px;
+}
+
+/* 여기부터 소셜 로그인*/
+.social-login {
+    display: flex;
+    justify-content: space-around;
+    gap: 12px;
+}
+
+.social-btn {
+    flex: 1;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    color: white;
+}
+
+.icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 8px;
+    vertical-align: middle;
 }
 </style>
