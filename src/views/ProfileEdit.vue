@@ -129,34 +129,19 @@ export default {
     })
 
     onMounted(() => {
-      // localStorage에서 각각의 데이터 불러오기
-      const storedNickname = localStorage.getItem('userNickname')
-      const storedProfileImage = localStorage.getItem('userProfileImageUrl')
-      const storedHeight = localStorage.getItem('userHeight')
-      const storedWeight = localStorage.getItem('userWeight')
-      const storedBio = localStorage.getItem('userBio')
-
-      // 프로필 데이터 설정
-      if (storedNickname || storedProfileImage || storedHeight || storedWeight || storedBio) {
-        profile.value = {
-          username: storedNickname || '',
-          profileImage: storedProfileImage || profileImage,
-          height: storedHeight || '',
-          weight: storedWeight || '',
-          bio: storedBio || ''
-        }
-
+      // 로컬 스토리지에서 프로필 데이터 불러오기
+      const savedProfile = localStorage.getItem('userProfile')
+      if (savedProfile) {
+        const profileData = JSON.parse(savedProfile)
+        profile.value = profileData
         // 폼 데이터에 현재 프로필 데이터 설정
         formData.value = {
-          username: storedNickname || '',
-          bio: storedBio || '',
-          height: storedHeight || '',
-          weight: storedWeight || ''
+          username: profileData.username,
+          bio: profileData.bio,
+          height: profileData.height,
+          weight: profileData.weight
         }
       }
-
-      console.log('Loaded profile:', profile.value)
-      console.log('Loaded form data:', formData.value)
     })
 
     const showConfirmModal = () => {

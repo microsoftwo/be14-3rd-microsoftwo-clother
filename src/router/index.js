@@ -177,13 +177,7 @@ const routes = [
     path: "/posts/:id",
     name: "PostDetail",
     component: PostDetailView,
-    props: true,
-  },
-  {
-    path: "/boards/:id",
-    name: "BoardDetail",
-    component: PostDetailView,
-    props: true,
+    props: true
   },
   {
     path: "/boards/search",
@@ -224,7 +218,7 @@ const routes = [
 
 const router = createRouter({
   history: createWebHistory(),
-  routes,
-});
+  routes
+})
 
-export default router;
+export default router 
