@@ -481,8 +481,16 @@ const searchProducts = async () => {
   if (!searchKeyword.value.trim()) return
   
   try {
-    const response = await fetch(`http://localhost:8081/products/search?keyword=${encodeURIComponent(searchKeyword.value)}`)
+    const headers = getHeaders();
+    const response = await fetch(
+        `http://localhost:8000/core-service/products/search?keyword=${encodeURIComponent(searchKeyword.value)}`,
+        {
+            method: 'GET',
+            headers: headers,
+        }
+    );
     const data = await response.json()
+    
     searchResults.value = data
   } catch (error) {
     console.error('상품 검색 중 오류 발생:', error)
