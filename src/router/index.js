@@ -10,6 +10,8 @@ import CategoryLikesGrid from "../components/CategoryLikesGrid.vue";
 import CategoryNewestGrid from "../components/CategoryNewestGrid.vue";
 import CategoryGrid from "../components/CategoryGrid.vue";
 import { getCategoryId } from '../constants/categoryMap'
+import MyActivity from '../views/MyActivity.vue'
+
 
 const routes = [
   {
@@ -55,6 +57,11 @@ const routes = [
     path: "/style-share/create",
     name: "StyleShareCreate",
     component: StyleShareCreate,
+  },
+  {
+    path: '/myactivity',
+    name: 'MyActivity',
+    component: MyActivity
   },
   {
     path: '/look/:category',

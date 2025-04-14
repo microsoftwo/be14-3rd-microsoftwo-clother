@@ -238,7 +238,7 @@
               </svg>
               <span>회원 정보 수정</span>
             </div>
-            <div class="dropdown-item">
+            <div class="dropdown-item" @click="goToActivityHistory">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12 21.35L10.55 20.03C5.4 15.36 2 12.28 2 8.5C2 5.42 4.42 3 7.5 3C9.24 3 10.91 3.81 12 5.09C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.42 22 8.5C22 12.28 18.6 15.36 13.45 20.04L12 21.35Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
@@ -279,7 +279,7 @@ export default {
     toggleDropdown() {
       this.isDropdownOpen = !this.isDropdownOpen
     },
-    // 프로필 수정 모달 열기
+    // 프로필 수정 페이지로 이동
     editProfile() {
       this.$router.push('/profile/edit')
       this.isDropdownOpen = false
@@ -327,6 +327,10 @@ export default {
       this.showHairMenu = false
       this.showMakeupMenu = false
     },
+    goToActivityHistory() {
+      this.$router.push('/myactivity')
+      this.isDropdownOpen = false
+    },
     closeHairMenu() {
       this.showHairMenu = false
     },
@@ -359,7 +363,9 @@ export default {
   left: 0;
   right: 0;
   z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   height: 80px;                       /* 60px -> 80px 헤더 높이 키우기 */
+
 }
 
 .logo-section {
