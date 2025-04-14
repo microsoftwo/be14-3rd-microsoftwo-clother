@@ -161,10 +161,10 @@ const routes = [
     component: StyleShare,
   },
   {
-    path: "/boards/:id",
-    name: "PostDetailView",
+    path: "/posts/:id",
+    name: "PostDetail",
     component: PostDetailView,
-    props: true, // 컴포넌트에서 props로 id를 받을 수 있음
+    props: true
   },
   {
     path: "/boards/:id/comments",
