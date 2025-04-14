@@ -461,7 +461,6 @@ const handleDrag = (event) => {
   // 부모 요소의 좌표를 기준으로 태그의 새로운 위치를 계산
   tag.x = event.clientX - parentRect.left - dragOffset.value.x;
   tag.y = event.clientY - parentRect.top - dragOffset.value.y;
-  console.log(`Updated tag position: x=${tag.x}, y=${tag.y}`); // 디버깅용
 };
 
 const stopDrag = () => {
@@ -599,8 +598,6 @@ const handleSubmit = async () => {
                 hairTagPositionY: hairTags.value[0].y
             } : null
         };
-
-        console.log(JSON.stringify(requestBody));
 
         // Send POST request
         const response = await fetch('http://localhost:8000/core-service/post', {
