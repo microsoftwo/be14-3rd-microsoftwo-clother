@@ -21,9 +21,10 @@
           >
             메일 전송
           </button>
+          <span v-if="isEmailSent" class="timer">{{ formatTime(remainingTime) }}</span>
         </div>
         <p class="error-message" v-if="errors.email">{{ errors.email }}</p>
-        <p class="success-message" v-if="formData.email && !errors.email && isEmailValid">
+        <p class="success-message" v-if="isEmailSent && !errors.email">
           인증 코드가 이메일로 발송되었습니다
         </p>
       </div>
@@ -59,10 +60,12 @@
           type="password" 
           id="password" 
           v-model="formData.password"
-          :class="{ 'error': errors.password }"
+          @input="validatePassword"
+          :class="{ 'error': errors.password && errors.password !== '사용가능한 비밀번호입니다', 'success': errors.password === '사용가능한 비밀번호입니다' }"
           placeholder="영문, 숫자, 특수문자 포함 8자 이상"
         />
-        <p class="error-message" v-if="errors.password">{{ errors.password }}</p>
+        <p :class="{ 'error-message': errors.password !== '사용가능한 비밀번호입니다', 'success-message': errors.password === '사용가능한 비밀번호입니다' }" 
+           v-if="errors.password">{{ errors.password }}</p>
       </div>
 
       <!-- 닉네임 입력 -->
@@ -100,28 +103,28 @@
         <p class="error-message" v-if="errors.gender">{{ errors.gender }}</p>
       </div>
 
-      <!-- 키 입력 -->
+      <!-- 키 입력 (선택) -->
       <div class="form-group">
-        <label for="height">키</label>
+        <label for="height">키 (선택)</label>
         <input 
           type="number" 
           id="height" 
           v-model="formData.height"
           :class="{ 'error': errors.height }"
-          placeholder="키를 입력해 주세요"
+          placeholder="키"
         />
         <p class="error-message" v-if="errors.height">{{ errors.height }}</p>
       </div>
 
-      <!-- 몸무게 입력 -->
+      <!-- 몸무게 입력 (선택) -->
       <div class="form-group">
-        <label for="weight">몸무게</label>
+        <label for="weight">몸무게 (선택)</label>
         <input 
           type="number" 
           id="weight" 
           v-model="formData.weight"
           :class="{ 'error': errors.weight }"
-          placeholder="몸무게를 입력해 주세요"
+          placeholder="몸무게"
         />
         <p class="error-message" v-if="errors.weight">{{ errors.weight }}</p>
       </div>
@@ -164,7 +167,11 @@ export default {
       isEmailSent: false,
       isEmailVerified: false,
       verificationTimer: null,
-      remainingTime: 300 // 5분
+      remainingTime: 300, // 5분
+      hasLetter: false,
+      hasNumber: false,
+      hasSpecial: false,
+      hasMinLength: false
     }
   },
   computed: {
@@ -173,18 +180,28 @@ export default {
       return emailRegex.test(this.formData.email)
     },
     isFormValid() {
+      // 비밀번호 에러가 '사용가능한 비밀번호입니다'인 경우는 에러로 취급하지 않음
+      const errors = { ...this.errors }
+      if (errors.password === '사용가능한 비밀번호입니다') {
+        delete errors.password
+      }
+
       return (
         this.isEmailVerified &&
         this.formData.password &&
         this.formData.nickname &&
         this.formData.gender &&
-        this.formData.height &&
-        this.formData.weight &&
-        !Object.values(this.errors).some(error => error)
+        !Object.values(errors).some(error => error)
       )
     }
   },
   methods: {
+    formatTime(seconds) {
+      const minutes = Math.floor(seconds / 60)
+      const remainingSeconds = seconds % 60
+      return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`
+    },
+
     validateEmail() {
       if (!this.formData.email) {
         this.errors.email = '이메일을 입력해주세요'
@@ -199,16 +216,23 @@ export default {
     },
 
     validatePassword() {
-      const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/
-      if (!this.formData.password) {
+      const password = this.formData.password
+      const hasLetter = /[A-Za-z]/.test(password)
+      const hasNumber = /\d/.test(password)
+      const hasSpecial = /[@$!%*#?&]/.test(password)
+      const hasMinLength = password.length >= 8
+
+      if (!password) {
         this.errors.password = '비밀번호를 입력해주세요'
         return false
       }
-      if (!passwordRegex.test(this.formData.password)) {
+      
+      if (!(hasLetter && hasNumber && hasSpecial && hasMinLength)) {
         this.errors.password = '비밀번호는 영문, 숫자, 특수문자를 포함하여 8자 이상으로 입력해주세요'
         return false
       }
-      this.errors.password = ''
+      
+      this.errors.password = '사용가능한 비밀번호입니다'
       return true
     },
 
@@ -228,8 +252,7 @@ export default {
 
     validateHeight() {
       if (!this.formData.height) {
-        this.errors.height = '키를 입력해주세요'
-        return false
+        return true // 선택 입력이므로 비어있어도 true 반환
       }
       const height = Number(this.formData.height)
       if (isNaN(height) || height < 100 || height > 250) {
@@ -242,8 +265,7 @@ export default {
 
     validateWeight() {
       if (!this.formData.weight) {
-        this.errors.weight = '몸무게를 입력해주세요'
-        return false
+        return true // 선택 입력이므로 비어있어도 true 반환
       }
       const weight = Number(this.formData.weight)
       if (isNaN(weight) || weight < 30 || weight > 200) {
@@ -263,6 +285,7 @@ export default {
         this.startVerificationTimer()
       } catch (error) {
         this.errors.email = '이메일 전송에 실패했습니다'
+        this.isEmailSent = false
       }
     },
 
@@ -322,8 +345,8 @@ export default {
         isValid = false
       }
 
-      if (!this.validateHeight()) isValid = false
-      if (!this.validateWeight()) isValid = false
+      if (this.formData.height && !this.validateHeight()) isValid = false
+      if (this.formData.weight && !this.validateWeight()) isValid = false
 
       return isValid
     },
@@ -382,7 +405,8 @@ export default {
 
 .input-with-button {
   display: flex;
-  gap: 0.5rem;
+  align-items: center;
+  gap: 8px;
 }
 
 .input-with-button input {
@@ -391,6 +415,7 @@ export default {
 
 input {
   width: 100%;
+  height: 45px;  /* 모든 입력창 높이 통일 */
   padding: 0.75rem;
   border: 1px solid #ddd;
   border-radius: 4px;
@@ -407,12 +432,16 @@ input:focus {
 }
 
 .verify-button {
+  height: 45px;  /* 이메일 입력창과 동일한 높이 */
   padding: 0 1rem;
   background-color: #f5f5f5;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .verify-button:disabled {
@@ -478,5 +507,20 @@ input[type="number"]::-webkit-outer-spin-button {
 
 input[type="number"] {
   -moz-appearance: textfield;
+}
+
+.timer {
+  height: 45px;  /* 이메일 입력창과 동일한 높이 */
+  margin-left: 8px;
+  font-size: 0.9em;
+  color: #ff4444;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Remove password validation styles */
+.password-validation {
+  display: none;
 }
 </style> 
