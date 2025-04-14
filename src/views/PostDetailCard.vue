@@ -186,12 +186,15 @@
                     >
                         <!-- Comment input -->
                         <div class="comment-input">
-                            <div
-                                v-if="!postData.userProfileImageUrl"
-                                class="default-profile"
-                            >
+                            <div v-if="!myProfileImage" class="default-profile">
                                 <i class="fas fa-user"></i>
                             </div>
+                            <img
+                                v-else
+                                :src="myProfileImage"
+                                alt="내 프로필"
+                                class="comment-profile-image"
+                            />
                             <div class="comment-form">
                                 <input
                                     v-model="newComment"
@@ -217,7 +220,10 @@
                                 :key="comment.id"
                                 class="comment-item"
                             >
-                                <div v-if="!comment.profileImage" class="default-profile">
+                                <div
+                                    v-if="!comment.profileImage"
+                                    class="default-profile"
+                                >
                                     <i class="fas fa-user"></i>
                                 </div>
                                 <img
@@ -381,6 +387,8 @@ const comments = ref([
     },
 ]);
 const newComment = ref("");
+const myNickname = ref(localStorage.getItem("userNickname") || "알 수 없음");
+const myProfileImage = ref(localStorage.getItem("userProfileImageUrl") || null);
 
 const getHeaders = () => {
     const token = localStorage.getItem("accessToken");
@@ -480,8 +488,8 @@ const addComment = () => {
 
     const comment = {
         id: Date.now(),
-        username: postData.value.userNickname,
-        profileImage: postData.value.userProfileImageUrl,
+        username: myNickname.value,
+        profileImage: myProfileImage.value,
         text: newComment.value,
         time: "방금 전",
     };
