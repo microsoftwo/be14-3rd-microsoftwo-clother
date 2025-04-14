@@ -113,35 +113,34 @@ export default {
 
     // 로컬 스토리지에서 프로필 데이터 불러오기
     const profile = ref({
-      username: 'michalamet',
-      bio: '귀여운게 최고야',
-      height: '165',
-      weight: '45',
-      profileImage: profileImage
+      username: localStorage.getItem('userNickname') || 'michalamet',
+      bio: localStorage.getItem('userBio') || '귀여운게 최고야',
+      height: localStorage.getItem('userHeight') || '165',
+      weight: localStorage.getItem('userWeight') || '45',
+      profileImage: localStorage.getItem('userProfileImageUrl') || profileImage
     })
 
     // 폼 데이터 초기화
     const formData = ref({
-      username: '',
-      bio: '',
-      height: '',
-      weight: ''
+      username: profile.value.username,
+      bio: profile.value.bio,
+      height: profile.value.height,
+      weight: profile.value.weight
     })
 
     onMounted(() => {
       // 로컬 스토리지에서 프로필 데이터 불러오기
-      const savedProfile = localStorage.getItem('userProfile')
-      if (savedProfile) {
-        const profileData = JSON.parse(savedProfile)
-        profile.value = profileData
-        // 폼 데이터에 현재 프로필 데이터 설정
-        formData.value = {
-          username: profileData.username,
-          bio: profileData.bio,
-          height: profileData.height,
-          weight: profileData.weight
-        }
-      }
+      const storedNickname = localStorage.getItem('userNickname')
+      const storedBio = localStorage.getItem('userBio')
+      const storedHeight = localStorage.getItem('userHeight')
+      const storedWeight = localStorage.getItem('userWeight')
+      const storedProfileImage = localStorage.getItem('userProfileImageUrl')
+
+      if (storedNickname) formData.value.username = storedNickname
+      if (storedBio) formData.value.bio = storedBio
+      if (storedHeight) formData.value.height = storedHeight
+      if (storedWeight) formData.value.weight = storedWeight
+      if (storedProfileImage) profile.value.profileImage = storedProfileImage
     })
 
     const showConfirmModal = () => {

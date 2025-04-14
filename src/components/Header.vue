@@ -358,12 +358,12 @@ export default {
     }
 
     const editProfile = () => {
-      router.push('/profile/edit')
+      router.push({ name: 'ProfileEdit' })
       isDropdownOpen.value = false
     }
 
     const goToMyProfile = () => {
-      router.push('/mypage')
+      router.push({ name: 'MyPage' })
       isDropdownOpen.value = false
     }
 

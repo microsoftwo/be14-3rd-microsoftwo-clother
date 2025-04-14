@@ -46,14 +46,20 @@ const routes = [
   },
   {
     path: "/mypage",
+    name: "MyPage",
+    component: MyPage
+  },
+  {
+    path: "/login",
+    name: "Login",
+    component: LoginForm,
+  },
+  {
+    path: "/likes",
     component: MainPage,
     children: [
       {
-        path: "/",
-        redirect: "/likes",
-      },
-      {
-        path: "likes",
+        path: "",
         name: "Likes",
         component: LikesGrid,
       },
@@ -63,11 +69,6 @@ const routes = [
         component: NewestGrid,
       },
     ],
-  },
-  {
-    path: "/login",
-    name: "Login",
-    component: LoginForm,
   },
   {
     path: "/look/:category",
@@ -152,11 +153,6 @@ const routes = [
     name: "Category",
     component: CategoryGrid,
     props: true,
-  },
-  {
-    path: "/mypage",
-    name: "MyPage",
-    component: MyPage,
   },
   {
     path: "/posts",
