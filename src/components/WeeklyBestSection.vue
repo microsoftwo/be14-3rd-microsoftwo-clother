@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="header-section">
-      <h2 class="section-title">WEEKLY BEST TOP 6</h2>
+      <h2 class="section-title" style="color: black">WEEKLY BEST TOP 6</h2>
       <button class="post-button">POST</button>
     </div>
     <!-- 부모가 넘겨준 posts 데이터 전달 -->
