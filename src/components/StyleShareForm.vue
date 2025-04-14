@@ -7,7 +7,7 @@
       <button class="submit-btn" @click="handleSubmit" :disabled="!isFormValid">등록</button>
     </div>
 
-    <div class="main-content">
+    <div class="form-container">
       <div class="upload-section">
         <div class="image-upload" 
              @click="$refs.fileInput.click()"
@@ -265,45 +265,108 @@ export default {
   cursor: not-allowed;
 }
 
-.main-content {
+.form-container {
   display: flex;
-  gap: 1rem;
-  padding: 1.5rem;
+  gap: 24px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .upload-section {
-  width: 50%;
-  flex-shrink: 0;
+  flex: 1;
+  min-width: 400px;
+}
+
+.input-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .image-upload {
   width: 100%;
-  border: 2px dashed #eee;
+  border: 2px dashed #ddd;
   border-radius: 8px;
   cursor: pointer;
   margin-bottom: 1rem;
-  background-color: #f8f8f8;
+  background-color: #fff;
   display: flex;
   flex-direction: column;
 }
 
 .image-upload.drag-over {
-  border-color: #666;
+  border-color: #1976d2;
   background-color: #f0f0f0;
 }
 
 .upload-area {
   width: 100%;
   height: 400px;
+  border: 2px dashed #ddd;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+  position: relative;
+  background-color: #fff;
 }
 
-.plus-icon {
-  font-size: 2rem;
+.upload-area:hover {
+  border-color: #1976d2;
+}
+
+.upload-icon {
+  font-size: 48px;
   color: #666;
-  font-weight: 300;
+}
+
+.preview-image {
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+}
+
+.preview-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.title-input, .content-input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.content-input {
+  min-height: 300px;
+  resize: vertical;
+}
+
+.submit-button {
+  padding: 12px 24px;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  align-self: flex-end;
+}
+
+.submit-button:hover {
+  background-color: #1565c0;
+}
+
+.submit-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }
 
 .upload-text {
@@ -318,37 +381,8 @@ export default {
   border-bottom-right-radius: 8px;
 }
 
-.input-section {
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.title-input {
-  width: 100%;
-  padding: 1rem;
-  border: none;
-  font-size: 1rem;
-  background-color: #f8f8f8;
-  border-radius: 8px;
-}
-
-.content-input {
-  width: 100%;
-  flex: 1;
-  min-height: 400px;
-  padding: 1rem;
-  border: none;
-  font-size: 1rem;
-  resize: none;
-  background-color: #f8f8f8;
-  border-radius: 8px;
-}
-
-.title-input:focus,
-.content-input:focus {
-  outline: none;
+.file-input {
+  display: none;
 }
 
 .thumbnail-container {
@@ -403,10 +437,6 @@ export default {
   font-size: 1rem;
 }
 
-.file-input {
-  display: none;
-}
-
 /* Hide scrollbar for Chrome, Safari and Opera */
 .thumbnail-container::-webkit-scrollbar {
   display: none;
@@ -418,18 +448,9 @@ export default {
   scrollbar-width: none;  /* Firefox */
 }
 
-.preview-image {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.preview-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+.plus-icon {
+  font-size: 2rem;
+  color: #666;
+  font-weight: 300;
 }
 </style>

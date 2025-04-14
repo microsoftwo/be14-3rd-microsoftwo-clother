@@ -2,7 +2,7 @@
   <div class="container">
     <div class="header-section">
       <h2 class="section-title" style="color: black">WEEKLY BEST TOP 6</h2>
-      <button class="post-button">POST</button>
+      <button class="post-button" @click="goToCreatePost">POST</button>
     </div>
     <!-- 부모가 넘겨준 posts 데이터 전달 -->
     <style-grid :posts="posts" layout="weekly"></style-grid>
@@ -11,7 +11,10 @@
 
 <script setup>
 import { defineProps } from "vue"; // defineProps → 부모가 넘겨준 데이터 받기
+import { useRouter } from "vue-router";
 import StyleGrid from "./StyleGrid.vue"; // StyleGrid → 재사용 가능한 컴포넌트
+
+const router = useRouter();
 
 defineProps({
   posts: {
@@ -19,6 +22,10 @@ defineProps({
     required: true,
   },
 });
+
+const goToCreatePost = () => {
+  router.push('/style-share/create');
+};
 </script>
 
 <style scoped>
