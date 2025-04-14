@@ -78,7 +78,7 @@
         }
       },
       navigateToPostDetail(postId) {
-      this.$router.push({ name: 'PostDetail', params: { postId } }); // 라우터로 이동
+      this.$router.push(`/post-detail/${postId}`); // 라우터로 이동
     }
     },
     created() {

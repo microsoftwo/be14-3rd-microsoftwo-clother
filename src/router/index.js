@@ -25,7 +25,7 @@ import SearchResultsView from "../views/SearchResultsView.vue";
 const routes = [
   {
     path: "/post-detail/:postId",
-    name: "PostDetail",
+    name: "post-detail",
     component: PostDetailCard,
     props: true,
   },
