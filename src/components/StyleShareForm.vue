@@ -184,7 +184,9 @@ export default {
         })
 
         if (response.status === 200 || response.status === 201) {
-          this.$router.push('/styleshare')
+          // 생성된 게시글의 상세 페이지로 이동
+          const boardId = response.data.id
+          this.$router.push(`/style-share/${boardId}`)
         } else {
           throw new Error('게시글 등록에 실패했습니다.')
         }
