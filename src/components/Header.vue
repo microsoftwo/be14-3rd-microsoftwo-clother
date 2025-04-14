@@ -17,7 +17,8 @@
             <path d="M6 9L12 15L18 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
-        <div class="nav-dropdown-content" v-show="showHairMenu">
+        <div class="nav-dropdown-content" v-show="showHairMenu"></div>
+        <div class="nav-dropdown-content" v-show="showHairMenu" @click="closeHairMenu">
           <div class="nav-categories">
             <div class="category-column">
               <h3>염색</h3>
@@ -50,7 +51,7 @@
             <path d="M6 9L12 15L18 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
-        <div class="nav-dropdown-content" v-show="showMakeupMenu">
+        <div class="nav-dropdown-content" v-show="showMakeupMenu" @click="closeMakeupMenu">
           <div class="nav-categories">
             <div class="category-column">
               <h3>베이스</h3>
@@ -115,7 +116,7 @@
             <path d="M6 9L12 15L18 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
-        <div class="look-dropdown-content" v-show="showLookMenu">
+        <div class="look-dropdown-content" v-show="showLookMenu" @click="closeLookMenu">
           <div class="look-categories">
             <div class="category-column">
               <h3>아우터</h3>
@@ -329,6 +330,15 @@ export default {
     goToActivityHistory() {
       this.$router.push('/myactivity')
       this.isDropdownOpen = false
+    },
+    closeHairMenu() {
+      this.showHairMenu = false
+    },
+    closeMakeupMenu() {
+      this.showMakeupMenu = false
+    },
+    closeLookMenu() {
+      this.showLookMenu = false
     }
   },
   mounted() {
@@ -353,8 +363,9 @@ export default {
   left: 0;
   right: 0;
   z-index: 1000;
-  height: 60px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  height: 80px;                       /* 60px -> 80px 헤더 높이 키우기 */
+
 }
 
 .logo-section {
@@ -363,7 +374,7 @@ export default {
 }
 
 .logo {
-  font-size: 1.8rem;
+  font-size: 2rem;                  /* 1.8rem -> 2rem 로고 크기 키우기 */
   font-family: 'Abril Fatface', cursive;
   color: white;
   text-decoration: none;
@@ -382,7 +393,7 @@ export default {
 .nav-links a {
   color: white;
   text-decoration: none;
-  font-size: 0.9rem;
+  font-size: 1rem;                    /* 상단 카테고리(HAIR, MAKEUP ...) 0.9 -> 1rem */
   white-space: nowrap;
   transition: color 0.2s ease;
 }
@@ -462,15 +473,15 @@ export default {
 }
 
 .profile-image {
-  width: 20px;
-  height: 20px;
+  width: 33px;      /* 20px 이였는데 작아서 33px 으로 변경 */
+  height: 33px;
   border-radius: 50%;
   object-fit: cover;
 }
 
 .username {
   color: white;
-  font-size: 0.8rem;
+  font-size: 1rem;    /* 0.8rem -> 1으로 변경 */
 }
 
 .dropdown-icon {
