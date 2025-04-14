@@ -4,6 +4,7 @@ import MyPostsView from "../views/MyPostsView.vue";
 import StyleShareCreate from "../views/StyleShareCreate.vue";
 import ProfileEdit from "../views/ProfileEdit.vue";
 import MainPage from "../views/MainPage.vue";
+import SignupForm from "../components/SignupForm.vue";
 import LikesGrid from "../components/LikesGrid.vue";
 import NewestGrid from "../components/NewestGrid.vue";
 import CategoryLikesGrid from "../components/CategoryLikesGrid.vue";
@@ -16,13 +17,18 @@ import PrivacyPolicy from '../views/PrivacyPolicy.vue'
 
 const routes = [
   {
-    path: '/',
-    redirect: '/likes'
+    path: '/signup',
+    name: 'Signup',
+    component: SignupForm
   },
   {
     path: '/',
     component: MainPage,
     children: [
+      {
+        path: '',
+        redirect: 'likes'
+      },
       {
         path: 'likes',
         name: 'Likes',

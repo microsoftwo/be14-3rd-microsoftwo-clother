@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import StyleShareForm from '../components/style-share/StyleShareForm.vue'
+import StyleShareForm from '../components/StyleShareForm.vue'
 
 export default {
   name: 'StyleShareCreate',
