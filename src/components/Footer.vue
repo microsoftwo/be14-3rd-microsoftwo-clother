@@ -9,8 +9,8 @@
       <div class="footer-logo">clother</div>
       <!-- 링크 섹션 -->
       <div class="footer-links">
-        <span>개인정보 처리방침</span>
-        <span>이용약관</span>
+        <router-link to="/privacy-policy" class="footer-link">개인정보 처리방침</router-link>
+        <router-link to="/terms" class="footer-link">이용약관</router-link>
       </div>
       <!-- 회사 소개 섹션 -->
       <div class="footer-info">
@@ -51,39 +51,52 @@ export default {
   font-family: 'Abril Fatface', cursive;
   font-size: 1.5rem;
   font-weight: bold;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .footer-links {
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
-.footer-links span {
-  margin-right: 1rem;
+.footer-link {
+  margin-right: 1.5rem;
   cursor: pointer;
+  font-size: 0.9rem;
+  color: #ccc;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-link:hover {
+  color: #F05EC9;
 }
 
 .footer-info {
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   font-family: 'Adamina', serif;
+  color: #ccc;
 }
 
 .footer-info p {
-  margin: 0.2rem 0;
+  margin: 0.3rem 0;
+  font-size: 0.9rem;
 }
 
-.footer-contact p {
-  margin: 0.2rem 0;
-  font-size: 0.9rem;
+.footer-contact {
   color: #888;
 }
 
+.footer-contact p {
+  margin: 0.3rem 0;
+  font-size: 0.85rem;
+}
+
 .footer-contact-email {
-    font-family: 'Adamina', serif;
+  font-family: 'Adamina', serif;
 }
     
 .footer-contact-copyright {
-    font-family: 'Adamina', serif;
+  font-family: 'Adamina', serif;
+  margin-top: 1rem !important;
 }
-
 </style>
