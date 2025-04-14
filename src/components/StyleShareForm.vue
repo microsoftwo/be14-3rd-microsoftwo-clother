@@ -6,28 +6,37 @@
       </button>
       <button class="submit-btn" @click="handleSubmit" :disabled="!isFormValid">등록</button>
     </div>
-    
-    <div class="upload-section">
-      <div class="image-upload" 
-           @dragover.prevent 
-           @drop.prevent="handleDrop"
-           :class="{ 'drag-over': isDragging }">
-        <div class="main-image">
-          <div v-if="uploadedImages.length > 0" class="selected-image">
-            <img :src="uploadedImages[selectedImageIndex].url" :alt="'Selected image'" />
-            <button class="remove-image" @click.stop="removeImage(selectedImageIndex)">×</button>
+
+    <div class="main-content">
+      <div class="upload-section">
+        <div class="image-upload" 
+             @click="$refs.fileInput.click()"
+             @dragover.prevent="isDragging = true"
+             @dragleave.prevent="isDragging = false"
+             @drop.prevent="handleDrop"
+             :class="{ 'drag-over': isDragging }">
+          <div class="upload-area">
+            <div v-if="uploadedImages.length > 0" class="preview-image">
+              <img :src="uploadedImages[0].previewUrl" />
+            </div>
+            <span v-else class="plus-icon">+</span>
           </div>
-          <div v-else class="upload-placeholder">
-            <span class="upload-icon">+</span>
-          </div>
+          <div class="upload-text">사진은 최대 5장까지 등록 가능합니다</div>
+          <input 
+            type="file" 
+            accept="image/*" 
+            multiple 
+            class="file-input"
+            @change="handleFileSelect"
+            ref="fileInput" 
+          />
         </div>
-        
+
         <div v-if="uploadedImages.length > 0" class="thumbnail-container">
-          <div v-for="(image, index) in uploadedImages.filter((_, i) => i !== selectedImageIndex)" 
+          <div v-for="(image, index) in uploadedImages" 
                :key="index" 
-               class="thumbnail"
-               @click="selectImage(index)">
-            <img :src="image.url" :alt="'Thumbnail ' + (index + 1)" />
+               class="thumbnail">
+            <img :src="image.previewUrl" />
             <button class="remove-image" @click.stop="removeImage(index)">×</button>
           </div>
           <div v-if="uploadedImages.length < 5" 
@@ -36,23 +45,8 @@
             <span class="plus-icon">+</span>
           </div>
         </div>
-        
-        <div class="upload-text">
-          {{ uploadedImages.length > 0 
-             ? `${uploadedImages.length}/5 이미지 업로드됨` 
-             : '사진은 최대 5장까지 등록 가능합니다' }}
-        </div>
-        
-        <input 
-          type="file" 
-          accept="image/*" 
-          multiple 
-          class="file-input"
-          @change="handleFileSelect"
-          ref="fileInput" 
-        />
       </div>
-      
+
       <div class="input-section">
         <input 
           type="text" 
@@ -77,16 +71,15 @@ export default {
     return {
       title: '',
       content: '',
-      uploadedImages: [],
+      uploadedImages: [], // { file, previewUrl }
       isDragging: false,
-      isSubmitting: false,
-      selectedImageIndex: 0
+      isSubmitting: false
     }
   },
   computed: {
     isFormValid() {
-      return this.title.trim() && 
-             this.content.trim() && 
+      return this.title.trim() &&
+             this.content.trim() &&
              this.uploadedImages.length > 0 &&
              !this.isSubmitting
     }
@@ -98,6 +91,7 @@ export default {
 
     handleFileSelect(event) {
       this.addFiles(Array.from(event.target.files))
+      event.target.value = '' // Reset file input
     },
 
     handleDrop(event) {
@@ -109,75 +103,49 @@ export default {
     addFiles(files) {
       const imageFiles = files.filter(file => file.type.startsWith('image/'))
       const remainingSlots = 5 - this.uploadedImages.length
-
-      if (remainingSlots <= 0) {
-        alert('최대 5장까지만 업로드할 수 있습니다.')
-        return
-      }
-
       const filesToAdd = imageFiles.slice(0, remainingSlots)
 
       filesToAdd.forEach(file => {
         const reader = new FileReader()
         reader.onload = (e) => {
           this.uploadedImages.push({
-            file: file,
-            url: e.target.result
+            file,
+            previewUrl: e.target.result
           })
         }
         reader.readAsDataURL(file)
       })
     },
 
-    selectImage(index) {
-      this.selectedImageIndex = index
-    },
-    
     removeImage(index) {
-      this.uploadedImages = this.uploadedImages.filter((_, i) => i !== index)
-      
-      if (this.uploadedImages.length === 0) {
-        if (this.$refs.fileInput) {
-          this.$refs.fileInput.value = ''
-        }
-        this.selectedImageIndex = 0
-      } else if (index <= this.selectedImageIndex && this.selectedImageIndex > 0) {
-        this.selectedImageIndex--
-      }
+      this.uploadedImages.splice(index, 1)
     },
 
     async handleSubmit() {
       if (!this.isFormValid) return
-
       this.isSubmitting = true
 
       try {
         const formData = new FormData()
         formData.append('title', this.title)
         formData.append('content', this.content)
-        this.uploadedImages.forEach((image, index) => {
-          formData.append(`image${index}`, image.file)
+        this.uploadedImages.forEach((img, index) => {
+          formData.append(`images`, img.file)
         })
 
-        // API 호출은 Vuex action으로 이동
-        await this.$store.dispatch('styleshare/createPost', formData)
-        
-        this.resetForm()
-        this.$router.push('/style-share') // 스타일 쉐어 목록 페이지로 이동
+        await this.$axios.post('/boards/board', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`
+          }
+        })
+
+        this.$router.push('/styleshare')
       } catch (error) {
-        console.error('Error submitting form:', error)
-        alert('업로드 중 오류가 발생했습니다. 다시 시도해주세요.')
+        console.error('게시글 등록 실패:', error)
+        alert('게시글 등록에 실패했습니다.')
       } finally {
         this.isSubmitting = false
-      }
-    },
-
-    resetForm() {
-      this.title = ''
-      this.content = ''
-      this.uploadedImages = []
-      if (this.$refs.fileInput) {
-        this.$refs.fileInput.value = ''
       }
     }
   }
@@ -186,239 +154,215 @@ export default {
 
 <style scoped>
 .content-container {
-  max-width: 1200px;
-  margin: 0 auto;
+  width: 100%;
+  min-height: 100vh;
   background-color: #fff;
-  border-radius: 20px;
-  padding: 2rem;
-  position: relative;
 }
 
 .header-section {
+  position: sticky;
+  top: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
+  padding: 2rem 1rem;
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
+  z-index: 100;
 }
 
 .back-button {
   background: none;
   border: none;
-  font-size: 2.5rem;
+  font-size: 1.5rem;
   cursor: pointer;
-  color: #666;
-  padding: 0;
-  display: flex;
-  align-items: center;
+  padding: 0.5rem;
+  color: #333;
 }
 
 .back-arrow {
-  line-height: 1;
+  font-size: 1.8rem;
 }
 
 .submit-btn {
-  padding: 0.5rem 1.5rem;
-  background-color: #e9e9e9;
-  color: #000;
+  background: none;
   border: none;
-  border-radius: 20px;
+  font-size: 1rem;
   cursor: pointer;
-  font-size: 0.9rem;
+  color: #333;
+  padding: 0.5rem 1rem;
 }
 
 .submit-btn:disabled {
-  opacity: 0.5;
+  color: #ccc;
   cursor: not-allowed;
 }
 
-.upload-section {
+.main-content {
   display: flex;
-  gap: 2rem;
+  gap: 1rem;
+  padding: 1.5rem;
+}
+
+.upload-section {
+  width: 50%;
+  flex-shrink: 0;
 }
 
 .image-upload {
-  flex: 1;
-  aspect-ratio: 1;
+  width: 100%;
+  border: 2px dashed #eee;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 1rem;
   background-color: #f8f8f8;
-  border-radius: 20px;
   display: flex;
   flex-direction: column;
-  position: relative;
-  padding: 1rem;
 }
 
-.main-image {
-  width: 100%;
-  aspect-ratio: 1;
-  margin-bottom: 1rem;
-  border-radius: 20px;
-  overflow: visible;
-  background-color: #f8f8f8;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
+.image-upload.drag-over {
+  border-color: #666;
+  background-color: #f0f0f0;
 }
 
-.selected-image {
+.upload-area {
   width: 100%;
-  height: 100%;
-  position: relative;
-}
-
-.selected-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 20px;
-}
-
-.upload-placeholder {
-  width: 100%;
-  height: 100%;
+  height: 400px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.upload-icon {
-  font-size: 3rem;
-  color: #ccc;
+.plus-icon {
+  font-size: 2rem;
+  color: #666;
+  font-weight: 300;
 }
 
 .upload-text {
-  text-align: center;
-  color: #999;
-  font-size: 0.9rem;
-  padding: 0.5rem;
-  background-color: #f8f8f8;
-  border-radius: 10px;
-  margin-top: auto;
-}
-
-.file-input {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
-  height: 100%;
-  opacity: 0;
-  cursor: pointer;
+  padding: 0.75rem;
+  color: #666;
+  font-size: 0.9rem;
+  text-align: left;
+  border-top: 1px solid #eee;
+  background-color: white;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
 }
 
 .input-section {
-  flex: 1;
+  width: 50%;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.5rem;
 }
 
 .title-input {
+  width: 100%;
   padding: 1rem;
   border: none;
-  border-radius: 10px;
   font-size: 1rem;
-  background-color: #f5f5f5;
-  color: #333;
+  background-color: #f8f8f8;
+  border-radius: 8px;
 }
 
 .content-input {
+  width: 100%;
+  flex: 1;
+  min-height: 400px;
   padding: 1rem;
   border: none;
-  border-radius: 10px;
-  height: 300px;
-  resize: none;
   font-size: 1rem;
-  background-color: #f5f5f5;
-  color: #333;
+  resize: none;
+  background-color: #f8f8f8;
+  border-radius: 8px;
 }
 
-.title-input::placeholder,
-.content-input::placeholder {
-  color: #999;
-}
-
-.drag-over {
-  border: 2px dashed #666 !important;
-  background-color: #f0f0f0 !important;
+.title-input:focus,
+.content-input:focus {
+  outline: none;
 }
 
 .thumbnail-container {
   display: flex;
-  gap: 10px;
-  padding: 10px 0;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
   overflow-x: auto;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-.thumbnail-container::-webkit-scrollbar {
-  display: none;
+  padding-bottom: 0.5rem;
 }
 
 .thumbnail {
-  flex: 0 0 80px;
   width: 80px;
   height: 80px;
-  border-radius: 10px;
-  overflow: visible;
   position: relative;
-  cursor: pointer;
-  border: 2px solid transparent;
-}
-
-.thumbnail.selected {
-  border-color: #000;
+  flex-shrink: 0;
 }
 
 .thumbnail img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 10px;
+  border-radius: 4px;
 }
 
 .add-more-images {
-  flex: 0 0 80px;
   width: 80px;
   height: 80px;
-  border-radius: 10px;
-  background-color: #f8f8f8;
+  border: 2px dashed #eee;
+  border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-}
-
-.plus-icon {
-  font-size: 2rem;
-  color: #ccc;
+  flex-shrink: 0;
+  background-color: #f8f8f8;
 }
 
 .remove-image {
   position: absolute;
-  top: -12px;
-  right: -12px;
-  width: 28px;
-  height: 28px;
+  top: -8px;
+  right: -8px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
-  background-color: #ff4444;
+  background-color: rgba(0, 0, 0, 0.5);
   color: white;
   border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
-  z-index: 10;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-  padding: 0;
-  line-height: 1;
+  font-size: 1rem;
 }
 
-.remove-image:hover {
-  background-color: #ff0000;
-  transform: scale(1.1);
-  transition: all 0.2s ease;
+.file-input {
+  display: none;
 }
-</style> 
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.thumbnail-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.thumbnail-container {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.preview-image {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.preview-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+</style>
