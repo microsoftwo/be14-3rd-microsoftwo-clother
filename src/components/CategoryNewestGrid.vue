@@ -5,6 +5,8 @@
           v-if="post && post.thumbnailUrl"
           :imageUrl="post.thumbnailUrl"
           :showIndex="false"
+          :postId="post.id"
+          @image-clicked="navigateToPostDetail"
         />
       </template>
       <div v-if="loading" class="loading">Loading...</div>
@@ -75,7 +77,10 @@
         if (scrollPosition >= scrollThreshold && !this.loading) {
           this.fetchPosts();
         }
-      }
+      },
+      navigateToPostDetail(postId) {
+      this.$router.push(`/post-detail/${postId}`); // 라우터로 이동
+    }
     },
     created() {
       this.fetchPosts();
