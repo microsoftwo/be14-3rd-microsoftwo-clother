@@ -82,12 +82,14 @@ body {
 
 <style scoped>
 .privacy-policy {
-  width: 100%;
-  min-height: 100%;
-  margin: -20px;
-  padding: 60px 20px;
+  min-height: 100vh;
   background-color: black;
-  color: rgb(0, 0, 0);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  padding-top: 80px;
 }
 
 .policy-container {

@@ -209,7 +209,8 @@
           </svg>
         </button>
       </div>
-      <div class="profile-container" @click="toggleDropdown" ref="profileContainer">
+      <!-- 로그인된 경우 프로필 표시 -->
+      <div v-if="isLoggedIn" class="profile-container" @click="toggleDropdown" ref="profileContainer">
         <div class="profile-section">
           <img :src="userProfileImage" alt="Profile" class="profile-image" />
           <span class="username">{{ username }}</span>
@@ -244,15 +245,30 @@
               </svg>
               <span>나의 활동 기록</span>
             </div>
-            <div class="dropdown-item">
+            <div class="dropdown-item" @click="logout">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M9 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 <path d="M16 17L21 12L16 7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M21 12H9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
               <span>로그아웃</span>
             </div>
           </div>
+        </div>
+      </div>
+      <!-- 로그인되지 않은 경우 로그인 버튼 표시 -->
+      <div v-else class="login-button" @click="goToLogin">
+        <img :src="defaultProfileImageUrl" alt="Default Profile" class="default-profile-image" />
+        <span>로그인이 필요합니다</span>
+      </div>
+    </div>
+    <!-- 로그아웃 확인 모달 -->
+    <div v-if="showLogoutModal" class="logout-modal-overlay">
+      <div class="logout-modal">
+        <h3>로그아웃</h3>
+        <p>정말 로그아웃 하시겠습니까?</p>
+        <div class="modal-buttons">
+          <button class="cancel-btn" @click="closeLogoutModal">취소</button>
+          <button class="confirm-btn" @click="confirmLogout">확인</button>
         </div>
       </div>
     </div>
@@ -260,92 +276,170 @@
 </template>
 
 <script>
-import profileImage from '../icons/profile-mando.JPG'
+import { ref, onMounted, onUnmounted } from 'vue'
+import { useRouter } from 'vue-router'
+import profileImage from '../icons/profile-mando.jpg'
+import defaultProfileImage from '../icons/profile-default.png'
 
 export default {
   name: 'Header',
-  data() {
-    return {
-      username: 'michalamet',
-      userProfileImage: profileImage,
-      isDropdownOpen: false,
-      showLookMenu: false,
-      showHairMenu: false,
-      showMakeupMenu: false
+  setup() {
+    const router = useRouter()
+    const username = ref('michalamet')
+    const userProfileImage = ref(profileImage)
+    const defaultProfileImageUrl = ref(defaultProfileImage)
+    const isDropdownOpen = ref(false)
+    const showLookMenu = ref(false)
+    const showHairMenu = ref(false)
+    const showMakeupMenu = ref(false)
+    const isLoggedIn = ref(true)
+    const showLogoutModal = ref(false)
+
+    // 로컬 스토리지에서 프로필 데이터 불러오기
+    const loadProfileData = () => {
+      const savedProfile = localStorage.getItem('userProfile')
+      if (savedProfile) {
+        const profileData = JSON.parse(savedProfile)
+        username.value = profileData.username
+        userProfileImage.value = profileData.profileImage
+      }
     }
-  },
-  methods: {
-    // 드롭다운 메뉴 토글
-    toggleDropdown() {
-      this.isDropdownOpen = !this.isDropdownOpen
-    },
-    // 프로필 수정 페이지로 이동
-    editProfile() {
-      this.$router.push('/profile/edit')
-      this.isDropdownOpen = false
-    },
-    // 내 프로필 페이지로 이동
-    goToMyProfile() {
-      this.$router.push('/mypage')
-      this.isDropdownOpen = false
-    },
-    // 드롭다운 외부 클릭 시 닫기
-    handleClickOutside(event) {
+
+    onMounted(() => {
+      loadProfileData()
+      // 프로필 데이터 변경을 감지하기 위한 이벤트 리스너 추가
+      window.addEventListener('profileUpdated', (event) => {
+        const profileData = event.detail
+        username.value = profileData.username
+        userProfileImage.value = profileData.profileImage
+      })
+      document.addEventListener('click', handleClickOutside)
+    })
+
+    // 컴포넌트가 언마운트될 때 이벤트 리스너 제거
+    onUnmounted(() => {
+      window.removeEventListener('profileUpdated', loadProfileData)
+      document.removeEventListener('click', handleClickOutside)
+    })
+
+    const toggleDropdown = () => {
+      isDropdownOpen.value = !isDropdownOpen.value
+    }
+
+    const editProfile = () => {
+      router.push('/profile/edit')
+      isDropdownOpen.value = false
+    }
+
+    const goToMyProfile = () => {
+      router.push('/mypage')
+      isDropdownOpen.value = false
+    }
+
+    const handleClickOutside = (event) => {
       const lookDropdown = document.querySelector('.look-dropdown')
       const hairDropdown = document.querySelector('.nav-dropdown')
       const makeupDropdown = document.querySelector('.nav-dropdown:nth-child(2)')
-      const profileContainer = this.$refs.profileContainer
+      const profileContainer = document.querySelector('.profile-container')
 
       if (profileContainer && !profileContainer.contains(event.target)) {
-        this.isDropdownOpen = false
+        isDropdownOpen.value = false
       }
 
       if (lookDropdown && !lookDropdown.contains(event.target)) {
-        this.showLookMenu = false
+        showLookMenu.value = false
       }
 
       if (hairDropdown && !hairDropdown.contains(event.target)) {
-        this.showHairMenu = false
+        showHairMenu.value = false
       }
 
       if (makeupDropdown && !makeupDropdown.contains(event.target)) {
-        this.showMakeupMenu = false
+        showMakeupMenu.value = false
       }
-    },
-    toggleHairMenu() {
-      this.showHairMenu = !this.showHairMenu
-      this.showMakeupMenu = false
-      this.showLookMenu = false
-    },
-    toggleMakeupMenu() {
-      this.showMakeupMenu = !this.showMakeupMenu
-      this.showHairMenu = false
-      this.showLookMenu = false
-    },
-    toggleLookMenu() {
-      this.showLookMenu = !this.showLookMenu
-      this.showHairMenu = false
-      this.showMakeupMenu = false
-    },
-    goToActivityHistory() {
-      this.$router.push('/myactivity')
-      this.isDropdownOpen = false
-    },
-    closeHairMenu() {
-      this.showHairMenu = false
-    },
-    closeMakeupMenu() {
-      this.showMakeupMenu = false
-    },
-    closeLookMenu() {
-      this.showLookMenu = false
     }
-  },
-  mounted() {
-    document.addEventListener('click', this.handleClickOutside)
-  },
-  beforeUnmount() {
-    document.removeEventListener('click', this.handleClickOutside)
+
+    const toggleHairMenu = () => {
+      showHairMenu.value = !showHairMenu.value
+      showMakeupMenu.value = false
+      showLookMenu.value = false
+    }
+
+    const toggleMakeupMenu = () => {
+      showMakeupMenu.value = !showMakeupMenu.value
+      showHairMenu.value = false
+      showLookMenu.value = false
+    }
+
+    const toggleLookMenu = () => {
+      showLookMenu.value = !showLookMenu.value
+      showHairMenu.value = false
+      showMakeupMenu.value = false
+    }
+
+    const goToActivityHistory = () => {
+      router.push('/myactivity')
+      isDropdownOpen.value = false
+    }
+
+    const closeHairMenu = () => {
+      showHairMenu.value = false
+    }
+
+    const closeMakeupMenu = () => {
+      showMakeupMenu.value = false
+    }
+
+    const closeLookMenu = () => {
+      showLookMenu.value = false
+    }
+
+    const logout = () => {
+      showLogoutModal.value = true
+      isDropdownOpen.value = false
+    }
+
+    const goToLogin = () => {
+      router.push('/login')
+    }
+
+    const closeLogoutModal = () => {
+      showLogoutModal.value = false
+    }
+
+    const confirmLogout = () => {
+      localStorage.removeItem('accessToken')
+      isLoggedIn.value = false
+      showLogoutModal.value = false
+      router.push('/login')
+    }
+
+    return {
+      username,
+      userProfileImage,
+      defaultProfileImageUrl,
+      isDropdownOpen,
+      showLookMenu,
+      showHairMenu,
+      showMakeupMenu,
+      isLoggedIn,
+      showLogoutModal,
+      toggleDropdown,
+      editProfile,
+      goToMyProfile,
+      handleClickOutside,
+      toggleHairMenu,
+      toggleMakeupMenu,
+      toggleLookMenu,
+      goToActivityHistory,
+      closeHairMenu,
+      closeMakeupMenu,
+      closeLookMenu,
+      logout,
+      goToLogin,
+      closeLogoutModal,
+      confirmLogout
+    }
   }
 }
 </script>
@@ -689,5 +783,97 @@ export default {
 
 .look-dropdown .look-dropdown-content::before {
   left: 44%;
+}
+
+.login-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background-color: #1a1a1a;
+  border: none;
+  border-radius: 20px;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.login-button:hover {
+  background-color: #2a2a2a;
+}
+
+.default-profile-image {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #333;
+}
+
+.logout-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.logout-modal {
+  background-color: #1a1a1a;
+  padding: 24px;
+  border-radius: 12px;
+  width: 300px;
+  text-align: center;
+}
+
+.logout-modal h3 {
+  margin: 0 0 16px 0;
+  font-size: 1.2rem;
+  color: white;
+}
+
+.logout-modal p {
+  margin: 0 0 24px 0;
+  color: #cccccc;
+  font-size: 0.95rem;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.modal-buttons button {
+  padding: 8px 24px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cancel-btn {
+  background-color: transparent;
+  border: 1px solid #666;
+  color: #fff;
+}
+
+.cancel-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.confirm-btn {
+  background-color: #F05EC9;
+  border: none;
+  color: white;
+}
+
+.confirm-btn:hover {
+  background-color: #F05EC9;
 }
 </style> 
