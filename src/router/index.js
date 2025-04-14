@@ -17,6 +17,7 @@ import PrivacyPolicy from "../views/PrivacyPolicy.vue";
 import LoginForm from "../views/LoginForm.vue";
 import SignupForm from "../views/SignupForm.vue";
 import StyleShare from "../views/StyleShare.vue";
+import PostDetailView from "../views/PostDetailView.vue";
 
 const routes = [
   {
@@ -157,6 +158,12 @@ const routes = [
     path: "/style-share",
     name: "StyleShare",
     component: StyleShare,
+  },
+  {
+    path: "/boards/:id",
+    name: "PostDetailView",
+    component: PostDetailView,
+    props: true, // 컴포넌트에서 props로 id를 받을 수 있음
   },
   {
     path: "/style-share/create",
