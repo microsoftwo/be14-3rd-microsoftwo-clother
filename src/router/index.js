@@ -14,7 +14,7 @@ import { getCategoryId } from '../constants/categoryMap'
 const routes = [
   {
     path: '/',
-    redirect: '/likes'
+    // redirect: '/likes'
   },
   {
     path: '/',
