@@ -18,9 +18,9 @@
               type="button" 
               class="verify-button"
               @click="verifyEmail"
-              :disabled="!isEmailValid || isEmailVerified"
+              :disabled="!isEmailValid || isEmailVerified || isLoading"
             >
-              메일 전송
+              {{ isLoading ? '전송 중...' : '메일 전송' }}
             </button>
             <span v-if="isEmailSent && !isEmailVerified" class="timer">
               {{ formatTime(remainingTime) }}
@@ -35,25 +35,25 @@
 
       <!-- 인증번호 입력 -->
       <div class="form-group" v-if="isEmailSent">
-        <label for="verificationCode">인증번호</label>
+        <label for="authNum">인증번호</label>
         <div class="input-with-button">
           <input 
             type="text" 
-            id="verificationCode" 
-            v-model="formData.verificationCode"
-            :class="{ 'error': errors.verificationCode }"
+            id="authNum" 
+            v-model="formData.authNum"
+            :class="{ 'error': errors.authNum }"
             placeholder="인증 번호를 입력해 주세요"
           />
           <button 
             type="button" 
             class="verify-button"
             @click="verifyCode"
-            :disabled="!formData.verificationCode"
+            :disabled="!formData.authNum"
           >
             인증
           </button>
         </div>
-        <p class="error-message" v-if="errors.verificationCode">{{ errors.verificationCode }}</p>
+        <p class="error-message" v-if="errors.authNum">{{ errors.authNum }}</p>
         <p class="success-message" v-if="isEmailVerified">메일 인증이 완료 되었습니다</p>
       </div>
 
@@ -160,7 +160,7 @@ export default {
     return {
       formData: {
         email: '',
-        verificationCode: '',
+        authNum: '',
         password: '',
         nickname: '',
         gender: '',
@@ -169,7 +169,7 @@ export default {
       },
       errors: {
         email: '',
-        verificationCode: '',
+        authNum: '',
         password: '',
         nickname: '',
         gender: '',
@@ -179,7 +179,8 @@ export default {
       isEmailSent: false,
       isEmailVerified: false,
       verificationTimer: null,
-      remainingTime: 300 // 5분
+      remainingTime: 300, // 5분
+      isLoading: false
     }
   },
   computed: {
@@ -204,44 +205,84 @@ export default {
       return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`
     },
     startTimer() {
+      if (this.verificationTimer) {
+        clearInterval(this.verificationTimer)
+      }
       this.remainingTime = 300
       this.verificationTimer = setInterval(() => {
         if (this.remainingTime > 0) {
           this.remainingTime--
         } else {
           clearInterval(this.verificationTimer)
-          this.isEmailSent = false
-          this.formData.verificationCode = ''
-          alert('인증 시간이 만료되었습니다. 다시 시도해주세요.')
+          if (!this.isEmailVerified) {  // 인증이 완료되지 않은 경우에만 실행
+            this.isEmailSent = false
+            this.formData.authNum = ''
+            alert('인증 시간이 만료되었습니다. 다시 시도해주세요.')
+          }
         }
       }, 1000)
     },
-    verifyEmail() {
+    async verifyEmail() {
       if (!this.validateEmail()) return
       
-      // API 연동 시 사용할 코드
-      // const response = await axios.post('/api/verify-email', { email: this.formData.email })
-      
-      this.isEmailSent = true
-      this.startTimer()
+      this.isLoading = true
+      try {
+        const response = await fetch('http://localhost:8000/user-service/mails', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email: this.formData.email })
+        })
+
+        if (!response.ok) {
+          const errorData = await response.json()
+          throw new Error(errorData.message || '이메일 전송에 실패했습니다.')
+        }
+
+        this.isEmailSent = true
+        this.startTimer()
+      } catch (error) {
+        console.error('이메일 전송 실패:', error)
+        alert(error.message || '이메일 전송에 실패했습니다. 다시 시도해주세요.')
+      } finally {
+        this.isLoading = false
+      }
     },
-    verifyCode() {
-      if (!this.formData.verificationCode) {
-        this.errors.verificationCode = '인증번호를 입력해주세요'
+    async verifyCode() {
+      if (!this.formData.authNum) {
+        this.errors.authNum = '인증번호를 입력해주세요'
         return false
       }
       
-      // API 연동 시 사용할 코드
-      // const response = await axios.post('/api/verify-code', { 
-      //   email: this.formData.email,
-      //   code: this.formData.verificationCode
-      // })
-      
-      // 임시로 성공 처리
-      this.isEmailVerified = true
-      clearInterval(this.verificationTimer)
-      this.errors.verificationCode = ''
-      return true
+      try {
+        const response = await fetch('http://localhost:8000/user-service/mails/verification', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: this.formData.email,
+            authNum: parseInt(this.formData.authNum)
+          })
+        })
+
+        const responseText = await response.text()
+        
+        if (response.ok && responseText.includes('인증 성공')) {
+          this.isEmailVerified = true
+          clearInterval(this.verificationTimer)  // 타이머 정리
+          this.verificationTimer = null  // 타이머 변수 초기화
+          this.errors.authNum = ''
+          return true
+        } else {
+          throw new Error('인증번호가 일치하지 않습니다.')
+        }
+      } catch (error) {
+        console.error('인증 실패:', error)
+        this.errors.authNum = '인증번호가 일치하지 않습니다.'
+        return false
+      }
     },
     validateEmail() {
       if (!this.formData.email) {
@@ -409,7 +450,7 @@ input:focus {
 
 .verify-button {
   padding: 0.75rem 1.5rem;
-  background-color: #007bff;
+  background-color: #000;
   color: white;
   border: none;
   border-radius: 8px;
@@ -417,6 +458,7 @@ input:focus {
   white-space: nowrap;
   min-width: 100px;
   transition: all 0.2s ease;
+  font-size: 0.85rem;
 }
 
 .verify-button:disabled {
@@ -425,7 +467,7 @@ input:focus {
 }
 
 .verify-button:hover:not(:disabled) {
-  background-color: #0056b3;
+  background-color: #333;
 }
 
 .timer {
