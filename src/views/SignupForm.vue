@@ -179,8 +179,9 @@ export default {
       isEmailSent: false,
       isEmailVerified: false,
       verificationTimer: null,
-      remainingTime: 300, // 5분
-      isLoading: false
+      remainingTime: 300,
+      isLoading: false,
+      timerStopped: false
     }
   },
   computed: {
@@ -209,12 +210,21 @@ export default {
         clearInterval(this.verificationTimer)
       }
       this.remainingTime = 300
+      this.timerStopped = false
+      
       this.verificationTimer = setInterval(() => {
+        if (this.timerStopped) {
+          clearInterval(this.verificationTimer)
+          this.verificationTimer = null
+          return
+        }
+
         if (this.remainingTime > 0) {
           this.remainingTime--
         } else {
           clearInterval(this.verificationTimer)
-          if (!this.isEmailVerified) {  // 인증이 완료되지 않은 경우에만 실행
+          this.verificationTimer = null
+          if (!this.isEmailVerified) {
             this.isEmailSent = false
             this.formData.authNum = ''
             alert('인증 시간이 만료되었습니다. 다시 시도해주세요.')
@@ -271,8 +281,9 @@ export default {
         
         if (response.ok && responseText.includes('인증 성공')) {
           this.isEmailVerified = true
-          clearInterval(this.verificationTimer)  // 타이머 정리
-          this.verificationTimer = null  // 타이머 변수 초기화
+          this.timerStopped = true
+          clearInterval(this.verificationTimer)
+          this.verificationTimer = null
           this.errors.authNum = ''
           return true
         } else {
