@@ -541,7 +541,7 @@ export default {
 }
 
 .nav-links a.router-link-active {
-  color: #888;
+  color: #ffffff;
 }
 
 .right-section {
