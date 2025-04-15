@@ -591,7 +591,7 @@ const handleSubmit = async () => {
         const requestBody = {
             content: postContent.value,
             imageVOs: uploadedImages,
-            lookTags: selectedTags.value.map(tag => tag.id),
+            lookTagIds: selectedTags.value.map(tag => tag.id),
             productTagVOs: productTags.value.map(tag => ({
                 productId: tag.id,
                 categoryId: tag.categoryId,
