@@ -68,26 +68,33 @@
 # <p id="2">📚 기술 스택</p>
 
 ### FRONTEND
-<p>
-  <img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"> 
-  <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white"> 
-  <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
-  <img src="https://img.shields.io/badge/vue.js-4FC08D?style=for-the-badge&logo=vue.js&logoColor=white"> 
-  <img src="https://github.com/user-attachments/assets/e83b6c8a-b20f-4582-8526-51feb9899f46">
-  <img src="https://img.shields.io/badge/GSAP-93CF2B?style=for-the-badge&logo=greensock&logoColor=white">
-</p>
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![Vue.js](https://img.shields.io/badge/Vue.js-4FC08D?style=for-the-badge&logo=vue.js&logoColor=white)
+![Axios](https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white)
+![GSAP](https://img.shields.io/badge/GSAP-88CE02?style=for-the-badge&logo=greensock&logoColor=white)
+
 
 ### DESIGN
-<p>
-  <img src="https://github.com/user-attachments/assets/49ff7e95-8ab9-4130-ae90-975236ef14f8">
-</p>
+![Figma](https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white)
+
+
+### DB
+![MariaDB](https://img.shields.io/badge/MariaDB-003545?style=for-the-badge&logo=mariadb&logoColor=white)
+![MyBatis](https://img.shields.io/badge/MyBatis-FFB725?style=for-the-badge&logo=MyBatis&logoColor=black)
+
+### SERVER
+![Eureka](https://img.shields.io/badge/Eureka-6528F7?style=for-the-badge)
+![Gateway](https://img.shields.io/badge/Gateway-4D9BE6?style=for-the-badge)
 
 ### TOOL
-<p>
-  <img src="https://github.com/user-attachments/assets/d04521ee-046d-41dd-ac18-1b7f40dd38ed">
-  <img src="https://github.com/user-attachments/assets/6e0d5234-61c3-4fda-80b4-c54f7b058b57">
-  <img src="https://github.com/user-attachments/assets/c9563ad4-0d59-4647-a204-bbedf1ba9479">
-</p>
+![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
+![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)
+![VS Code](https://img.shields.io/badge/VS%20Code-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white)
+![IntelliJ IDEA](https://img.shields.io/badge/IntelliJIDEA-000000?style=for-the-badge&logo=intellijidea&logoColor=white)
+![Notion](https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=notion&logoColor=white)
+
 
 
 <br><br>
