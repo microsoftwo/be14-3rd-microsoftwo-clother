@@ -90,6 +90,10 @@
 
 
 #### HAIR 카테고리 선택 시 화면 
+
+<img src = "https://github.com/user-attachments/assets/f0865880-25c9-43c7-a9cf-b2a80c84213a">
+
+
     
 </details>
 
