@@ -176,6 +176,12 @@ const routes = [
     props: true
   },
   {
+    path: "/boards/:id",
+    name: "PostDetail",
+    component: PostDetailView,
+    props: true
+  },
+  {
     path: "/boards/search",
     name: "SearchResults",
     component: () => import("../views/SearchResultsView.vue"),
