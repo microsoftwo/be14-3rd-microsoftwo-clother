@@ -79,7 +79,17 @@
 
 <summary> 카테고리 별 포스팅 화면 </summary>
 
-#### 카테고리 별 포스팅 화면
+#### LOOK 카테고리 선택 시 화면
+
+<img src = "https://github.com/user-attachments/assets/3a45410c-770a-46db-af1b-eb9176cb2dac">
+
+
+#### MAKEUP 카테고리 선택 시 화면 
+
+<img src = "https://github.com/user-attachments/assets/3fd7271b-cccb-4ee4-a536-2ff9903ad6f0">
+
+
+#### HAIR 카테고리 선택 시 화면 
     
 </details>
 
