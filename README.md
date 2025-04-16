@@ -7,7 +7,7 @@
 
 ---
 
-# 🚀 Team microsoftwo
+# 🚀 Team microsoftwo 🚀
 
 | <img src="https://github.com/user-attachments/assets/9e5c3e83-7f0d-41ca-816c-8133409537e1" width="200"> | <img src="https://github.com/user-attachments/assets/8f52dde1-3590-4e2f-880d-32098f5d098a" width="200"> | <img src="https://github.com/user-attachments/assets/0b56df7f-c48d-4975-abff-aeb51af8f2da" width="200"> | <img src="https://github.com/user-attachments/assets/f5cbf6cc-ff54-4720-be15-390182415083" width="200"> | <img src="https://github.com/user-attachments/assets/1d2619c6-f467-485e-9d90-14c7c43bc316" width="200"> |
 | :-----------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------: |
@@ -16,29 +16,49 @@
 
 <br><br>
 
-<img src="https://github.com/user-attachments/assets/14df180e-8b17-4ba1-a5a5-573c32d46d33">
-
-<br><br>
-
 ---
 
 # 📋 목차
 
-<a href="#1">📚 기술 스택</a>
+<a href="#0">🎙️ 프로젝트 소개</a>
 
-<a href="#2">📡 와이어프레임 </a>
+<a href="#1">☄️ 주요 기능</a>
 
-<a href="#3">👀 스토리보드</a>
+<a href="#2">📚 기술 스택</a>
 
-<a href="#4">📍 기능 명세서</a>
+<a href="#3">📡 와이어프레임 </a>
 
-<a href="#5">📌 테스트 결과 보고서</a>
+<a href="#4">👀 스토리보드</a>
+
+<a href="#5">📍 기능 명세서</a>
+
+<a href="#6">📌 테스트 결과 보고서</a>
 
 <br><br>
 
+---
+
+# <p id="0">🎙️ 프로젝트 소개</p>
+
+<img width="1000" alt="image" src="https://github.com/user-attachments/assets/9f076b1c-6b3d-48d5-a697-8a6837d88d05" />
+
+
+<br><br>
 
 ---
-# <p id="1">📚 기술 스택</p>
+
+# <p id="1">☄️ 주요 기능</p>
+
+
+<img src="https://github.com/user-attachments/assets/d7f8324d-d6df-493b-9dfa-0e1a10f3ad1d">
+
+<img src="https://github.com/user-attachments/assets/28caa8f5-c9e0-44b3-b21c-097a86e4cc50">
+
+
+<br><br>
+
+---
+# <p id="2">📚 기술 스택</p>
 
 ### FRONTEND
 <p>
@@ -67,7 +87,7 @@
 
 ---
 
-# <p id="2">📡 와이어프레임 </p>
+# <p id="3">📡 와이어프레임 </p>
 
 <details>
     <summary>로그인 화면</summary>
@@ -131,7 +151,7 @@
 
 ---
 
-# <p id="3">👀 스토리보드</p>
+# <p id="4">👀 스토리보드</p>
 
 <details>
     <summary>랜딩 화면</summary>
@@ -232,7 +252,7 @@
 
 ---
 
-# <p id="4">📍 기능 명세서</p>
+# <p id="5">📍 기능 명세서</p>
 
 
 [[🔗기능 명세서 Link]](https://docs.google.com/spreadsheets/d/1HQYulWkDctMpm4mhM3wYKbtAY3fCOOigEeM-M-q0jlg/edit?gid=833830904#gid=833830904)
@@ -246,8 +266,10 @@
 
 ---
 
-# <p id="5">📌 테스트 결과 보고서</p>
+# <p id="6">📌 테스트 결과 보고서</p>
 
 테스트 결과에 대한 자세한 내용과 시연 영상은 아래 노션 링크에서 확인하실 수 있습니다.  
 
 [[🔗테스트 결과 보고서 Link]](https://ohgiraffers.notion.site/1d6649136c11805c884cd7559d1ab25b?pvs=4)
+
+
