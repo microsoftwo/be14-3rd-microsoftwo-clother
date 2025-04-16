@@ -1,3 +1,5 @@
+![랜딩페이지  압축버전](https://github.com/user-attachments/assets/aa19cd0e-75f0-4433-a0cb-6debd67e9588)
+
 
 # 👕 Clother 👚
 
@@ -49,6 +51,8 @@
 
 # <p id="1">☄️ 주요 기능</p>
 
+
+<img src = "https://github.com/user-attachments/assets/17495b98-d25a-4a48-af5b-3119b567dcf8">
 
 <img src="https://github.com/user-attachments/assets/d7f8324d-d6df-493b-9dfa-0e1a10f3ad1d">
 
