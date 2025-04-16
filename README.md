@@ -1,5 +1,3 @@
-![랜딩페이지  압축버전](https://github.com/user-attachments/assets/aa19cd0e-75f0-4433-a0cb-6debd67e9588)
-
 
 # 👕 Clother 👚
 
