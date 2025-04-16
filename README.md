@@ -137,9 +137,7 @@
 #### HAIR 카테고리 선택 시 화면 
 
 <img src = "https://github.com/user-attachments/assets/f0865880-25c9-43c7-a9cf-b2a80c84213a">
-
-
-    
+  
 </details>
 
 <details>
@@ -147,9 +145,18 @@
 <summary> 스타일 쉐어 게시판 화면 </summary>
 
 #### 스타일 쉐어 게시판 화면
-    
+
+<img src = "https://github.com/user-attachments/assets/8272d581-af3c-4d87-9c04-a489533f15af">
+
 </details>
+
+<details> 
     
+<summary> 포스팅 상세 화면 </summary>
+
+#### 포스팅 상세 화면
+
+<img src = "https://github.com/user-attachments/assets/18ea81ca-669f-40a4-8f44-a08e5ce40053">
 
 </details>
 
