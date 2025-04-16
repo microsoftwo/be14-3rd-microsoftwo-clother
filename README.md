@@ -1,3 +1,20 @@
+# 📡 와이어프레임 
+<details>
+    <summary>로그인 화면</summary>
+
+####  로그인 화면 
+<img src = "https://github.com/user-attachments/assets/5a6b0043-0e99-47bd-a65a-41b8eba2aba4">
+
+####  포스팅 등록 화면
+<img src = "https://github.com/user-attachments/assets/8db5e0ec-d20d-4ce6-b3c2-dd3488cb6ac5">
+
+#### 랜딩 페이지 화면
+
+#### 
+    
+
+</details>
+
 # 👀스토리보드
 <details>
     <summary>랜딩 화면</summary>
