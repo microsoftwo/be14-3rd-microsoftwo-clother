@@ -50,6 +50,8 @@
 <summary> 마이페이지 화면 </summary>
 
 #### 마이페이지 화면
+
+<img src = "https://github.com/user-attachments/assets/60713110-f894-4282-8f37-43186ac94390">
     
 </details>
 
