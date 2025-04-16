@@ -4,13 +4,38 @@
 
 ####  로그인 화면 
 <img src = "https://github.com/user-attachments/assets/5a6b0043-0e99-47bd-a65a-41b8eba2aba4">
+</details>
 
+<details>
+    <summary> 포스팅 등록 화면 </summary>
+    
 ####  포스팅 등록 화면
 <img src = "https://github.com/user-attachments/assets/8db5e0ec-d20d-4ce6-b3c2-dd3488cb6ac5">
+</details>
 
-#### 랜딩 페이지 화면
+<details>
 
-#### 
+<summary> 마이페이지 화면 </summary>
+
+#### 마이페이지 화면
+    
+</details>
+
+<details>
+
+<summary> 카테고리 별 포스팅 화면 </summary>
+
+#### 카테고리 별 포스팅 화면
+    
+</details>
+
+<details>
+
+<summary> 스타일 쉐어 게시판 화면 </summary>
+
+#### 스타일 쉐어 게시판 화면
+    
+</details>
     
 
 </details>
