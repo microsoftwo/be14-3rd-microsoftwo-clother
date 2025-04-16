@@ -1,3 +1,34 @@
+
+# 📚 기술 스택
+
+### FRONTEND
+<p>
+  <img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"> 
+  <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white"> 
+  <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
+  <img src="https://img.shields.io/badge/vue.js-4FC08D?style=for-the-badge&logo=vue.js&logoColor=white"> 
+  <img src="https://github.com/user-attachments/assets/e83b6c8a-b20f-4582-8526-51feb9899f46">
+</p>
+
+### DESIGN
+<p>
+  <img src="https://github.com/user-attachments/assets/49ff7e95-8ab9-4130-ae90-975236ef14f8">
+</p>
+
+### TOOL
+<p>
+  <img src="https://github.com/user-attachments/assets/d04521ee-046d-41dd-ac18-1b7f40dd38ed">
+  <img src="https://github.com/user-attachments/assets/6e0d5234-61c3-4fda-80b4-c54f7b058b57">
+  <img src="https://github.com/user-attachments/assets/c9563ad4-0d59-4647-a204-bbedf1ba9479">
+</p>
+
+
+
+
+<br>
+
+---
+
 # 📡 와이어프레임 
 <details>
     <summary>로그인 화면</summary>
@@ -40,7 +71,11 @@
 
 </details>
 
-# 👀스토리보드
+<br>
+
+---
+
+# 👀 스토리보드
 <details>
     <summary>랜딩 화면</summary>
   
@@ -136,6 +171,8 @@
 </details>
 
 
+<br>
+
 ---
 
 # 📍 기능 명세서
@@ -147,6 +184,7 @@
 <img width="1232" alt="image" src="https://github.com/user-attachments/assets/2d44f2f3-8f2f-4e11-b651-59e261c63a4e" />
 <img width="1232" alt="image" src="https://github.com/user-attachments/assets/c64909dd-0cb8-4477-b3fc-b6df51671990" />
 
+<br>
 
 ---
 
