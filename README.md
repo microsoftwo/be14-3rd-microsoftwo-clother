@@ -2,7 +2,6 @@
 # 👕 Clother 👚
 
 <img src="https://github.com/user-attachments/assets/8e8c7919-f4dd-45b0-9c94-faab9ea0231a">
-<img src="https://github.com/user-attachments/assets/14df180e-8b17-4ba1-a5a5-573c32d46d33">
 
 <br><br><br>
 
@@ -17,9 +16,29 @@
 
 <br><br>
 
+<img src="https://github.com/user-attachments/assets/14df180e-8b17-4ba1-a5a5-573c32d46d33">
+
+<br><br>
+
 ---
 
-# 📚 기술 스택
+# 📋 목차
+
+<a href="#1">📚 기술 스택</a>
+
+<a href="#2">📡 와이어프레임 </a>
+
+<a href="#3">👀 스토리보드</a>
+
+<a href="#4">📍 기능 명세서</a>
+
+<a href="#5">📌 테스트 결과 보고서</a>
+
+<br><br>
+
+
+---
+# <p id="1">📚 기술 스택</p>
 
 ### FRONTEND
 <p>
@@ -44,13 +63,12 @@
 </p>
 
 
-
-
-<br>
+<br><br>
 
 ---
 
-# 📡 와이어프레임 
+# <p id="2">📡 와이어프레임 </p>
+
 <details>
     <summary>로그인 화면</summary>
 
@@ -108,11 +126,13 @@
 
 </details>
 
-<br>
+
+<br><br>
 
 ---
 
-# 👀 스토리보드
+# <p id="3">👀 스토리보드</p>
+
 <details>
     <summary>랜딩 화면</summary>
   
@@ -208,11 +228,12 @@
 </details>
 
 
-<br>
+<br><br>
 
 ---
 
-# 📍 기능 명세서
+# <p id="4">📍 기능 명세서</p>
+
 
 [[🔗기능 명세서 Link]](https://docs.google.com/spreadsheets/d/1HQYulWkDctMpm4mhM3wYKbtAY3fCOOigEeM-M-q0jlg/edit?gid=833830904#gid=833830904)
 <br>
@@ -221,10 +242,12 @@
 <img width="1232" alt="image" src="https://github.com/user-attachments/assets/2d44f2f3-8f2f-4e11-b651-59e261c63a4e" />
 <img width="1232" alt="image" src="https://github.com/user-attachments/assets/c64909dd-0cb8-4477-b3fc-b6df51671990" />
 
-<br>
+<br><br>
 
 ---
 
-# 📌 테스트 결과 보고서
+# <p id="5">📌 테스트 결과 보고서</p>
+
 테스트 결과에 대한 자세한 내용과 시연 영상은 아래 노션 링크에서 확인하실 수 있습니다.  
+
 [[🔗테스트 결과 보고서 Link]](https://ohgiraffers.notion.site/1d6649136c11805c884cd7559d1ab25b?pvs=4)
