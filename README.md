@@ -280,7 +280,7 @@
 # <p id="5">📍 기능 명세서</p>
 
 
-[[🔗기능 명세서 Link]](https://docs.google.com/spreadsheets/d/1HQYulWkDctMpm4mhM3wYKbtAY3fCOOigEeM-M-q0jlg/edit?gid=833830904#gid=833830904)
+[[🔗기능 명세서 Link]](https://docs.google.com/spreadsheets/d/1HQYulWkDctMpm4mhM3wYKbtAY3fCOOigEeM-M-q0jlg/edit?usp=sharing)
 <br>
 
 <img width="1344" alt="image" src="https://github.com/user-attachments/assets/69ad7243-289e-4f98-9a99-43ccfc92ac10" />
