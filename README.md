@@ -182,7 +182,7 @@
     <summary>랜딩 화면</summary>
   
   #### 랜딩 화면
-  <img width="615" alt="스크린샷 2025-04-16 07 59 01" src="https://github.com/user-attachments/assets/90c0f4ce-f54c-4f32-b6ba-4e2d520c6014" />
+<img width="1150" alt="스크린샷 2025-04-19 22 19 40" src="https://github.com/user-attachments/assets/d6b9defb-9893-40b9-b1a3-ded0585fe556" />
 
 </details>
 
@@ -192,31 +192,34 @@
   #### 회원가입 화면
   <img width="615" alt="스크린샷 2025-04-16 07 45 10" src="https://github.com/user-attachments/assets/2557597b-f386-492f-aca0-44c384a8f13b" >
 
+
   #### 회원가입 성공 화면
-  <img width="617" alt="스크린샷 2025-04-16 07 45 40" src="https://github.com/user-attachments/assets/8c3cacec-c493-4041-8eb8-079a2b62af51" >
+  <img width="1150" alt="스크린샷 2025-04-19 21 56 40" src="https://github.com/user-attachments/assets/7e9e7bf7-2cae-4c88-890d-6adfb7458667" />
 </details>
 
 <details>
   <summary>로그인</summary>
   
   #### 로그인 화면
-  <img width="462" alt="스크린샷 2025-04-16 07 59 53" src="https://github.com/user-attachments/assets/2803c664-8d75-4007-8f3c-005d661901d4" />
+<img width="861" alt="스크린샷 2025-04-19 22 21 12" src="https://github.com/user-attachments/assets/2ed2f059-6230-456e-b6c6-54e01dd98718" />
 
   #### 로그인 실패 화면
-  <img width="461" alt="스크린샷 2025-04-16 08 00 21" src="https://github.com/user-attachments/assets/445ba153-ddd0-4e01-af8f-932c852679ee" />
+  <img width="1151" alt="스크린샷 2025-04-19 21 57 56" src="https://github.com/user-attachments/assets/e7d6e588-e83a-4481-a168-557797b07a66" />
+
 </details>
 
 <details>
   <summary>포스팅</summary>
   
   #### 메인페이지 화면
-<img width="406" alt="스크린샷 2025-04-16 08 06 50" src="https://github.com/user-attachments/assets/60436372-dbc8-42a9-9f01-5b93185f2281" />
+<img width="1150" alt="스크린샷 2025-04-19 22 07 57" src="https://github.com/user-attachments/assets/3e0738ee-8d7a-4840-b9d6-18084f1090a3" />
 
   #### 포스팅 조회 화면
-<img width="628" alt="스크린샷 2025-04-16 08 14 50" src="https://github.com/user-attachments/assets/8c160a4b-efac-4f5d-9582-db8e2205fb9f" />
+<img width="908" alt="스크린샷 2025-04-19 22 10 05" src="https://github.com/user-attachments/assets/59c0889a-9d4c-45db-a40d-28ddbfaf388e" />
+
 
   #### 포스팅 등록 화면
-  <img width="544" alt="스크린샷 2025-04-16 08 19 59" src="https://github.com/user-attachments/assets/57048cc8-02aa-4e87-9267-eba461617c6c" />
+<img width="1149" alt="스크린샷 2025-04-19 22 10 43" src="https://github.com/user-attachments/assets/0c53812c-3a11-4919-8402-d24473c15f00" />
 
 </details>
 
@@ -224,18 +227,18 @@
   <summary>스타일 쉐어</summary>
   
   #### 스타일 쉐어 게시판 화면
-<img width="633" alt="스크린샷 2025-04-16 08 12 40" src="https://github.com/user-attachments/assets/e5d767bd-1f82-42a9-9c89-e7e085955d16" />
+<img width="1146" alt="스크린샷 2025-04-19 22 04 16" src="https://github.com/user-attachments/assets/454eae00-12f5-4698-93f7-b0eec96d2a20" />
 
   #### 스타일 쉐어 게시물 화면
-<img width="633" alt="스크린샷 2025-04-16 08 13 25" src="https://github.com/user-attachments/assets/01353cc1-bfa9-4f33-a3b7-cccdd7fac0a8" />
+<img width="1145" alt="스크린샷 2025-04-19 22 05 47" src="https://github.com/user-attachments/assets/9a8eca29-4ee4-44f3-88bb-02873c9c0975" />
 
 
   #### 스타일 쉐어 게시물 댓글 화면
-<img width="631" alt="스크린샷 2025-04-16 08 13 44" src="https://github.com/user-attachments/assets/4c10ba86-3f93-4074-946e-4039c027931c" />
+<img width="1147" alt="스크린샷 2025-04-19 22 07 02" src="https://github.com/user-attachments/assets/cde7f7dd-d594-4fb8-be27-f8832acee1e4" />
 
 
   #### 스타일 쉐어 게시물 등록 화면
-<img width="630" alt="스크린샷 2025-04-16 08 12 23" src="https://github.com/user-attachments/assets/a4f604f6-7479-4912-a9cf-9ad46db51c4f" />
+<img width="1146" alt="스크린샷 2025-04-19 22 22 40" src="https://github.com/user-attachments/assets/ffec02ca-3129-4f84-9751-1ee5e3711bef" />
 
 
 </details>
@@ -245,19 +248,19 @@
   <summary>마이페이지</summary>
   
   #### 마이페이지 화면
-<img width="649" alt="스크린샷 2025-04-16 08 02 53" src="https://github.com/user-attachments/assets/d640eeaf-8981-426f-8b84-9c58bf899a7b" />
+<img width="1152" alt="스크린샷 2025-04-19 22 00 18" src="https://github.com/user-attachments/assets/ec8e04af-46bf-4eba-be47-ac00e8372cf9" />
 
   #### 회원정보 수정 화면
-<img width="650" alt="스크린샷 2025-04-16 08 03 16" src="https://github.com/user-attachments/assets/57f8dbcc-e906-4fd9-a2fb-084438ea64b8" />
+<img width="1149" alt="스크린샷 2025-04-19 22 01 10" src="https://github.com/user-attachments/assets/dd910f46-2ccf-4ec7-870e-0dc97d62dadb" />
 
   #### 회원정보 수정 성공 화면
-<img width="651" alt="스크린샷 2025-04-16 08 03 30" src="https://github.com/user-attachments/assets/5194445b-b55a-4a45-8b0e-2c9243657c3e" />
+<img width="1150" alt="스크린샷 2025-04-19 22 01 27" src="https://github.com/user-attachments/assets/80fe1850-2a3e-4d5b-a7ac-a21af59681f2" />
 
   #### 나의 활동 기록
-<img width="649" alt="스크린샷 2025-04-16 08 03 50" src="https://github.com/user-attachments/assets/c124d421-9733-4fd7-94dd-352c16f250e7" />
+<img width="1147" alt="스크린샷 2025-04-19 22 02 39" src="https://github.com/user-attachments/assets/c8ffa48a-48ed-41ae-bd53-44e3dc6e2930" />
 
   #### 로그아웃
-<img width="650" alt="스크린샷 2025-04-16 08 04 05" src="https://github.com/user-attachments/assets/83e7eccc-9bdf-47d2-b55a-1a76f02256a8" />
+<img width="928" alt="스크린샷 2025-04-19 22 24 01" src="https://github.com/user-attachments/assets/a1440732-fe53-4db6-b6ac-5f857129f3e4" />
 
 </details>
 
@@ -265,10 +268,10 @@
   <summary>공통 레이아웃</summary>
   
   #### 헤더
-<img width="547" alt="스크린샷 2025-04-16 08 23 23" src="https://github.com/user-attachments/assets/d61754f6-8801-4871-9a7b-5d9a54deea0c" />
+<img width="943" alt="스크린샷 2025-04-19 22 16 09" src="https://github.com/user-attachments/assets/5816c181-b548-4e0c-ae50-58fd4cb6e31a" />
 
   #### 푸터
-<img width="633" alt="스크린샷 2025-04-16 08 17 34" src="https://github.com/user-attachments/assets/4c08eb01-1ae3-49b7-b084-01d6878efe89" />
+<img width="945" alt="스크린샷 2025-04-19 22 16 30" src="https://github.com/user-attachments/assets/9e496558-c5e5-4546-a992-91be6914d73c" />
 
 </details>
 
